@@ -135,92 +135,98 @@
   <script src="slinks.js"></script>
   <script>
   // 1. Apply saved theme BEFORE anything else
-if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
-}
+  if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+  }
 
-// 2. Fade-in effect AFTER theme is applied
-window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
-});
+  // 2. Fade-in effect AFTER theme is applied
+  window.addEventListener("load", () => {
+      document.body.classList.add("loaded");
+  });
 
-// 3. Sidebar toggle
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-}
+  // 3. Sidebar toggle
+  function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+  }
 
-// 4. Dark mode toggle + save preference
-document.getElementById("darkModeToggle").addEventListener("click", function () {
-    document.body.classList.toggle("dark");
+  // 4. Dark mode toggle + save preference
+  document.getElementById("darkModeToggle").addEventListener("click", function () {
+      document.body.classList.toggle("dark");
 
-    if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-    } else {
-        localStorage.setItem("theme", "light");
-    }
-});
+      if (document.body.classList.contains("dark")) {
+          localStorage.setItem("theme", "dark");
+      } else {
+          localStorage.setItem("theme", "light");
+      }
+  });
 
-const searchInput = document.getElementById("searchInput");
-const suggestionsBox = document.getElementById("suggestionsBox");
-const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("searchInput");
+  const suggestionsBox = document.getElementById("suggestionsBox");
+  const searchForm = document.getElementById("searchForm");
 
-// Fetch suggestions
-searchInput.addEventListener("input", async () => {
-    const query = searchInput.value.trim();
+  // Fetch suggestions
+  searchInput.addEventListener("input", async () => {
+      const query = searchInput.value.trim();
 
-    if (query.length === 0) {
-        suggestionsBox.style.display = "none";
-        return;
-    }
+      if (query.length === 0) {
+          suggestionsBox.classList.remove("show");
+          setTimeout(() => suggestionsBox.style.display = "none", 150);
+          return;
+      }
 
-    const url = `https://api.allorigins.win/raw?url=${encodeURIComponent("https://suggestqueries.google.com/complete/search?client=chrome&q=" + query)}`;
+      const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
+          "https://suggestqueries.google.com/complete/search?client=chrome&q=" + query
+      )}`;
 
+      try {
+          const response = await fetch(url);
+          const data = await response.json();
+          const suggestions = data[1];
 
+          suggestionsBox.innerHTML = "";
+          suggestions.forEach(s => {
+              const div = document.createElement("div");
+              div.textContent = s;
 
+              div.onclick = () => {
+                  searchInput.value = s;
+                  searchForm.submit();
+                  searchInput.value = "";
+                  suggestionsBox.classList.remove("show");
+                  setTimeout(() => suggestionsBox.style.display = "none", 150);
+              };
 
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const suggestions = data[1];
+              suggestionsBox.appendChild(div);
+          });
 
-        suggestionsBox.innerHTML = "";
-        suggestions.forEach(s => {
-            const div = document.createElement("div");
-            div.textContent = s;
+          // Fade-in animation
+          suggestionsBox.style.display = "block";
+          requestAnimationFrame(() => {
+              suggestionsBox.classList.add("show");
+          });
 
-            div.onclick = () => {
-                searchInput.value = s;
-                searchForm.submit();
-                searchInput.value = "";
-                suggestionsBox.style.display = "none";
-            };
+      } catch {
+          suggestionsBox.classList.remove("show");
+          setTimeout(() => suggestionsBox.style.display = "none", 150);
+      }
+  });
 
-            suggestionsBox.appendChild(div);
-        });
+  // Hide suggestions when clicking outside
+  document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search-wrapper")) {
+          suggestionsBox.classList.remove("show");
+          setTimeout(() => suggestionsBox.style.display = "none", 150);
+      }
+  });
 
-        suggestionsBox.style.display = "block";
-
-    } catch {
-        suggestionsBox.style.display = "none";
-    }
-});
-
-// Hide suggestions when clicking outside
-document.addEventListener("click", (e) => {
-    if (!e.target.closest(".search-wrapper")) {
-        suggestionsBox.style.display = "none";
-    }
-});
-
-// Clear search bar after submitting
-searchForm.addEventListener("submit", () => {
-    setTimeout(() => {
-        searchInput.value = "";
-        suggestionsBox.style.display = "none";
-    }, 100);
-});
-
-
+  // Clear search bar after submitting
+  searchForm.addEventListener("submit", () => {
+      setTimeout(() => {
+          searchInput.value = "";
+          suggestionsBox.classList.remove("show");
+          setTimeout(() => suggestionsBox.style.display = "none", 150);
+      }, 100);
+  });
   </script>
 
 </body>
