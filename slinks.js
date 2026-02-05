@@ -1,3 +1,4 @@
+// Get popup + save button
 const popup = document.getElementById("addLinkPopup");
 const saveBtn = document.getElementById("saveLink");
 
@@ -23,18 +24,49 @@ saveBtn.onclick = () => {
     renderCustomLinks();
 };
 
-// RENDER LINKS
+// DELETE LINK
+function deleteLink(index) {
+    const links = JSON.parse(localStorage.getItem("customLinks")) || [];
+    links.splice(index, 1);
+    localStorage.setItem("customLinks", JSON.stringify(links));
+    renderCustomLinks();
+}
+
+// RENDER ALL LINKS
 function renderCustomLinks() {
     const container = document.querySelector(".custom-links");
     container.innerHTML = "";
 
     const links = JSON.parse(localStorage.getItem("customLinks")) || [];
 
-    links.forEach(link => {
+    links.forEach((link, index) => {
         const div = document.createElement("div");
         div.className = "small-box";
-        div.textContent = link.name;
+
+        // favicon
+        const icon = document.createElement("img");
+        icon.className = "favicon";
+        icon.src = `https://www.google.com/s2/favicons?domain=${link.url}&sz=64`;
+
+        // link text
+        const text = document.createElement("span");
+        text.textContent = link.name;
+
+        // delete button
+        const del = document.createElement("div");
+        del.className = "delete-btn";
+        del.textContent = "×";
+        del.onclick = (e) => {
+            e.stopPropagation();
+            deleteLink(index);
+        };
+
+        div.appendChild(icon);
+        div.appendChild(text);
+        div.appendChild(del);
+
         div.onclick = () => window.location.href = link.url;
+
         container.appendChild(div);
     });
 
@@ -45,86 +77,12 @@ function renderCustomLinks() {
     container.appendChild(addBtn);
 }
 
-function renderCustomLinks() {
-    const container = document.querySelector(".custom-links");
-    container.innerHTML = "";
-
-    const links = JSON.parse(localStorage.getItem("customLinks")) || [];
-
-    links.forEach((link, index) => {
-      const div = document.createElement("div");
-      div.className = "small-box";
-
-      // favicon
-      const icon = document.createElement("img");
-      icon.className = "favicon";
-      icon.src = `https://www.google.com/s2/favicons?domain=${link.url}&sz=64`;
-
-      // link text
-      const text = document.createElement("span");
-      text.textContent = link.name;
-
-      // delete button
-      const del = document.createElement("div");
-      del.className = "delete-btn";
-      del.textContent = "×";
-      del.onclick = (e) => {
-          e.stopPropagation();
-          deleteLink(index);
-      };
-
-      div.appendChild(icon);
-      div.appendChild(text);
-      div.appendChild(del);
-
-      div.onclick = () => window.location.href = link.url;
-
-      container.appendChild(div);
-  });
-
-
-    // add the + button back
-    const addBtn = document.createElement("div");
-    addBtn.className = "small-box add-button";
-    addBtn.textContent = "+";
-    container.appendChild(addBtn);
-}
-function deleteLink(index) {
-    const links = JSON.parse(localStorage.getItem("customLinks")) || [];
-    links.splice(index, 1);
-    localStorage.setItem("customLinks", JSON.stringify(links));
-    renderCustomLinks();
-}
-
-renderCustomLinks();
-
-popup.style.display = "none";
-
+// CLOSE POPUP WHEN CLICKING OUTSIDE
 popup.addEventListener("click", e => {
     if (e.target === popup) {
         popup.style.display = "none";
     }
 });
-links.forEach((link, index) => {
-    const div = document.createElement("div");
-    div.className = "small-box";
 
-    // link text
-    const text = document.createElement("span");
-    text.textContent = link.name;
-
-    // delete button
-    const del = document.createElement("div");
-    del.className = "delete-btn";
-    del.textContent = "×";
-    del.onclick = (e) => {
-        e.stopPropagation(); // stops click from opening the link
-        deleteLink(index);
-    };
-
-    div.appendChild(text);
-    div.appendChild(del);
-
-    div.onclick = () => window.location.href = link.url;
-    container.appendChild(div);
-});
+// INITIAL RENDER
+renderCustomLinks();
