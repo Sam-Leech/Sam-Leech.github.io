@@ -13,21 +13,35 @@ function toggleSidebar() {
 }
 
 /* -----------------------------------
-   DARK MODE (with persistence)
+   DARK MODE (with persistence + button label)
 ----------------------------------- */
 if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark");
 }
 
-document.getElementById("darkModeToggle").addEventListener("click", () => {
-    document.body.classList.toggle("dark");
+const darkBtn = document.getElementById("darkModeToggle");
+if (darkBtn) {
 
+    // Set correct label on page load
     if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
+        darkBtn.textContent = "Light Mode";
     } else {
-        localStorage.setItem("theme", "light");
+        darkBtn.textContent = "Dark Mode";
     }
-});
+
+    // Toggle theme + update label
+    darkBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+
+        if (document.body.classList.contains("dark")) {
+            localStorage.setItem("theme", "dark");
+            darkBtn.textContent = "Light Mode";
+        } else {
+            localStorage.setItem("theme", "light");
+            darkBtn.textContent = "Dark Mode";
+        }
+    });
+}
 
 /* -----------------------------------
    CUSTOM LINKS: RENDER + DELETE

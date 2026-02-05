@@ -134,101 +134,97 @@
   <!-- JavaScript -->
   <script src="slinks.js"></script>
   <script>
-  // 1. Apply saved theme BEFORE anything else
-  if (localStorage.getItem("theme") === "dark") {
-      document.body.classList.add("dark");
-  }
+  document.addEventListener("DOMContentLoaded", () => {
 
-  // 2. Fade-in effect AFTER theme is applied
-  window.addEventListener("load", () => {
-      document.body.classList.add("loaded");
-  });
-
-  // 3. Sidebar toggle
-  function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-  }
-
-  // 4. Dark mode toggle + save preference
-  document.getElementById("darkModeToggle").addEventListener("click", function () {
-      document.body.classList.toggle("dark");
-
-      if (document.body.classList.contains("dark")) {
-          localStorage.setItem("theme", "dark");
-      } else {
-          localStorage.setItem("theme", "light");
-      }
-  });
-
-  const searchInput = document.getElementById("searchInput");
-  const suggestionsBox = document.getElementById("suggestionsBox");
-  const searchForm = document.getElementById("searchForm");
-
-  // Fetch suggestions
-  searchInput.addEventListener("input", async () => {
-      const query = searchInput.value.trim();
-
-      if (query.length === 0) {
-          suggestionsBox.classList.remove("show");
-          setTimeout(() => suggestionsBox.style.display = "none", 150);
-          return;
+      // 1. Apply saved theme BEFORE anything else
+      if (localStorage.getItem("theme") === "dark") {
+          document.body.classList.add("dark");
       }
 
-      const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
-          "https://suggestqueries.google.com/complete/search?client=chrome&q=" + query
-      )}`;
+      // 2. Fade-in effect AFTER theme is applied
+      window.addEventListener("load", () => {
+          document.body.classList.add("loaded");
+      });
 
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
-          const suggestions = data[1];
+      // 3. Sidebar toggle
+      window.toggleSidebar = function () {
+          document.getElementById('sidebar').classList.toggle('open');
+      };
 
-          suggestionsBox.innerHTML = "";
-          suggestions.forEach(s => {
-              const div = document.createElement("div");
-              div.textContent = s;
+      // ⭐ REMOVE DARK MODE TOGGLE HERE ⭐
+      // Dark mode is handled in slinks.js ONLY.
 
-              div.onclick = () => {
-                  searchInput.value = s;
-                  searchForm.submit();
-                  searchInput.value = "";
-                  suggestionsBox.classList.remove("show");
-                  setTimeout(() => suggestionsBox.style.display = "none", 150);
-              };
+      const searchInput = document.getElementById("searchInput");
+      const suggestionsBox = document.getElementById("suggestionsBox");
+      const searchForm = document.getElementById("searchForm");
 
-              suggestionsBox.appendChild(div);
-          });
+      // Fetch suggestions
+      searchInput.addEventListener("input", async () => {
+          const query = searchInput.value.trim();
 
-          // Trigger fade‑in
-          suggestionsBox.style.display = "block";
-          requestAnimationFrame(() => {
-              suggestionsBox.classList.add("show");
-          });
+          if (query.length === 0) {
+              suggestionsBox.classList.remove("show");
+              setTimeout(() => suggestionsBox.style.display = "none", 150);
+              return;
+          }
 
-      } catch {
-          suggestionsBox.classList.remove("show");
-          setTimeout(() => suggestionsBox.style.display = "none", 150);
-      }
+          const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
+              "https://suggestqueries.google.com/complete/search?client=chrome&q=" + query
+          )}`;
+
+          try {
+              const response = await fetch(url);
+              const data = await response.json();
+              const suggestions = data[1];
+
+              suggestionsBox.innerHTML = "";
+              suggestions.forEach(s => {
+                  const div = document.createElement("div");
+                  div.textContent = s;
+
+                  div.onclick = () => {
+                      searchInput.value = s;
+                      searchForm.submit();
+                      searchInput.value = "";
+                      suggestionsBox.classList.remove("show");
+                      setTimeout(() => suggestionsBox.style.display = "none", 150);
+                  };
+
+                  suggestionsBox.appendChild(div);
+              });
+
+              // Trigger fade‑in
+              suggestionsBox.style.display = "block";
+              requestAnimationFrame(() => {
+                  suggestionsBox.classList.add("show");
+              });
+
+          } catch {
+              suggestionsBox.classList.remove("show");
+              setTimeout(() => suggestionsBox.style.display = "none", 150);
+          }
+      });
+
+      // Hide suggestions when clicking outside
+      document.addEventListener("click", (e) => {
+          if (!e.target.closest(".search-wrapper")) {
+              suggestionsBox.classList.remove("show");
+              setTimeout(() => suggestionsBox.style.display = "none", 150);
+          }
+      });
+
+      // Clear search bar after submitting
+      searchForm.addEventListener("submit", () => {
+          setTimeout(() => {
+              searchInput.value = "";
+              suggestionsBox.classList.remove("show");
+              setTimeout(() => suggestionsBox.style.display = "none", 150);
+          }, 100);
+      });
+
   });
-
-  // Hide suggestions when clicking outside
-  document.addEventListener("click", (e) => {
-      if (!e.target.closest(".search-wrapper")) {
-          suggestionsBox.classList.remove("show");
-          setTimeout(() => suggestionsBox.style.display = "none", 150);
-      }
-  });
-
-  // Clear search bar after submitting
-  searchForm.addEventListener("submit", () => {
-      setTimeout(() => {
-          searchInput.value = "";
-          suggestionsBox.classList.remove("show");
-          setTimeout(() => suggestionsBox.style.display = "none", 150);
-      }, 100);
-  });
-
   </script>
+
 
 </body>
 </html>
