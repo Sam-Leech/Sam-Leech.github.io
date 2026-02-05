@@ -173,7 +173,9 @@ searchInput.addEventListener("input", async () => {
         return;
     }
 
-    const url = `https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}`;
+    const url = `https://cors.isomorphic-git.org/https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(query)}`;
+
+
 
     try {
         const response = await fetch(url);
