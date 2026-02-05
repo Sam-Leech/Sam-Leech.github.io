@@ -41,12 +41,17 @@
     <h1 class="fw-bold mb-5">FRE Tools</h1>
 
     <div class="container mb-5">
-      <form action="https://www.google.com/search" method="GET" target="_blank" class="d-flex justify-content-center">
-        <input type="text" name="q" class="form-control w-50 me-2"
-               placeholder="Search Google..." required>
-        <button class="btn btn-success" type="submit">Search</button>
-      </form>
+      <div class="search-wrapper w-50 mx-auto">
+        <form id="searchForm" action="https://www.google.com/search" method="GET" target="_blank" class="d-flex">
+          <input type="text" id="searchInput" name="q" class="form-control me-2"
+                 placeholder="Search Google..." autocomplete="off" required>
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+
+        <div id="suggestionsBox" class="suggestions"></div>
+      </div>
     </div>
+
 
 
 
@@ -155,6 +160,62 @@ document.getElementById("darkModeToggle").addEventListener("click", function () 
     }
 });
 
+const searchInput = document.getElementById("searchInput");
+const suggestionsBox = document.getElementById("suggestionsBox");
+const searchForm = document.getElementById("searchForm");
+
+// Fetch suggestions
+searchInput.addEventListener("input", async () => {
+    const query = searchInput.value.trim();
+
+    if (query.length === 0) {
+        suggestionsBox.style.display = "none";
+        return;
+    }
+
+    const url = `https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const suggestions = data[1];
+
+        suggestionsBox.innerHTML = "";
+        suggestions.forEach(s => {
+            const div = document.createElement("div");
+            div.textContent = s;
+
+            div.onclick = () => {
+                searchInput.value = s;
+                searchForm.submit();
+                searchInput.value = "";
+                suggestionsBox.style.display = "none";
+            };
+
+            suggestionsBox.appendChild(div);
+        });
+
+        suggestionsBox.style.display = "block";
+
+    } catch {
+        suggestionsBox.style.display = "none";
+    }
+});
+
+// Hide suggestions when clicking outside
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-wrapper")) {
+        suggestionsBox.style.display = "none";
+    }
+});
+
+// Clear search bar after submitting
+searchForm.addEventListener("submit", () => {
+    setTimeout(() => {
+        searchInput.value = "";
+        suggestionsBox.style.display = "none";
+    }, 100);
+});
 
 
   </script>
