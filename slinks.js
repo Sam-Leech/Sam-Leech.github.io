@@ -65,7 +65,20 @@ function renderCustomLinks() {
         div.appendChild(text);
         div.appendChild(del);
 
-        div.onclick = () => window.location.href = link.url;
+        div.addEventListener("mousedown", (e) => {
+    // Middle click (button 1)
+    if (e.button === 1) {
+        e.preventDefault();
+        window.open(link.url, "_blank");
+    }
+});
+
+// Left click (button 0)
+div.addEventListener("click", () => {
+    window.open(link.url, "_blank");
+});
+
+
 
         container.appendChild(div);
     });
