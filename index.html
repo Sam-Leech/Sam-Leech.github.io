@@ -104,6 +104,7 @@
 <br>
 <br>
 
+<div id="popupOverlay"></div>
 
 <div class="custom-links-wrapper">
     <div class="custom-links">
@@ -126,16 +127,36 @@
   </footer>
 
   <!-- JavaScript -->
-  <script src="./slinks.js"></script>
-
+  <script src="slinks.js"></script>
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-    }
+  // 1. Apply saved theme BEFORE anything else
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+}
 
-    document.getElementById("darkModeToggle").addEventListener("click", function () {
-      document.body.classList.toggle("dark");
-    });
+// 2. Fade-in effect AFTER theme is applied
+window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
+});
+
+// 3. Sidebar toggle
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+}
+
+// 4. Dark mode toggle + save preference
+document.getElementById("darkModeToggle").addEventListener("click", function () {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+    } else {
+        localStorage.setItem("theme", "light");
+    }
+});
+
+
+
   </script>
 
 </body>
