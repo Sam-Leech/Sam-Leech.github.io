@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 200);
         });
 
-        async function fetchSuggestions() {
+        function fetchSuggestions() {
             const query = searchInput.value.trim();
             lastQuery = query;
 
@@ -46,20 +46,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
-                "https://suggestqueries.google.com/complete/search?client=chrome&q=" + query
-            )}`;
+            const callback = "googleSuggestCallback";
 
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
+            const oldScript = document.getElementById("googleSuggestScript");
+            if (oldScript) {
+                oldScript.remove();
+            }
 
-                // Ignore outdated responses
-                if (searchInput.value.trim() !== lastQuery) return;
+            const script = document.createElement("script");
+            script.id = "googleSuggestScript";
 
-                const suggestions = data[1];
+            window[callback] = function(data) {
+
+                if (searchInput.value.trim() !== lastQuery) {
+                    delete window[callback];
+                    script.remove();
+                    return;
+                }
+
+                const suggestions = data[1] || [];
 
                 suggestionsBox.innerHTML = "";
+
                 suggestions.forEach(s => {
                     const div = document.createElement("div");
                     div.textContent = s;
@@ -76,15 +84,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 suggestionsBox.style.display = "block";
+
                 requestAnimationFrame(() => {
                     suggestionsBox.classList.add("show");
                 });
 
-            } catch {
-                suggestionsBox.classList.remove("show");
-                setTimeout(() => suggestionsBox.style.display = "none", 150);
-            }
+                delete window[callback];
+                script.remove();
+            };
+
+            script.src =
+                "https://suggestqueries.google.com/complete/search" +
+                "?client=chrome" +
+                "&callback=" + callback +
+                "&q=" + encodeURIComponent(query);
+
+            document.body.appendChild(script);
         }
+
 
         // Hide suggestions when clicking outside
         document.addEventListener("click", (e) => {
@@ -93,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => suggestionsBox.style.display = "none", 150);
             }
         });
+
 
         // Clear search bar after submitting
         searchForm.addEventListener("submit", () => {
