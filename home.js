@@ -1,6 +1,6 @@
 console.log("home.js is running");
 
-ddocument.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
 
     // Apply saved theme BEFORE anything else
     if (localStorage.getItem("theme") === "dark") {
