@@ -22,6 +22,42 @@ overlay.addEventListener("click", () => {
     overlay.classList.remove("active");
 });
 
+
+// RENDER SAVED LINKS
+function renderCustomLinks() {
+
+    const container = document.querySelector(".custom-links");
+
+    if (!container) return;
+
+    // Remove old rendered links
+    container.querySelectorAll(".saved-link").forEach(link => link.remove());
+
+    const links = JSON.parse(localStorage.getItem("customLinks")) || [];
+
+    links.forEach(link => {
+
+        const box = document.createElement("a");
+
+        box.className = "small-box saved-link";
+        box.href = link.url;
+        box.target = "_blank";
+        box.style.textDecoration = "none";
+        box.style.color = "inherit";
+
+        box.innerHTML = `
+            <span>${link.name}</span>
+        `;
+
+        // Put before the + button
+        container.insertBefore(
+            box,
+            container.querySelector(".add-button")
+        );
+    });
+}
+
+
 // SAVE LINK
 saveBtn.onclick = () => {
     const name = document.getElementById("linkName").value;
@@ -30,7 +66,9 @@ saveBtn.onclick = () => {
     if (!name || !url) return;
 
     const links = JSON.parse(localStorage.getItem("customLinks")) || [];
+
     links.push({ name, url });
+
     localStorage.setItem("customLinks", JSON.stringify(links));
 
     popup.classList.remove("active");
@@ -39,19 +77,26 @@ saveBtn.onclick = () => {
     renderCustomLinks();
 };
 
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- Name prompt (your original behaviour) ---
+    // Load saved links
+    renderCustomLinks();
+
+
+    // --- Name prompt ---
     let deviceName = localStorage.getItem("deviceName");
 
     if (!deviceName) {
         deviceName = prompt("What would you like to be called?");
+
         if (deviceName && deviceName.trim() !== "") {
             localStorage.setItem("deviceName", deviceName);
         } else {
             deviceName = "User";
         }
     }
+
 
     // --- Greeting ---
     const hour = new Date().getHours();
@@ -64,13 +109,21 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("greetingText").textContent =
         `${greeting}, ${deviceName}`;
 
+
     // --- Time on the right ---
     function updateTime() {
+
         const now = new Date();
-        const timeString = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+        const timeString = now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
         document.getElementById("timeText").textContent = timeString;
     }
 
     updateTime();
     setInterval(updateTime, 1000);
+
 });
