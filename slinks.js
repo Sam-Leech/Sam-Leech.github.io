@@ -1,113 +1,4 @@
-/* -----------------------------------
-   PAGE FADE-IN
------------------------------------ */
-window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
-});
-
-/* -----------------------------------
-   SIDEBAR TOGGLE
------------------------------------ */
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-}
-
-/* -----------------------------------
-   DARK MODE (with persistence + button label)
------------------------------------ */
-if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
-}
-
-const darkBtn = document.getElementById("darkModeToggle");
-if (darkBtn) {
-
-    // Set correct label on page load
-    if (document.body.classList.contains("dark")) {
-        darkBtn.textContent = "Light Mode";
-    } else {
-        darkBtn.textContent = "Dark Mode";
-    }
-
-    // Toggle theme + update label
-    darkBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-
-        if (document.body.classList.contains("dark")) {
-            localStorage.setItem("theme", "dark");
-            darkBtn.textContent = "Light Mode";
-        } else {
-            localStorage.setItem("theme", "light");
-            darkBtn.textContent = "Dark Mode";
-        }
-    });
-}
-
-/* -----------------------------------
-   CUSTOM LINKS: RENDER + DELETE
------------------------------------ */
-function renderCustomLinks() {
-    const container = document.querySelector(".custom-links");
-    container.innerHTML = "";
-
-    const links = JSON.parse(localStorage.getItem("customLinks")) || [];
-
-    links.forEach((link, index) => {
-        const div = document.createElement("div");
-        div.className = "small-box";
-
-        const icon = document.createElement("img");
-        icon.className = "favicon";
-        icon.src = `https://www.google.com/s2/favicons?domain=${link.url}&sz=64`;
-
-        const text = document.createElement("span");
-        text.textContent = link.name;
-
-        const del = document.createElement("div");
-        del.className = "delete-btn";
-        del.textContent = "×";
-        del.onclick = (e) => {
-            e.stopPropagation();
-            deleteLink(index);
-        };
-
-        div.appendChild(icon);
-        div.appendChild(text);
-        div.appendChild(del);
-
-        // Middle-click support
-        div.addEventListener("mousedown", (e) => {
-            if (e.button === 1) {
-                e.preventDefault();
-                window.open(link.url, "_blank");
-            }
-        });
-
-        // Left-click support
-        div.addEventListener("click", () => {
-            window.open(link.url, "_blank");
-        });
-
-        container.appendChild(div);
-    });
-
-    // Add button
-    const addBtn = document.createElement("div");
-    addBtn.className = "small-box add-button";
-    addBtn.textContent = "+";
-    container.appendChild(addBtn);
-}
-
-function deleteLink(index) {
-    const links = JSON.parse(localStorage.getItem("customLinks")) || [];
-    links.splice(index, 1);
-    localStorage.setItem("customLinks", JSON.stringify(links));
-    renderCustomLinks();
-}
-
-/* -----------------------------------
-   POPUP + OVERLAY (fade-in/out)
------------------------------------ */
+// POPUP + OVERLAY
 const popup = document.getElementById("addLinkPopup");
 const overlay = document.getElementById("popupOverlay");
 const saveBtn = document.getElementById("saveLink");
@@ -116,7 +7,7 @@ const saveBtn = document.getElementById("saveLink");
 document.addEventListener("click", e => {
     if (e.target.classList.contains("add-button")) {
 
-        // Clear fields every time
+        // Clear fields every time popup opens
         document.getElementById("linkName").value = "";
         document.getElementById("linkURL").value = "";
 
@@ -148,7 +39,38 @@ saveBtn.onclick = () => {
     renderCustomLinks();
 };
 
-/* -----------------------------------
-   INITIAL RENDER
------------------------------------ */
-renderCustomLinks();
+document.addEventListener("DOMContentLoaded", () => {
+
+    // --- Name prompt (your original behaviour) ---
+    let deviceName = localStorage.getItem("deviceName");
+
+    if (!deviceName) {
+        deviceName = prompt("What would you like to be called?");
+        if (deviceName && deviceName.trim() !== "") {
+            localStorage.setItem("deviceName", deviceName);
+        } else {
+            deviceName = "User";
+        }
+    }
+
+    // --- Greeting ---
+    const hour = new Date().getHours();
+    let greeting = "Hello";
+
+    if (hour < 12) greeting = "Good morning";
+    else if (hour < 18) greeting = "Good afternoon";
+    else greeting = "Good evening";
+
+    document.getElementById("greetingText").textContent =
+        `${greeting}, ${deviceName}`;
+
+    // --- Time on the right ---
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        document.getElementById("timeText").textContent = timeString;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+});
