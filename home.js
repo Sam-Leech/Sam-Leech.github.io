@@ -32,13 +32,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ===============================
+    // AUTO FOCUS SEARCH BAR
+    // ===============================
+
+    const searchBox = document.getElementById("searchInput");
+
+    if (searchBox) {
+
+        setTimeout(() => {
+            searchBox.focus();
+        }, 200);
+
+    }
+
+
+    // ===============================
     // PAGE FADE IN
     // ===============================
 
     window.requestAnimationFrame(() => {
         document.body.classList.add("loaded");
     });
-
 
 
     // ===============================
