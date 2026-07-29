@@ -382,84 +382,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
+        // ===============================
+        // KEYBOARD NAVIGATION
+        // ===============================
+
+        let selectedIndex = -1;
 
 
+        searchBox.addEventListener("keydown", (event) => {
+
+            const suggestions =
+                suggestionsBox.querySelectorAll("div");
 
 
+            if (event.key === "ArrowDown") {
 
-      // ===============================
-      // KEYBOARD NAVIGATION
-      // ===============================
+                if (!suggestions.length) return;
 
-      let selectedIndex = -1;
+                event.preventDefault();
 
+                selectedIndex++;
 
-      searchBox.addEventListener("keydown", (event) => {
+                if (selectedIndex >= suggestions.length) {
+                    selectedIndex = 0;
+                }
 
-          const suggestions =
-              suggestionsBox.querySelectorAll("div");
+                updateSelection();
 
-
-          if (!suggestions.length) return;
-
-
-          if (event.key === "ArrowDown") {
-
-              event.preventDefault();
-
-              selectedIndex++;
-
-              if (selectedIndex >= suggestions.length) {
-                  selectedIndex = 0;
-              }
-
-          }
+            }
 
 
-          else if (event.key === "ArrowUp") {
+            else if (event.key === "ArrowUp") {
 
-              event.preventDefault();
+                if (!suggestions.length) return;
 
-              selectedIndex--;
+                event.preventDefault();
 
-              if (selectedIndex < 0) {
-                  selectedIndex = suggestions.length - 1;
-              }
+                selectedIndex--;
 
-          }
+                if (selectedIndex < 0) {
+                    selectedIndex = suggestions.length - 1;
+                }
 
+                updateSelection();
 
-          else if (event.key === "Enter") {
-
-              event.preventDefault();
-
-              if (selectedIndex >= 0) {
-
-                  searchBox.value =
-                      suggestions[selectedIndex].textContent;
-
-                  suggestionsBox.classList.remove("show");
-
-              }
-
-              return;
-
-          }
+            }
 
 
-          suggestions.forEach(item => {
-              item.classList.remove("selected");
-          });
+            else if (event.key === "Enter") {
 
 
-          if (selectedIndex >= 0) {
+                if (selectedIndex >= 0 && suggestions.length) {
 
-              suggestions[selectedIndex]
-                  .classList.add("selected");
+                    event.preventDefault();
 
-          }
 
-      });
+                    searchBox.value =
+                        suggestions[selectedIndex].textContent;
+
+
+                    suggestionsBox.innerHTML = "";
+
+                    suggestionsBox.classList.remove("show");
+
+
+                    document.getElementById("searchForm").submit();
+
+
+                }
+                else {
+
+                    document.getElementById("searchForm").submit();
+
+                }
+
+            }
+
+        });
+
+
+        function updateSelection() {
+
+            const suggestions =
+                suggestionsBox.querySelectorAll("div");
+
+
+            suggestions.forEach((item, index) => {
+
+                item.classList.toggle(
+                    "selected",
+                    index === selectedIndex
+                );
+
+            });
+
+        }
       document.addEventListener(
           "click",
           (event) => {
