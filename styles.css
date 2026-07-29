@@ -478,3 +478,81 @@ footer {
 #timeText {
     justify-self: end;
 }
+
+
+/* =====================================================
+   BACKGROUND IMAGE SUPPORT
+===================================================== */
+
+/* Allow body background images */
+body {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Slight overlay so text remains readable */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.18);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Keep all page content above overlay */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Make page sections transparent when using a background */
+.container,
+.main-content,
+.row {
+    background: transparent;
+}
+
+/* Dark mode still works */
+body.dark::before {
+    background: rgba(0,0,0,0.35);
+}
+
+/* Footer */
+footer {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(233,236,239,0.85);
+}
+
+body.dark footer {
+    background: rgba(25,25,25,0.85);
+}
+
+/* Sidebar */
+#sidebar {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(52,58,64,0.92);
+}
+
+body.dark #sidebar {
+    background: rgba(28,28,28,0.92);
+}
+
+/* Popup */
+#addLinkPopup {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Optional: make search box slightly translucent */
+.search-wrapper input.form-control {
+    background: rgba(255,255,255,0.92);
+}
+
+body.dark .search-wrapper input.form-control {
+    background: rgba(31,31,31,0.92);
+}
