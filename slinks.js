@@ -111,3 +111,6 @@ saveBtn.addEventListener("click", () => {
 
     renderCustomLinks();
 });
+document.addEventListener("DOMContentLoaded", () => {
+    renderCustomLinks();
+});
