@@ -23,6 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const suggestionsBox = document.getElementById("suggestionsBox");
     const searchForm = document.getElementById("searchForm");
 
+    // Focus the search box on page load
+    if (searchInput) {
+        setTimeout(() => {
+            searchInput.focus();
+            searchInput.select(); // Optional: highlights any existing text
+        }, 100);
+    }
+
     if (searchInput && suggestionsBox && searchForm) {
 
         let debounceTimer;
@@ -102,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.appendChild(script);
         }
 
-
         // Hide suggestions when clicking outside
         document.addEventListener("click", (e) => {
             if (!e.target.closest(".search-wrapper")) {
@@ -110,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => suggestionsBox.style.display = "none", 150);
             }
         });
-
 
         // Clear search bar after submitting
         searchForm.addEventListener("submit", () => {
