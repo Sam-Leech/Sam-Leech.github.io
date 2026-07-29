@@ -386,30 +386,99 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-        document.addEventListener(
-            "click",
-            (event) => {
+
+      // ===============================
+      // KEYBOARD NAVIGATION
+      // ===============================
+
+      let selectedIndex = -1;
 
 
-                if (
-                    !searchBox.contains(event.target) &&
-                    !suggestionsBox.contains(event.target)
-                ) {
+      searchBox.addEventListener("keydown", (event) => {
+
+          const suggestions =
+              suggestionsBox.querySelectorAll("div");
 
 
-                    suggestionsBox.classList.remove(
-                        "show"
-                    );
+          if (!suggestions.length) return;
 
 
-                }
+          if (event.key === "ArrowDown") {
+
+              event.preventDefault();
+
+              selectedIndex++;
+
+              if (selectedIndex >= suggestions.length) {
+                  selectedIndex = 0;
+              }
+
+          }
 
 
-            }
-        );
+          else if (event.key === "ArrowUp") {
+
+              event.preventDefault();
+
+              selectedIndex--;
+
+              if (selectedIndex < 0) {
+                  selectedIndex = suggestions.length - 1;
+              }
+
+          }
+
+
+          else if (event.key === "Enter") {
+
+              event.preventDefault();
+
+              if (selectedIndex >= 0) {
+
+                  searchBox.value =
+                      suggestions[selectedIndex].textContent;
+
+                  suggestionsBox.classList.remove("show");
+
+              }
+
+              return;
+
+          }
+
+
+          suggestions.forEach(item => {
+              item.classList.remove("selected");
+          });
+
+
+          if (selectedIndex >= 0) {
+
+              suggestions[selectedIndex]
+                  .classList.add("selected");
+
+          }
+
+      });
+      document.addEventListener(
+          "click",
+          (event) => {
+
+              if (
+                  !searchBox.contains(event.target) &&
+                  !suggestionsBox.contains(event.target)
+              ) {
+
+                  suggestionsBox.classList.remove(
+                      "show"
+                  );
+
+              }
+
+          }
+      );
 
 
     }
-
 
 });
