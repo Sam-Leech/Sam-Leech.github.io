@@ -1,6 +1,8 @@
 console.log("home.js is running");
 
+
 document.addEventListener("DOMContentLoaded", () => {
+
 
     // ===============================
     // THEME
@@ -12,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const darkToggle = document.getElementById("darkModeToggle");
+
 
     if (darkToggle) {
 
@@ -31,19 +34,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+
     // ===============================
     // AUTO FOCUS SEARCH BAR
     // ===============================
 
     const searchBox = document.getElementById("searchInput");
 
+
     if (searchBox) {
 
         setTimeout(() => {
+
             searchBox.focus();
+
         }, 200);
 
     }
+
 
 
     // ===============================
@@ -51,8 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===============================
 
     window.requestAnimationFrame(() => {
+
         document.body.classList.add("loaded");
+
     });
+
 
 
     // ===============================
@@ -63,8 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const sidebar = document.getElementById("sidebar");
 
+
         if (sidebar) {
+
             sidebar.classList.toggle("open");
+
         }
 
     };
@@ -79,14 +93,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!image) return;
 
+
         document.body.classList.add("has-background");
+
 
         document.body.style.backgroundImage =
             `url("${image}")`;
 
+
         document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundPosition = "center";
-        document.body.style.backgroundAttachment = "fixed";
+
+        document.body.style.backgroundPosition =
+            "center";
+
+        document.body.style.backgroundAttachment =
+            "fixed";
 
     }
 
@@ -112,15 +133,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         picker.addEventListener("change", function () {
 
+
             const file = this.files[0];
 
+
             if (!file) return;
+
 
 
             const reader = new FileReader();
 
 
+
             reader.onload = function (e) {
+
 
                 const image = e.target.result;
 
@@ -136,7 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
 
+
             reader.readAsDataURL(file);
+
 
         });
 
@@ -150,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (removeBackground) {
 
+
         removeBackground.addEventListener("click", () => {
 
 
@@ -160,12 +189,225 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.body.style.backgroundImage = "";
 
+
             document.body.classList.remove(
                 "has-background"
             );
 
 
         });
+
+
+    }
+
+
+
+
+
+    // ===============================
+    // GOOGLE SEARCH SUGGESTIONS
+    // JSONP VERSION (GitHub Pages Safe)
+    // ===============================
+
+
+    const suggestionsBox =
+        document.getElementById("suggestionsBox");
+
+
+
+    if (searchBox && suggestionsBox) {
+
+
+        searchBox.addEventListener(
+            "input",
+            async () => {
+
+
+                const query =
+                    searchBox.value.trim();
+
+
+
+                if (!query) {
+
+
+                    suggestionsBox.innerHTML = "";
+
+                    suggestionsBox.classList.remove(
+                        "show"
+                    );
+
+                    return;
+
+                }
+
+
+
+                try {
+
+
+                    const data = await new Promise((resolve, reject) => {
+
+
+                        const callback =
+                            "googleSuggestCallback";
+
+
+                        const script =
+                            document.createElement("script");
+
+
+
+                        window[callback] = function(response) {
+
+
+                            resolve(response);
+
+
+                            delete window[callback];
+
+
+                            script.remove();
+
+
+                        };
+
+
+
+                        script.onerror = function() {
+
+
+                            delete window[callback];
+
+
+                            script.remove();
+
+
+                            reject(
+                                "Google suggestion failed"
+                            );
+
+
+                        };
+
+
+
+                        script.src =
+                            `https://suggestqueries.google.com/complete/search?client=firefox&callback=${callback}&q=${encodeURIComponent(query)}`;
+
+
+
+                        document.body.appendChild(script);
+
+
+                    });
+
+
+
+
+                    suggestionsBox.innerHTML = "";
+
+
+
+                    if (data[1]) {
+
+
+                        data[1]
+                        .slice(0, 8)
+                        .forEach(item => {
+
+
+
+                            const div =
+                                document.createElement("div");
+
+
+
+                            div.textContent =
+                                item;
+
+
+
+                            div.addEventListener(
+                                "click",
+                                () => {
+
+
+                                    searchBox.value =
+                                        item;
+
+
+                                    suggestionsBox.innerHTML =
+                                        "";
+
+
+                                    suggestionsBox.classList.remove(
+                                        "show"
+                                    );
+
+
+                                }
+                            );
+
+
+
+                            suggestionsBox.appendChild(div);
+
+
+                        });
+
+
+                    }
+
+
+
+                    suggestionsBox.classList.add(
+                        "show"
+                    );
+
+
+
+                }
+                catch (error) {
+
+
+                    console.log(
+                        "Google suggestion error:",
+                        error
+                    );
+
+
+                }
+
+
+            }
+        );
+
+
+
+
+        document.addEventListener(
+            "click",
+            (event) => {
+
+
+                if (
+                    !searchBox.contains(event.target) &&
+                    !suggestionsBox.contains(event.target)
+                ) {
+
+
+                    suggestionsBox.classList.remove(
+                        "show"
+                    );
+
+
+                }
+
+
+            }
+        );
+
 
     }
 
