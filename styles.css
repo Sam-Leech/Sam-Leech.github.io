@@ -406,6 +406,14 @@ body.loaded {
     transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
+.suggestions div.selected {
+    background: #d9eaff;
+}
+
+body.dark .suggestions div.selected {
+    background: #3a4f70;
+}
+
 .suggestions.show {
     display: block;
     opacity: 1;
