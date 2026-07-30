@@ -447,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
                 else {
-                    searchBox.value = "";
+                    
                     document.getElementById("searchForm").submit();
 
                 }
