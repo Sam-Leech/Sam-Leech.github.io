@@ -327,32 +327,24 @@ document.addEventListener("DOMContentLoaded", () => {
                                 item;
 
 
+                                div.addEventListener(
+        "click",
+        () => {
 
-                            div.addEventListener(
-                                "click",
-                                () => {
+            searchBox.value = item;
 
+            suggestionsBox.innerHTML = "";
 
-                                    searchBox.value =
-                                        item;
+            suggestionsBox.classList.remove(
+                "show"
+            );
 
+            document.getElementById("searchForm").submit();
 
-                                    suggestionsBox.innerHTML =
-                                        "";
+            searchBox.value = "";
 
-
-                                    suggestionsBox.classList.remove(
-                                        "show"
-
-                                    );
-
-                                       document.getElementById("searchForm").submit();
-
-
-
-                                }
-                            );
-
+        }
+    );
 
 
                             suggestionsBox.appendChild(div);
@@ -451,7 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                     document.getElementById("searchForm").submit();
-
+                    searchBox.value = "";
 
                 }
                 else {
