@@ -441,15 +441,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     suggestionsBox.classList.remove("show");
 
-                    searchBox.value = "";
-                    document.getElementById("searchForm").submit();
 
+                    document.getElementById("searchForm").submit();
+                    searchBox.value = "";
 
                 }
                 else {
-                    
-                    document.getElementById("searchForm").submit();
 
+                    document.getElementById("searchForm").submit();
+                    searchBox.value = "";
                 }
 
             }
