@@ -343,7 +343,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                                     suggestionsBox.classList.remove(
                                         "show"
+
                                     );
+
+                                       document.getElementById("searchForm").submit();
+
 
 
                                 }
@@ -477,25 +481,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
         }
-      document.addEventListener(
-          "click",
-          (event) => {
-
-              if (
-                  !searchBox.contains(event.target) &&
-                  !suggestionsBox.contains(event.target)
-              ) {
-
-                  suggestionsBox.classList.remove(
-                      "show"
-                  );
-
-              }
-
-          }
-      );
 
 
-    }
+}
 
 });
