@@ -213,7 +213,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const suggestionsBox =
         document.getElementById("suggestionsBox");
 
+        window.addEventListener("pageshow", () => {
 
+      if (suggestionsBox) {
+          suggestionsBox.innerHTML = "";
+          suggestionsBox.classList.remove("show");
+      }
+
+      if (searchBox) {
+          searchBox.value = "";
+      }
+
+  });
 
     if (searchBox && suggestionsBox) {
 
