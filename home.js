@@ -441,13 +441,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     suggestionsBox.classList.remove("show");
 
-
-                    document.getElementById("searchForm").submit();
                     searchBox.value = "";
+                    document.getElementById("searchForm").submit();
+
 
                 }
                 else {
-
+                    searchBox.value = "";
                     document.getElementById("searchForm").submit();
 
                 }
