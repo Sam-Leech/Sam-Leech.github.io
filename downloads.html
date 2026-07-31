@@ -1,78 +1,147 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Downloads</title>
 </head>
+
+
 <body>
-  <script type="module">
 
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+<h1>Protected Area</h1>
 
-  import {
-      getAuth,
-      onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-  const firebaseConfig = {
-      apiKey: "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
-      authDomain: "fre-tools.firebaseapp.com",
-      projectId: "fre-tools",
-      storageBucket: "fre-tools.firebasestorage.app",
-      messagingSenderId: "723940111430",
-      appId: "1:723940111430:web:50cb5685913167f0dc4647"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  onAuthStateChanged(auth, (user) => {
-
-      if (!user) {
-          window.location.href = "login.html";
-      }
-
-  });
-
-  </script>
-    <h1>Protected Area</h1>
-
-    <p>If you can see this, login worked.</p>
-    <div id="documentList"></div>
-
-    <button id="logoutBtn">Logout</button>
+<p>If you can see this, login worked.</p>
 
 
-    <script>
-
-    const documents = [
-        {
-            name: "Commission structures updated - key",
-            link: "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
-        }
-    ];
+<div id="documentList"></div>
 
 
-    const list = document.getElementById("documentList");
+<button id="logoutBtn">Logout</button>
 
 
-    documents.forEach(doc => {
 
-        const div = document.createElement("div");
+<script type="module">
 
-        div.className = "document-card";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-        div.innerHTML = `
-            <a href="${doc.link}" target="_blank">
-                ${doc.name}
-            </a>
-        `;
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-        list.appendChild(div);
+
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+    authDomain: "fre-tools.firebaseapp.com",
+    projectId: "fre-tools",
+    storageBucket: "fre-tools.firebasestorage.app",
+    messagingSenderId: "723940111430",
+    appId: "1:723940111430:web:50cb5685913167f0dc4647"
+
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+
+// Check login
+
+onAuthStateChanged(auth, (user) => {
+
+    if (!user) {
+
+        window.location.href = "login.html";
+
+    }
+
+});
+
+
+
+// Logout button
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click", () => {
+
+
+    signOut(auth)
+    .then(() => {
+
+        window.location.href = "login.html";
 
     });
 
-    </script>
+
+});
+
+
+</script>
+
+
+
+<script>
+
+
+// ===============================
+// DOCUMENTS
+// ===============================
+
+
+const documents = [
+
+    {
+        name: "Commission structures updated - key",
+        link: "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+    }
+
+];
+
+
+
+const list = document.getElementById("documentList");
+
+
+
+documents.forEach(doc => {
+
+
+    const div = document.createElement("div");
+
+
+    div.className = "document-card";
+
+
+    div.innerHTML = `
+
+        <a href="${doc.link}" target="_blank">
+
+            ${doc.name}
+
+        </a>
+
+    `;
+
+
+    list.appendChild(div);
+
+
+});
+
+
+
+</script>
 
 
 </body>
+
 </html>
