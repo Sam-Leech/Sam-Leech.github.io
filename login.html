@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FRE Tools Login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        input {
+            width: 250px;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>FRE Tools Login</h1>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Email">
+
+    <br>
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password">
+
+    <br><br>
+
+    <button id="loginBtn">
+        Login
+    </button>
+
+    <p id="message"></p>
+
+    <script type="module">
+
+        import { app }
+        from "./firebase-config.js";
+
+        import {
+            getAuth,
+            signInWithEmailAndPassword
+        }
+        from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+        const auth = getAuth(app);
+
+        document
+            .getElementById("loginBtn")
+            .addEventListener("click", () => {
+
+                const email =
+                    document.getElementById("email").value;
+
+                const password =
+                    document.getElementById("password").value;
+
+                signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                )
+                .then(() => {
+
+                    document.getElementById("message")
+                        .innerText =
+                        "Login successful";
+
+                    window.location.href =
+                        "downloads.html";
+
+                })
+                .catch(error => {
+
+                    document.getElementById("message")
+                        .innerText =
+                        error.message;
+
+                });
+
+            });
+
+    </script>
+
+</body>
+</html>
