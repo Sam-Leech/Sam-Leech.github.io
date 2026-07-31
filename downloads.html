@@ -37,28 +37,42 @@
     <h1>Protected Area</h1>
 
     <p>If you can see this, login worked.</p>
-
-
-<div id="documentList"></div>
+    <div id="documentList"></div>
 
     <button id="logoutBtn">Logout</button>
 
-    <script type="module">
 
-    import { getAuth, signOut }
-    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    <script>
 
-    document.getElementById("logoutBtn")
-    .addEventListener("click", () => {
+    const documents = [
+        {
+            name: "Commission structures updated - key",
+            link: "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+        }
+    ];
 
-        signOut(getAuth()).then(() => {
-            window.location.href = "login.html";
-        });
+
+    const list = document.getElementById("documentList");
+
+
+    documents.forEach(doc => {
+
+        const div = document.createElement("div");
+
+        div.className = "document-card";
+
+        div.innerHTML = `
+            <a href="${doc.link}" target="_blank">
+                ${doc.name}
+            </a>
+        `;
+
+        list.appendChild(div);
 
     });
 
     </script>
 
-  
+
 </body>
 </html>
