@@ -5,19 +5,15 @@
     <title>Downloads</title>
 </head>
 
-
 <body>
 
 <h1>Protected Area</h1>
 
 <p>If you can see this, login worked.</p>
 
-
 <div id="documentList"></div>
 
-
 <button id="logoutBtn">Logout</button>
-
 
 
 <script type="module">
@@ -33,7 +29,6 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-
 const firebaseConfig = {
 
     apiKey: "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
@@ -46,55 +41,10 @@ const firebaseConfig = {
 };
 
 
-
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-
-
-// Check login
-
-onAuthStateChanged(auth, (user) => {
-
-    if (!user) {
-
-        window.location.href = "login.html";
-
-    }
-
-});
-
-
-
-// Logout button
-
-document
-.getElementById("logoutBtn")
-.addEventListener("click", () => {
-
-
-    signOut(auth)
-    .then(() => {
-
-        window.location.href = "login.html";
-
-    });
-
-
-});
-
-
-</script>
-
-
-
-<script>
-
-
-// ===============================
-// DOCUMENTS
-// ===============================
 
 
 const documents = [
@@ -108,35 +58,79 @@ const documents = [
 
 
 
-const list = document.getElementById("documentList");
+function loadDocuments() {
+
+
+    const list = document.getElementById("documentList");
+
+
+    documents.forEach(doc => {
+
+
+        const div = document.createElement("div");
+
+
+        div.innerHTML = `
+
+            <a href="${doc.link}" target="_blank">
+                ${doc.name}
+            </a>
+
+        `;
+
+
+        list.appendChild(div);
+
+
+    });
+
+
+}
 
 
 
-documents.forEach(doc => {
+onAuthStateChanged(auth, (user) => {
 
 
-    const div = document.createElement("div");
+    if (!user) {
 
 
-    div.className = "document-card";
+        window.location.href = "login.html";
 
 
-    div.innerHTML = `
-
-        <a href="${doc.link}" target="_blank">
-
-            ${doc.name}
-
-        </a>
-
-    `;
+    }
+    else {
 
 
-    list.appendChild(div);
+        console.log("Logged in:", user.email);
+
+        loadDocuments();
+
+
+    }
 
 
 });
 
+
+
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click", () => {
+
+
+    signOut(auth)
+    .then(() => {
+
+
+        window.location.href = "login.html";
+
+
+    });
+
+
+});
 
 
 </script>
