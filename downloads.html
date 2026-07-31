@@ -58,5 +58,39 @@
     });
 
     </script>
+
+    <script>
+
+const documents = [
+    {
+        name: "Commission structures updated - key",
+        type: "Google Sheet",
+        link: "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+    }
+];
+
+
+const list = document.getElementById("documentList");
+
+
+documents.forEach(doc => {
+
+    const div = document.createElement("div");
+
+    div.className = "document-card";
+
+    div.innerHTML = `
+        <h5>${doc.name}</h5>
+        <p>${doc.type}</p>
+        <a href="${doc.link}" target="_blank" class="btn btn-success">
+            Open Document
+        </a>
+    `;
+
+    list.appendChild(div);
+
+});
+
+</script>
 </body>
 </html>
