@@ -9,7 +9,7 @@
 
 <h1>Protected Area</h1>
 
-<p>If you can see this, login worked.</p>
+<div id="welcomeMessage"></div>
 
 <div id="documentList"></div>
 
@@ -101,14 +101,26 @@ onAuthStateChanged(auth, (user) => {
     }
     else {
 
-
-        console.log("Logged in:", user.email);
-
-        loadDocuments();
+    console.log("Logged in:", user.email);
 
 
-    }
+    const welcome = document.getElementById("welcomeMessage");
 
+
+    const name = user.email
+        .split("@")[0]
+        .replace(".", " ");
+
+
+    welcome.innerHTML = `
+        <h3>Welcome back, ${name}</h3>
+        <p>Logged in as ${user.email}</p>
+    `;
+
+
+    loadDocuments();
+
+}
 
 });
 
