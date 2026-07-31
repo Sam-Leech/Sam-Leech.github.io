@@ -4,10 +4,59 @@
     <title>Downloads</title>
 </head>
 <body>
+  <script type="module">
 
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+      getAuth,
+      onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+      apiKey: "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+      authDomain: "fre-tools.firebaseapp.com",
+      projectId: "fre-tools",
+      storageBucket: "fre-tools.firebasestorage.app",
+      messagingSenderId: "723940111430",
+      appId: "1:723940111430:web:50cb5685913167f0dc4647"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+
+      if (!user) {
+          window.location.href = "login.html";
+      }
+
+  });
+
+  </script>
     <h1>Protected Area</h1>
 
     <p>If you can see this, login worked.</p>
 
+
+
+
+    <button id="logoutBtn">Logout</button>
+
+    <script type="module">
+
+    import { getAuth, signOut }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    document.getElementById("logoutBtn")
+    .addEventListener("click", () => {
+
+        signOut(getAuth()).then(() => {
+            window.location.href = "login.html";
+        });
+
+    });
+
+    </script>
 </body>
 </html>
