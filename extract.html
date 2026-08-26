@@ -16,7 +16,6 @@
             padding: 0;
         }
 
-
         :root {
             --bg: #0b1120;
             --sidebar: #0f172a;
@@ -31,17 +30,12 @@
             --blue-dark: #2563eb;
         }
 
-
         body {
             font-family: Inter, Arial, Helvetica, sans-serif;
-
             background: var(--bg);
-
             color: var(--text);
-
             min-height: 100vh;
         }
-
 
         /* =========================
            SIDEBAR
@@ -49,7 +43,6 @@
 
         .sidebar {
             position: fixed;
-
             left: 0;
             top: 0;
             bottom: 0;
@@ -61,7 +54,6 @@
             border-right: 1px solid var(--border);
 
             display: flex;
-
             flex-direction: column;
 
             padding: 25px 16px;
@@ -69,57 +61,40 @@
             z-index: 100;
         }
 
-
         .brand {
             display: flex;
-
             align-items: center;
-
             padding: 5px 12px 35px;
         }
 
-
         .brand-name {
             font-size: 25px;
-
             font-weight: 800;
-
             letter-spacing: -0.5px;
         }
-
 
         .brand-dot {
             color: var(--blue);
         }
 
-
         .nav-section {
             margin-bottom: 25px;
         }
 
-
         .nav-label {
             font-size: 10px;
-
             font-weight: 700;
-
             text-transform: uppercase;
-
             letter-spacing: 1.2px;
-
             color: var(--muted-dark);
-
             padding: 0 12px;
-
             margin-bottom: 8px;
         }
-
 
         .nav-item {
             width: 100%;
 
             display: flex;
-
             align-items: center;
 
             gap: 12px;
@@ -133,7 +108,6 @@
             color: var(--muted);
 
             font-size: 14px;
-
             font-weight: 500;
 
             text-decoration: none;
@@ -145,48 +119,37 @@
                 color 0.15s;
         }
 
-
         .nav-item:hover {
             background: #172033;
-
             color: var(--text);
         }
 
-
         .nav-item.active {
             background: rgba(59, 130, 246, 0.14);
-
             color: #60a5fa;
         }
-
 
         .nav-icon {
             width: 20px;
 
             display: flex;
-
             justify-content: center;
 
             font-size: 16px;
         }
 
-
         .sidebar-bottom {
             margin-top: auto;
         }
-
 
         .logout {
             color: #f87171;
         }
 
-
         .logout:hover {
             background: rgba(127, 29, 29, 0.25);
-
             color: #fca5a5;
         }
-
 
         /* =========================
            MAIN
@@ -194,10 +157,8 @@
 
         .main {
             margin-left: 250px;
-
             min-height: 100vh;
         }
-
 
         /* =========================
            TOP BAR
@@ -219,35 +180,25 @@
             padding: 0 34px;
         }
 
-
         .topbar-title {
             font-size: 14px;
-
             font-weight: 600;
-
             color: var(--muted);
         }
-
 
         .account {
             display: flex;
-
             align-items: center;
-
             gap: 11px;
         }
 
-
         .account-email {
             color: var(--muted);
-
             font-size: 13px;
         }
 
-
         .avatar {
             width: 36px;
-
             height: 36px;
 
             border-radius: 50%;
@@ -255,18 +206,14 @@
             background: var(--blue);
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             font-size: 13px;
-
             font-weight: 700;
 
             color: white;
         }
-
 
         /* =========================
            CONTENT
@@ -280,11 +227,9 @@
             padding: 40px 38px 60px;
         }
 
-
         .page-header {
             margin-bottom: 32px;
         }
-
 
         .page-title {
             font-size: 30px;
@@ -296,7 +241,6 @@
             margin-bottom: 8px;
         }
 
-
         .page-subtitle {
             font-size: 14px;
 
@@ -304,7 +248,6 @@
 
             line-height: 1.5;
         }
-
 
         /* =========================
            EXTRACTOR PANEL
@@ -320,7 +263,6 @@
             overflow: hidden;
         }
 
-
         .panel-header {
             min-height: 58px;
 
@@ -335,25 +277,19 @@
             border-bottom: 1px solid var(--border);
         }
 
-
         .panel-title {
             font-size: 14px;
-
             font-weight: 600;
         }
 
-
         .panel-subtitle {
             font-size: 12px;
-
             color: var(--muted-dark);
         }
-
 
         .extractor-body {
             padding: 30px;
         }
-
 
         /* =========================
            FILE INPUT
@@ -370,7 +306,6 @@
 
             margin-bottom: 8px;
         }
-
 
         .file-input {
             width: 100%;
@@ -392,18 +327,14 @@
             cursor: pointer;
         }
 
-
         .file-input:hover {
             border-color: #334155;
         }
 
-
         .file-input:focus {
             outline: none;
-
             border-color: var(--blue);
         }
-
 
         .file-input::file-selector-button {
             margin-right: 12px;
@@ -425,13 +356,10 @@
             cursor: pointer;
         }
 
-
         .file-input::file-selector-button:hover {
             background: #243149;
-
             color: white;
         }
-
 
         /* =========================
            GENERATE BUTTON
@@ -463,13 +391,10 @@
                 border 0.15s;
         }
 
-
         .generate-button:hover {
             background: var(--blue-dark);
-
             border-color: var(--blue-dark);
         }
-
 
         /* =========================
            LOG
@@ -487,7 +412,6 @@
             overflow: hidden;
         }
 
-
         .log-header {
             padding: 12px 15px;
 
@@ -503,7 +427,6 @@
 
             letter-spacing: 0.7px;
         }
-
 
         #log {
             min-height: 80px;
@@ -528,7 +451,6 @@
             white-space: pre-wrap;
         }
 
-
         /* =========================
            FOOTER
         ========================= */
@@ -549,7 +471,6 @@
             font-size: 11px;
         }
 
-
         /* =========================
            MOBILE
         ========================= */
@@ -558,78 +479,60 @@
 
             .sidebar {
                 width: 68px;
-
                 padding: 20px 8px;
             }
 
-
             .brand {
                 justify-content: center;
-
                 padding: 5px 0 30px;
             }
-
 
             .brand-name {
                 font-size: 0;
             }
 
-
             .brand-name::before {
                 content: "F";
-
                 font-size: 22px;
             }
-
 
             .brand-dot {
                 display: none;
             }
 
-
             .nav-label {
                 display: none;
             }
 
-
             .nav-item {
                 justify-content: center;
-
                 padding: 12px 0;
             }
-
 
             .nav-item span:not(.nav-icon) {
                 display: none;
             }
 
-
             .main {
                 margin-left: 68px;
             }
-
 
             .content {
                 padding: 28px 20px 50px;
             }
 
-
             .topbar {
                 padding: 0 20px;
             }
-
 
             .account-email {
                 display: none;
             }
 
-
             .extractor-body {
                 padding: 20px;
             }
-
         }
-
 
         @media (max-width: 600px) {
 
@@ -637,22 +540,17 @@
                 font-size: 25px;
             }
 
-
             .panel-header {
                 display: block;
             }
-
 
             .panel-subtitle {
                 margin-top: 5px;
             }
 
-
             #siteFooter {
                 flex-direction: column;
-
                 gap: 5px;
-
                 padding: 20px;
             }
 
@@ -672,29 +570,21 @@
 
 <aside class="sidebar">
 
-
     <div class="brand">
 
         <div class="brand-name">
-
             FRE<span class="brand-dot">.</span>
-
         </div>
 
     </div>
 
 
-
     <div class="nav-section">
-
 
         <div class="nav-label">
             Workspace
         </div>
 
-
-
-        <!-- Documents -->
 
         <a
             href="downloads.html"
@@ -711,11 +601,8 @@
         </a>
 
 
-
-        <!-- Broker Search -->
-
         <a
-            href="broker.html"
+            href="brokers.html"
             class="nav-item">
 
             <span class="nav-icon">
@@ -729,9 +616,6 @@
         </a>
 
 
-
-        <!-- Extraction -->
-
         <a
             href="extract.html"
             class="nav-item active">
@@ -741,26 +625,21 @@
             </span>
 
             <span>
-                Extraction
+                FOS Extractor Tool
             </span>
 
         </a>
 
-
     </div>
-
 
 
     <div class="sidebar-bottom">
 
-
         <div class="nav-section">
-
 
             <div class="nav-label">
                 Account
             </div>
-
 
             <div
                 class="nav-item logout"
@@ -776,12 +655,9 @@
 
             </div>
 
-
         </div>
 
-
     </div>
-
 
 </aside>
 
@@ -794,10 +670,7 @@
 <main class="main">
 
 
-    <!-- TOP BAR -->
-
     <header class="topbar">
-
 
         <div class="topbar-title">
             FRE FOS Client Extractor
@@ -805,7 +678,6 @@
 
 
         <div class="account">
-
 
             <span
                 class="account-email"
@@ -824,58 +696,43 @@
 
             </div>
 
-
         </div>
-
 
     </header>
 
 
-
-    <!-- =========================
-         CONTENT
-    ========================= -->
 
     <section class="content">
 
 
         <div class="page-header">
 
-
             <h1 class="page-title">
                 FOS Client Extractor
             </h1>
-
 
             <p class="page-subtitle">
                 Select FOS PDF files and generate an Excel client data file.
             </p>
 
-
         </div>
 
 
-
-        <!-- EXTRACTOR -->
 
         <div class="extractor-panel">
 
 
             <div class="panel-header">
 
-
                 <div class="panel-title">
                     FOS Client Extractor
                 </div>
-
 
                 <div class="panel-subtitle">
                     FOS Tools
                 </div>
 
-
             </div>
-
 
 
             <div class="extractor-body">
@@ -912,18 +769,13 @@
 
 
 
-                <!-- LOG -->
-
                 <div class="log-panel">
-
 
                     <div class="log-header">
                         Processing Log
                     </div>
 
-
                     <pre id="log"></pre>
-
 
                 </div>
 
@@ -948,9 +800,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 
+<!-- =========================
+     EXTRACTOR
+========================= -->
 
 <script>
-
 
 /* =========================
    FILENAME PARSER
@@ -958,26 +812,14 @@
 
 function parseFilename(filename) {
 
-    filename =
-        filename.replace(
-            /\.pdf$/i,
-            ""
-        );
+    filename = filename.replace(/\.pdf$/i, "");
 
+    filename = filename.replace(/\s*-\s*/g, "-");
 
-    filename =
-        filename.replace(
-            /\s*-\s*/g,
-            "-"
-        );
-
-
-    const parts =
-        filename
-            .split("-")
-            .map(p => p.trim())
-            .filter(Boolean);
-
+    const parts = filename
+        .split("-")
+        .map(p => p.trim())
+        .filter(Boolean);
 
     if (parts.length < 3) {
 
@@ -989,23 +831,19 @@ function parseFilename(filename) {
 
     }
 
-
     return {
 
         ref: parts[0],
 
-        client:
-            parts
-                .slice(1, -1)
-                .join(" "),
+        client: parts
+            .slice(1, -1)
+            .join(" "),
 
-        lender:
-            parts[parts.length - 1]
+        lender: parts[parts.length - 1]
 
     };
 
 }
-
 
 
 /* =========================
@@ -1017,13 +855,10 @@ function processFiles() {
     const input =
         document.getElementById("pdfInput");
 
-
     const log =
         document.getElementById("log");
 
-
     log.textContent = "";
-
 
 
     if (!input.files.length) {
@@ -1036,21 +871,16 @@ function processFiles() {
     }
 
 
-
     const rows = [];
 
 
-
     for (const file of input.files) {
-
 
         const {
             ref,
             client,
             lender
-        } =
-            parseFilename(file.name);
-
+        } = parseFilename(file.name);
 
 
         if (!ref || !client || !lender) {
@@ -1059,7 +889,6 @@ function processFiles() {
                 `WARNING: Could not parse: ${file.name}\n`;
 
         }
-
 
 
         rows.push({
@@ -1081,10 +910,8 @@ function processFiles() {
     }
 
 
-
     log.textContent +=
         `\nProcessed ${rows.length} files.\nGenerating Excel...\n`;
-
 
 
     const worksheet =
@@ -1114,11 +941,6 @@ function processFiles() {
 }
 
 
-
-/* =========================
-   PAGE LOAD
-========================= */
-
 window.addEventListener(
     "load",
     () => {
@@ -1130,9 +952,147 @@ window.addEventListener(
     }
 );
 
-
 </script>
 
+
+
+<!-- =========================
+     FIREBASE AUTHENTICATION
+========================= -->
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+
+    authDomain:
+        "fre-tools.firebaseapp.com",
+
+    projectId:
+        "fre-tools",
+
+    storageBucket:
+        "fre-tools.firebasestorage.app",
+
+    messagingSenderId:
+        "723940111430",
+
+    appId:
+        "1:723940111430:web:50cb5685913167f0dc4647"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+/* =========================
+   AUTHENTICATION
+========================= */
+
+onAuthStateChanged(
+    auth,
+    (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        console.log(
+            "Logged in:",
+            user.email
+        );
+
+
+        /* =========================
+           EMAIL
+        ========================= */
+
+        document
+            .getElementById("userEmail")
+            .textContent =
+                user.email;
+
+
+        /* =========================
+           AVATAR
+        ========================= */
+
+        document
+            .getElementById("avatar")
+            .textContent =
+                user.email
+                    .charAt(0)
+                    .toUpperCase();
+
+    }
+);
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                await signOut(auth);
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Logout failed:",
+                    error
+                );
+
+                alert(
+                    "Unable to log out. Please try again."
+                );
+
+            }
+
+        }
+    );
+
+
+</script>
 
 
 <!-- =========================
@@ -1141,32 +1101,20 @@ window.addEventListener(
 
 <footer id="siteFooter">
 
-
     <span id="greetingText"></span>
-
 
     <span id="weatherText">
         Loading weather...
     </span>
 
-
     <span id="timeText"></span>
-
 
 </footer>
 
 
-
 <script src="footer.js"></script>
 
-
-
-<!-- =========================
-     SIDEBAR / LINKS
-========================= -->
-
 <script src="slinks.js"></script>
-
 
 
 </body>
