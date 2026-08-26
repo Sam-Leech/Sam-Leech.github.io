@@ -1,25 +1,1008 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Downloads</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FRE | Documents</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0b1120;
+            --sidebar: #0f172a;
+            --panel: #111827;
+            --panel-hover: #172033;
+            --border: #1f2937;
+            --border-light: #273449;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --muted-dark: #64748b;
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
+            --green: #10b981;
+        }
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 250px;
+
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 25px 16px;
+
+            z-index: 100;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            padding: 5px 12px 35px;
+        }
+
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+
+        .brand-dot {
+            color: var(--blue);
+        }
+
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.2px;
+
+            color: var(--muted-dark);
+
+            padding: 0 12px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .nav-item {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 11px 12px;
+
+            margin-bottom: 3px;
+
+            border-radius: 8px;
+
+            color: var(--muted);
+
+            font-size: 14px;
+            font-weight: 500;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s,
+                color 0.15s;
+        }
+
+
+        .nav-item:hover {
+            background: #172033;
+            color: var(--text);
+        }
+
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.14);
+            color: #60a5fa;
+        }
+
+
+        .nav-icon {
+            width: 20px;
+
+            display: flex;
+            justify-content: center;
+
+            font-size: 16px;
+        }
+
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+            height: 72px;
+
+            background: var(--sidebar);
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 34px;
+        }
+
+
+        .topbar-title {
+            font-size: 14px;
+            font-weight: 600;
+
+            color: var(--muted);
+        }
+
+
+        .account {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .account-email {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            background: var(--blue);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            color: white;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            max-width: 1400px;
+
+            margin: 0 auto;
+
+            padding: 40px 38px 60px;
+        }
+
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+
+        .page-title {
+            font-size: 30px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.7px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-subtitle {
+            font-size: 14px;
+
+            color: var(--muted);
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           SEARCH / TOOLBAR
+        ========================= */
+
+        .toolbar {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .search-wrapper {
+            position: relative;
+
+            flex: 1;
+
+            max-width: 520px;
+        }
+
+
+        .search-icon {
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--muted-dark);
+
+            font-size: 15px;
+
+            pointer-events: none;
+        }
+
+
+        .search {
+            width: 100%;
+
+            height: 43px;
+
+            padding: 0 15px 0 40px;
+
+            background: var(--panel);
+
+            border: 1px solid var(--border-light);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            color: var(--text);
+
+            font-size: 13px;
+
+            transition: border 0.15s;
+        }
+
+
+        .search::placeholder {
+            color: var(--muted-dark);
+        }
+
+
+        .search:focus {
+            border-color: var(--blue);
+        }
+
+
+        .document-count {
+            font-size: 12px;
+
+            color: var(--muted-dark);
+        }
+
+
+        /* =========================
+           DOCUMENT PANEL
+        ========================= */
+
+        .panel {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 11px;
+
+            overflow: hidden;
+        }
+
+
+        .panel-header {
+            height: 58px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 20px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        .panel-title {
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .panel-subtitle {
+            font-size: 12px;
+
+            color: var(--muted-dark);
+        }
+
+
+        /* =========================
+           DOCUMENT
+        ========================= */
+
+        .document {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 17px 20px;
+
+            border-bottom: 1px solid var(--border);
+
+            transition: background 0.15s;
+        }
+
+
+        .document:last-child {
+            border-bottom: none;
+        }
+
+
+        .document:hover {
+            background: var(--panel-hover);
+        }
+
+
+        .document-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            min-width: 0;
+        }
+
+
+        .document-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            border-radius: 8px;
+
+            background: rgba(59, 130, 246, 0.12);
+
+            color: #60a5fa;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+        }
+
+
+        .document-details {
+            min-width: 0;
+        }
+
+
+        .document-name {
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: var(--text);
+
+            margin-bottom: 5px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .document-meta {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: var(--muted-dark);
+
+            font-size: 11px;
+        }
+
+
+        .meta-dot {
+            width: 3px;
+            height: 3px;
+
+            border-radius: 50%;
+
+            background: var(--muted-dark);
+        }
+
+
+        /* =========================
+           ACTIONS
+        ========================= */
+
+        .actions {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            flex-shrink: 0;
+        }
+
+
+        .button {
+            height: 34px;
+
+            padding: 0 12px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            border-radius: 6px;
+
+            border: 1px solid var(--border-light);
+
+            background: #182234;
+
+            color: #cbd5e1;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s,
+                border 0.15s;
+        }
+
+
+        .button:hover {
+            background: #243149;
+
+            border-color: #334155;
+
+            color: white;
+        }
+
+
+        .button.email {
+            background: var(--blue);
+
+            border-color: var(--blue);
+
+            color: white;
+        }
+
+
+        .button.email:hover {
+            background: var(--blue-dark);
+
+            border-color: var(--blue-dark);
+        }
+
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty {
+            padding: 70px 20px;
+
+            text-align: center;
+
+            color: var(--muted-dark);
+
+            display: none;
+        }
+
+
+        .empty-icon {
+            font-size: 32px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .empty-title {
+            color: var(--muted);
+
+            font-size: 14px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .empty-text {
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           LOGOUT
+        ========================= */
+
+        .logout {
+            color: #f87171;
+        }
+
+
+        .logout:hover {
+            background: rgba(127, 29, 29, 0.25);
+
+            color: #fca5a5;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 68px;
+
+                padding: 20px 8px;
+            }
+
+
+            .brand {
+                justify-content: center;
+
+                padding: 5px 0 30px;
+            }
+
+
+            .brand-name {
+                font-size: 0;
+            }
+
+
+            .brand-name::before {
+                content: "F";
+
+                font-size: 22px;
+            }
+
+
+            .brand-dot {
+                display: none;
+            }
+
+
+            .nav-label {
+                display: none;
+            }
+
+
+            .nav-item {
+                justify-content: center;
+
+                padding: 12px 0;
+            }
+
+
+            .nav-item span:not(.nav-icon) {
+                display: none;
+            }
+
+
+            .main {
+                margin-left: 68px;
+            }
+
+
+            .content {
+                padding: 28px 20px 50px;
+            }
+
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+
+            .account-email {
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .page-title {
+                font-size: 25px;
+            }
+
+
+            .toolbar {
+                display: block;
+            }
+
+
+            .search-wrapper {
+                max-width: none;
+
+                margin-bottom: 10px;
+            }
+
+
+            .document-count {
+                display: block;
+
+                padding-bottom: 5px;
+            }
+
+
+            .document {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            .document-left {
+                width: 100%;
+            }
+
+
+            .actions {
+                width: 100%;
+            }
+
+
+            .button {
+                flex: 1;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<h1>Protected Area</h1>
 
-<div id="welcomeMessage"></div>
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-<div id="documentList"></div>
+<aside class="sidebar">
 
-<button id="logoutBtn">Logout</button>
+
+    <div class="brand">
+
+        <div class="brand-name">
+            FRE<span class="brand-dot">.</span>
+        </div>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-label">
+            Workspace
+        </div>
+
+
+        <div class="nav-item active">
+
+            <span class="nav-icon">
+                ▣
+            </span>
+
+            <span>
+                Documents
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="nav-section">
+
+            <div class="nav-label">
+                Account
+            </div>
+
+
+            <div
+                class="nav-item logout"
+                id="logoutBtn">
+
+                <span class="nav-icon">
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div class="topbar-title">
+            FRE Documents
+        </div>
+
+
+        <div class="account">
+
+            <span
+                class="account-email"
+                id="userEmail">
+
+                Loading...
+
+            </span>
+
+
+            <div
+                class="avatar"
+                id="avatar">
+
+                ?
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- CONTENT -->
+
+    <section class="content">
+
+
+        <div class="page-header">
+
+            <h1 class="page-title">
+                Documents
+            </h1>
+
+            <p class="page-subtitle">
+                Access and manage your FRE documents.
+            </p>
+
+        </div>
+
+
+
+        <!-- TOOLBAR -->
+
+        <div class="toolbar">
+
+
+            <div class="search-wrapper">
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
+
+                <input
+                    type="text"
+                    id="search"
+                    class="search"
+                    placeholder="Search documents..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div
+                class="document-count"
+                id="documentCount">
+
+                0 documents
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- DOCUMENT PANEL -->
+
+        <div class="panel">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <div class="panel-title">
+                        Available documents
+                    </div>
+
+                </div>
+
+
+                <div class="panel-subtitle">
+                    FRE Portal
+                </div>
+
+            </div>
+
+
+            <div id="documentList"></div>
+
+
+            <div
+                class="empty"
+                id="emptyState">
+
+                <div class="empty-icon">
+                    ▱
+                </div>
+
+                <div class="empty-title">
+                    No documents found
+                </div>
+
+                <div class="empty-text">
+                    Try changing your search.
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
 
 
 <script type="module">
 
-import { initializeApp }
+
+/* =========================
+   FIREBASE
+========================= */
+
+import {
+    initializeApp
+}
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 
 import {
     getAuth,
@@ -29,121 +1012,389 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
+
 const firebaseConfig = {
 
-    apiKey: "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
-    authDomain: "fre-tools.firebaseapp.com",
-    projectId: "fre-tools",
-    storageBucket: "fre-tools.firebasestorage.app",
-    messagingSenderId: "723940111430",
-    appId: "1:723940111430:web:50cb5685913167f0dc4647"
+    apiKey:
+        "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+
+    authDomain:
+        "fre-tools.firebaseapp.com",
+
+    projectId:
+        "fre-tools",
+
+    storageBucket:
+        "fre-tools.firebasestorage.app",
+
+    messagingSenderId:
+        "723940111430",
+
+    appId:
+        "1:723940111430:web:50cb5685913167f0dc4647"
 
 };
 
 
-const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const app =
+    initializeApp(firebaseConfig);
 
 
+const auth =
+    getAuth(app);
+
+
+
+/* =========================
+   DOCUMENTS
+========================= */
 
 const documents = [
 
     {
-        name: "Commission structures updated - key",
-        link: "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+        name:
+            "Commission structures updated - key",
+
+        type:
+            "Google Sheets",
+
+        link:
+            "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
     }
 
 ];
 
 
 
-function loadDocuments() {
+/* =========================
+   LOAD DOCUMENTS
+========================= */
+
+function loadDocuments(list = documents) {
 
 
-    const list = document.getElementById("documentList");
+    const container =
+        document.getElementById("documentList");
 
 
-    documents.forEach(doc => {
+    const empty =
+        document.getElementById("emptyState");
 
 
-        const div = document.createElement("div");
+    const count =
+        document.getElementById("documentCount");
+
+
+    container.innerHTML = "";
+
+
+    count.textContent =
+        `${list.length} ${
+            list.length === 1
+                ? "document"
+                : "documents"
+        }`;
+
+
+    if (list.length === 0) {
+
+        empty.style.display = "block";
+
+        return;
+
+    }
+
+
+    empty.style.display = "none";
+
+
+    list.forEach((doc) => {
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "document";
 
 
         div.innerHTML = `
 
-            <a href="${doc.link}" target="_blank">
-                ${doc.name}
-            </a>
+            <div class="document-left">
+
+                <div class="document-icon">
+                    ▣
+                </div>
+
+
+                <div class="document-details">
+
+                    <div class="document-name">
+                        ${doc.name}
+                    </div>
+
+
+                    <div class="document-meta">
+
+                        <span>
+                            ${doc.type}
+                        </span>
+
+                        <span class="meta-dot"></span>
+
+                        <span>
+                            Available
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions">
+
+
+                <a
+                    class="button"
+                    href="${doc.link}"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Open
+
+                </a>
+
+
+                <button
+                    class="button email"
+                    type="button">
+
+                    Email
+
+                </button>
+
+
+            </div>
 
         `;
 
 
-        list.appendChild(div);
+        const emailButton =
+            div.querySelector(".email");
 
+
+        emailButton.addEventListener(
+            "click",
+            () => emailDocument(doc)
+        );
+
+
+        container.appendChild(div);
 
     });
-
 
 }
 
 
 
-onAuthStateChanged(auth, (user) => {
+/* =========================
+   SEARCH
+========================= */
+
+document
+    .getElementById("search")
+    .addEventListener(
+        "input",
+        function () {
+
+
+            const search =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const filtered =
+                documents.filter(
+                    doc =>
+                        doc.name
+                            .toLowerCase()
+                            .includes(search)
+                );
+
+
+            loadDocuments(filtered);
+
+        }
+    );
+
+
+
+/* =========================
+   EMAIL DOCUMENT
+========================= */
+
+function emailDocument(doc) {
+
+
+    const user =
+        auth.currentUser;
 
 
     if (!user) {
 
+        alert(
+            "Your session has expired. Please log in again."
+        );
 
-        window.location.href = "login.html";
-
+        return;
 
     }
-    else {
-
-    console.log("Logged in:", user.email);
 
 
-    const welcome = document.getElementById("welcomeMessage");
+    /*
+        At this stage the Firebase user's
+        email is used as the recipient.
+
+        We can later replace this with the
+        recipient stored against each document.
+    */
+
+    const recipient =
+        user.email;
 
 
-    const name = user.email
-        .split("@")[0]
-        .replace(".", " ");
+    const subject =
+        doc.name;
 
 
-    welcome.innerHTML = `
-        <h3>Welcome back, ${name}</h3>
-        <p>Logged in as ${user.email}</p>
-    `;
+    const body =
+`Hi,
+
+Please find the requested document at the link below:
+
+${doc.link}
+
+Kind regards,
+
+Sam`;
 
 
-    loadDocuments();
+    const mailto =
+        "mailto:" +
+        encodeURIComponent(recipient) +
+
+        "?subject=" +
+        encodeURIComponent(subject) +
+
+        "&body=" +
+        encodeURIComponent(body);
+
+
+    window.location.href =
+        mailto;
 
 }
 
-});
+
+
+/* =========================
+   AUTHENTICATION
+========================= */
+
+onAuthStateChanged(
+    auth,
+    (user) => {
+
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        console.log(
+            "Logged in:",
+            user.email
+        );
+
+
+        /*
+            Account email
+        */
+
+        document
+            .getElementById("userEmail")
+            .textContent =
+                user.email;
+
+
+        /*
+            Avatar
+        */
+
+        document
+            .getElementById("avatar")
+            .textContent =
+                user.email
+                    .charAt(0)
+                    .toUpperCase();
+
+
+        /*
+            Documents
+        */
+
+        loadDocuments();
+
+    }
+);
 
 
 
+/* =========================
+   LOGOUT
+========================= */
 
 document
-.getElementById("logoutBtn")
-.addEventListener("click", () => {
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        async () => {
 
 
-    signOut(auth)
-    .then(() => {
+            try {
 
+                await signOut(auth);
 
-        window.location.href = "login.html";
+                window.location.href =
+                    "login.html";
 
+            }
 
-    });
+            catch (error) {
 
+                console.error(
+                    "Logout failed:",
+                    error
+                );
 
-});
+                alert(
+                    "Unable to log out. Please try again."
+                );
 
+            }
+
+        }
+    );
 
 </script>
 
@@ -151,3 +1402,4 @@ document
 </body>
 
 </html>
+```
