@@ -1,119 +1,1074 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FRE Tools</title>
 
-  <link href="styles.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>FRE | Broker Search</title>
 
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0b1120;
+            --sidebar: #0f172a;
+            --panel: #111827;
+            --panel-hover: #172033;
+            --border: #1f2937;
+            --border-light: #273449;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --muted-dark: #64748b;
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
+        }
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 250px;
+
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 25px 16px;
+
+            z-index: 100;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            padding: 5px 12px 35px;
+        }
+
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+
+        .brand-dot {
+            color: var(--blue);
+        }
+
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.2px;
+
+            color: var(--muted-dark);
+
+            padding: 0 12px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .nav-item {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 11px 12px;
+
+            margin-bottom: 3px;
+
+            border-radius: 8px;
+
+            color: var(--muted);
+
+            font-size: 14px;
+            font-weight: 500;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s,
+                color 0.15s;
+        }
+
+
+        .nav-item:hover {
+            background: #172033;
+            color: var(--text);
+        }
+
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.14);
+            color: #60a5fa;
+        }
+
+
+        .nav-icon {
+            width: 20px;
+
+            display: flex;
+            justify-content: center;
+
+            font-size: 16px;
+        }
+
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+
+        .logout {
+            color: #f87171;
+        }
+
+
+        .logout:hover {
+            background: rgba(127, 29, 29, 0.25);
+            color: #fca5a5;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+            height: 72px;
+
+            background: var(--sidebar);
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 34px;
+        }
+
+
+        .topbar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+
+        .account {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+
+        .account-email {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            background: var(--blue);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            color: white;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            max-width: 1600px;
+
+            margin: 0 auto;
+
+            padding: 40px 38px 60px;
+        }
+
+
+        .page-header {
+            margin-bottom: 28px;
+        }
+
+
+        .page-title {
+            font-size: 30px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.7px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-subtitle {
+            font-size: 14px;
+
+            color: var(--muted);
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           TABLE PANEL
+        ========================= */
+
+        .table-panel {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 11px;
+
+            overflow: hidden;
+
+            padding: 20px;
+        }
+
+
+        .table-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 18px;
+        }
+
+
+        .table-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        .table-subtitle {
+            font-size: 12px;
+            color: var(--muted-dark);
+        }
+
+
+        /* =========================
+           DATATABLES
+        ========================= */
+
+        #myTable {
+            width: 100% !important;
+
+            color: var(--text);
+
+            border-collapse: collapse;
+        }
+
+
+        #myTable thead th {
+            background: #182234;
+
+            color: #cbd5e1;
+
+            border-bottom: 1px solid var(--border-light) !important;
+
+            padding: 12px 10px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+
+        #myTable tbody td {
+            background: var(--panel);
+
+            color: #cbd5e1;
+
+            border-bottom: 1px solid var(--border) !important;
+
+            padding: 11px 10px;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+
+        #myTable tbody tr:hover td {
+            background: var(--panel-hover);
+        }
+
+
+        #myTable tbody tr:last-child td {
+            border-bottom: none !important;
+        }
+
+
+        /* DataTables search */
+
+        .dataTables_wrapper {
+            color: var(--muted);
+        }
+
+
+        .dataTables_wrapper .dataTables_filter {
+            margin-bottom: 15px;
+        }
+
+
+        .dataTables_wrapper .dataTables_filter label {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+
+        .dataTables_wrapper .dataTables_filter input {
+            margin-left: 8px;
+
+            height: 36px;
+
+            padding: 0 10px;
+
+            background: #182234;
+
+            border: 1px solid var(--border-light);
+
+            border-radius: 6px;
+
+            color: var(--text);
+
+            outline: none;
+        }
+
+
+        .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: var(--blue);
+        }
+
+
+        /* DataTables pagination */
+
+        .dataTables_wrapper .dataTables_paginate {
+            margin-top: 15px;
+        }
+
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            color: var(--muted) !important;
+
+            border: 1px solid transparent !important;
+
+            background: transparent !important;
+
+            border-radius: 6px;
+
+            font-size: 12px;
+        }
+
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: #182234 !important;
+
+            border-color: var(--border-light) !important;
+
+            color: white !important;
+        }
+
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: var(--blue) !important;
+
+            border-color: var(--blue) !important;
+
+            color: white !important;
+        }
+
+
+        /* Info */
+
+        .dataTables_wrapper .dataTables_info {
+            color: var(--muted-dark);
+
+            font-size: 11px;
+
+            padding-top: 20px;
+        }
+
+
+        /* Length selector */
+
+        .dataTables_wrapper .dataTables_length {
+            color: var(--muted);
+
+            font-size: 12px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .dataTables_wrapper .dataTables_length select {
+            background: #182234;
+
+            border: 1px solid var(--border-light);
+
+            color: var(--text);
+
+            border-radius: 6px;
+
+            padding: 5px 25px 5px 8px;
+
+            margin: 0 5px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 68px;
+
+                padding: 20px 8px;
+            }
+
+
+            .brand {
+                justify-content: center;
+
+                padding: 5px 0 30px;
+            }
+
+
+            .brand-name {
+                font-size: 0;
+            }
+
+
+            .brand-name::before {
+                content: "F";
+
+                font-size: 22px;
+            }
+
+
+            .brand-dot {
+                display: none;
+            }
+
+
+            .nav-label {
+                display: none;
+            }
+
+
+            .nav-item {
+                justify-content: center;
+
+                padding: 12px 0;
+            }
+
+
+            .nav-item span:not(.nav-icon) {
+                display: none;
+            }
+
+
+            .main {
+                margin-left: 68px;
+            }
+
+
+            .content {
+                padding: 28px 20px 50px;
+            }
+
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+
+            .account-email {
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .page-title {
+                font-size: 25px;
+            }
+
+
+            .table-panel {
+                padding: 12px;
+            }
+
+
+            .table-header {
+                display: block;
+            }
+
+
+            .table-subtitle {
+                margin-top: 5px;
+            }
+
+
+            .dataTables_wrapper .dataTables_filter {
+                text-align: left;
+
+                margin-bottom: 12px;
+            }
+
+
+            .dataTables_wrapper .dataTables_filter input {
+                width: 100%;
+
+                margin: 7px 0 0;
+            }
+
+
+            #myTable {
+                font-size: 11px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-  <!-- Hamburger -->
-  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
 
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <h4 class="text-center mb-4">Menu</h4>
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-    <a href="index.html">Home</a>
-    <a href="https://www.pdf24.org/en/" target="_blank">PDF24</a>
-    <a href="extract.html">Extraction</a>
-    <a href="https://www.gov.uk/get-vehicle-information-from-dvla" target="_blank">DVLA Reg Check</a>
-    <a href="insolve.html">Insolvency Registers</a>
-    <a href="https://register.fca.org.uk/s/" target="_blank">FCA</a>
+<aside class="sidebar">
 
 
+    <div class="brand">
 
-    <hr class="bg-light mx-3">
+        <div class="brand-name">
+            FRE<span class="brand-dot">.</span>
+        </div>
 
-    <button id="darkModeToggle" class="btn btn-sm btn-secondary w-75 mx-auto d-block mt-3">
-      Dark Mode
-    </button>
-  </div>
-
-  <div class="container mt-5">
-    <h2>Broker Search</h2>
-
-    <table id="myTable" class="display" style="width:100%">
-      <thead>
-        <tr id="tableHeader"></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+    </div>
 
 
-  <!-- JavaScript -->
-    <script src="slinks.js"></script>
-  <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-    }
+    <div class="nav-section">
+
+        <div class="nav-label">
+            Workspace
+        </div>
 
 
-    window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
-});
+        <!-- Documents -->
 
-  </script>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <a
+            href="downloads.html"
+            class="nav-item">
 
-  <!-- DataTables JS -->
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+            <span class="nav-icon">
+                ▣
+            </span>
 
-  <!-- PapaParse -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+            <span>
+                Documents
+            </span>
 
-  <script>
-  fetch("BrokerSearchNew.csv")
+        </a>
+
+
+        <!-- Broker Search -->
+
+        <a
+            href="broker.html"
+            class="nav-item active">
+
+            <span class="nav-icon">
+                ⌕
+            </span>
+
+            <span>
+                Broker Search
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="nav-section">
+
+            <div class="nav-label">
+                Account
+            </div>
+
+
+            <div
+                class="nav-item logout"
+                id="logoutBtn">
+
+                <span class="nav-icon">
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div class="topbar-title">
+            FRE Broker Search
+        </div>
+
+
+        <div class="account">
+
+            <span
+                class="account-email"
+                id="userEmail">
+
+                Loading...
+
+            </span>
+
+
+            <div
+                class="avatar"
+                id="avatar">
+
+                ?
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- CONTENT -->
+
+    <section class="content">
+
+
+        <div class="page-header">
+
+            <h1 class="page-title">
+                Broker Search
+            </h1>
+
+            <p class="page-subtitle">
+                Search the FRE broker database.
+            </p>
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-panel">
+
+
+            <div class="table-header">
+
+                <div class="table-title">
+                    Broker Database
+                </div>
+
+
+                <div class="table-subtitle">
+                    FRE Tools
+                </div>
+
+            </div>
+
+
+            <table
+                id="myTable"
+                class="display"
+                style="width:100%">
+
+                <thead>
+
+                    <tr id="tableHeader"></tr>
+
+                </thead>
+
+                <tbody></tbody>
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     jQuery
+========================= -->
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+
+<!-- DataTables JS -->
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+<!-- PapaParse -->
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+
+
+<!-- =========================
+     BROKER SEARCH
+========================= -->
+
+<script>
+
+fetch("BrokerSearchNew.csv")
+
     .then(response => response.text())
+
     .then(csvText => {
 
-      Papa.parse(csvText, {
-        skipEmptyLines: true,
-        complete: function(results) {
+        Papa.parse(csvText, {
 
-          let rows = results.data;
+            skipEmptyLines: true,
 
-          // first row = headers
-          let headers = rows[0];
-          let dataRows = rows.slice(1);
+            complete: function(results) {
 
-          // Build header row
-          headers.forEach(h => {
-            $("#tableHeader").append("<th>" + h + "</th>");
-          });
+                let rows = results.data;
 
-          // Build table body
 
-          dataRows.forEach(row => {
-            let tr = "<tr>";
-            headers.forEach((h, i) => {
-              tr += "<td>" + (row[i] || "") + "</td>";
-            });
-            tr += "</tr>";
-            $("#myTable tbody").append(tr);
-          });
+                // first row = headers
 
-          // Init DataTable AFTER table is built
-          $("#myTable").DataTable({
-            pageLength: 100
-          });
+                let headers = rows[0];
 
-        }
-      });
+                let dataRows = rows.slice(1);
+
+
+
+                // Build header row
+
+                headers.forEach(h => {
+
+                    $("#tableHeader").append(
+                        "<th>" + h + "</th>"
+                    );
+
+                });
+
+
+
+                // Build table body
+
+                dataRows.forEach(row => {
+
+                    let tr = "<tr>";
+
+
+                    headers.forEach((h, i) => {
+
+                        tr +=
+                            "<td>" +
+                            (row[i] || "") +
+                            "</td>";
+
+                    });
+
+
+                    tr += "</tr>";
+
+
+                    $("#myTable tbody").append(tr);
+
+                });
+
+
+
+                // Init DataTable AFTER table is built
+
+                $("#myTable").DataTable({
+
+                    pageLength: 100
+
+                });
+
+            }
+
+        });
 
     });
-  </script>
+
+</script>
+
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+
+    authDomain:
+        "fre-tools.firebaseapp.com",
+
+    projectId:
+        "fre-tools",
+
+    storageBucket:
+        "fre-tools.firebasestorage.app",
+
+    messagingSenderId:
+        "723940111430",
+
+    appId:
+        "1:723940111430:web:50cb5685913167f0dc4647"
+
+};
+
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+
+/* =========================
+   AUTHENTICATION
+========================= */
+
+onAuthStateChanged(
+
+    auth,
+
+    async (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        console.log(
+            "Logged in:",
+            user.email
+        );
+
+
+        /*
+            Account email
+        */
+
+        document
+            .getElementById("userEmail")
+            .textContent =
+                user.email;
+
+
+        /*
+            Avatar
+        */
+
+        document
+            .getElementById("avatar")
+            .textContent =
+                user.email
+                    .charAt(0)
+                    .toUpperCase();
+
+    }
+
+);
+
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+
+        "click",
+
+        async () => {
+
+            try {
+
+                await signOut(auth);
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Logout failed:",
+                    error
+                );
+
+                alert(
+                    "Unable to log out. Please try again."
+                );
+
+            }
+
+        }
+
+    );
+
+
+
+</script>
+
 
 </body>
+
 </html>
