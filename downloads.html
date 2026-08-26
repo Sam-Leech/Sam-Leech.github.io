@@ -1049,22 +1049,35 @@ const auth =
 /* =========================
    DOCUMENTS
 ========================= */
+let documents = [];
 
-const documents = [
+async function loadDocumentsFromFile() {
 
-    {
-        name:
-            "Commission structures updated - key",
+    try {
 
-        type:
-            "Google Sheets",
+        const response = await fetch("documents.json");
 
-        link:
-            "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+        if (!response.ok) {
+            throw new Error("Unable to load documents");
+        }
+
+        documents = await response.json();
+
+        loadDocuments();
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("documentList").innerHTML = `
+            <div style="padding:25px;color:#f87171;">
+                Unable to load documents.
+            </div>
+        `;
+
     }
 
-];
-
+}
 
 
 /* =========================
@@ -1308,8 +1321,7 @@ Sam`;
 
 onAuthStateChanged(
     auth,
-    (user) => {
-
+    async (user) => {
 
         if (!user) {
 
@@ -1350,15 +1362,13 @@ onAuthStateChanged(
 
 
         /*
-            Documents
+            Load documents from documents.json
         */
 
-        loadDocuments();
+        await loadDocumentsFromFile();
 
     }
 );
-
-
 
 /* =========================
    LOGOUT
