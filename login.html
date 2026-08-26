@@ -1,100 +1,540 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>FRE Tools Login</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FRE | Login</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 100px;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
+
+
+        :root {
+            --bg: #0b1120;
+            --sidebar: #0f172a;
+            --panel: #111827;
+            --panel-hover: #172033;
+            --border: #1f2937;
+            --border-light: #273449;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --muted-dark: #64748b;
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
+        }
+
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+
+            background: var(--bg);
+
+            color: var(--text);
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+
+        /* =========================
+           LOGIN CONTAINER
+        ========================= */
+
+        .login-wrapper {
+            width: 100%;
+
+            max-width: 420px;
+        }
+
+
+        /* =========================
+           BRAND
+        ========================= */
+
+        .brand {
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+
+        .brand-name {
+            font-size: 32px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            color: var(--text);
+        }
+
+
+        .brand-dot {
+            color: var(--blue);
+        }
+
+
+        .brand-subtitle {
+            margin-top: 8px;
+
+            font-size: 13px;
+
+            color: var(--muted-dark);
+        }
+
+
+        /* =========================
+           LOGIN PANEL
+        ========================= */
+
+        .login-panel {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 11px;
+
+            padding: 32px;
+        }
+
+
+        .login-title {
+            font-size: 20px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+
+        .login-description {
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            color: var(--muted);
+
+            margin-bottom: 26px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+
+        .form-label {
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            color: var(--muted);
+
+            margin-bottom: 7px;
+        }
+
 
         input {
-            width: 250px;
-            padding: 10px;
-            margin: 5px;
+            width: 100%;
+
+            height: 44px;
+
+            padding: 0 13px;
+
+            background: #0f172a;
+
+            border: 1px solid var(--border-light);
+
+            border-radius: 7px;
+
+            outline: none;
+
+            color: var(--text);
+
+            font-size: 13px;
+
+            transition:
+                border 0.15s,
+                background 0.15s;
         }
 
-        button {
-            padding: 10px 20px;
-            cursor: pointer;
+
+        input::placeholder {
+            color: var(--muted-dark);
         }
+
+
+        input:focus {
+            border-color: var(--blue);
+
+            background: #111827;
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        #loginBtn {
+            width: 100%;
+
+            height: 44px;
+
+            margin-top: 5px;
+
+            border: 1px solid var(--blue);
+
+            border-radius: 7px;
+
+            background: var(--blue);
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s,
+                border 0.15s;
+        }
+
+
+        #loginBtn:hover {
+            background: var(--blue-dark);
+
+            border-color: var(--blue-dark);
+        }
+
+
+        #loginBtn:active {
+            transform: translateY(1px);
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        #message {
+            min-height: 18px;
+
+            margin-top: 16px;
+
+            text-align: center;
+
+            color: #f87171;
+
+            font-size: 12px;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: var(--muted-dark);
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 15px;
+            }
+
+
+            .login-panel {
+                padding: 25px 20px;
+            }
+
+
+            .brand-name {
+                font-size: 28px;
+            }
+
+        }
+
     </style>
+
 </head>
+
+
 <body>
 
-    <h1>FRE Tools Login</h1>
 
-    <input
-        type="email"
-        id="email"
-        placeholder="Email">
+<div class="login-wrapper">
 
-    <br>
 
-    <input
-        type="password"
-        id="password"
-        placeholder="Password">
+    <!-- =========================
+         BRAND
+    ========================= -->
 
-    <br><br>
+    <div class="brand">
 
-    <button id="loginBtn">
-        Login
-    </button>
+        <div class="brand-name">
+            FRE<span class="brand-dot">.</span>
+        </div>
 
-    <p id="message"></p>
+        <div class="brand-subtitle">
+            FRE Tools
+        </div>
 
-    <script type="module">
+    </div>
 
-        import { app }
-        from "./firebase-config.js";
 
-        import {
-            getAuth,
-            signInWithEmailAndPassword
-        }
-        from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-        const auth = getAuth(app);
+    <!-- =========================
+         LOGIN PANEL
+    ========================= -->
 
-        document
-            .getElementById("loginBtn")
-            .addEventListener("click", () => {
+    <div class="login-panel">
+
+
+        <div class="login-title">
+            Sign in
+        </div>
+
+
+        <div class="login-description">
+            Sign in to access the FRE Tools portal.
+        </div>
+
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="email">
+
+                Email
+
+            </label>
+
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email">
+
+        </div>
+
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="password">
+
+                Password
+
+            </label>
+
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password">
+
+        </div>
+
+
+
+        <!-- LOGIN -->
+
+        <button id="loginBtn">
+
+            Login
+
+        </button>
+
+
+        <p id="message"></p>
+
+
+    </div>
+
+
+
+    <div class="footer">
+        FRE Tools
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script type="module">
+
+    import { app }
+    from "./firebase-config.js";
+
+
+    import {
+        getAuth,
+        signInWithEmailAndPassword
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    const auth =
+        getAuth(app);
+
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    document
+        .getElementById("loginBtn")
+        .addEventListener(
+            "click",
+            () => {
+
 
                 const email =
-                    document.getElementById("email").value;
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
 
                 const password =
-                    document.getElementById("password").value;
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                const message =
+                    document
+                        .getElementById("message");
+
+
+                message.innerText = "";
+
+
+
+                if (!email || !password) {
+
+                    message.innerText =
+                        "Please enter your email and password.";
+
+                    return;
+
+                }
+
+
 
                 signInWithEmailAndPassword(
                     auth,
                     email,
                     password
                 )
+
                 .then(() => {
 
-                    document.getElementById("message")
-                        .innerText =
+                    message.style.color =
+                        "#10b981";
+
+                    message.innerText =
                         "Login successful";
+
 
                     window.location.href =
                         "downloads.html";
 
                 })
+
                 .catch(error => {
 
-                    document.getElementById("message")
-                        .innerText =
+                    message.style.color =
+                        "#f87171";
+
+
+                    message.innerText =
                         error.message;
 
                 });
 
-            });
+            }
+        );
 
-    </script>
+
+
+    /* =========================
+       ENTER KEY LOGIN
+    ========================= */
+
+    document
+        .getElementById("password")
+        .addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key === "Enter") {
+
+                    document
+                        .getElementById("loginBtn")
+                        .click();
+
+                }
+
+            }
+        );
+
+</script>
+
 
 </body>
+
 </html>
