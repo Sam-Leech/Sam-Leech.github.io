@@ -3,624 +3,572 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>FRE | Documents</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        :root {
-            --bg: #0b1120;
-            --sidebar: #0f172a;
-            --panel: #111827;
-            --panel-hover: #172033;
-            --border: #1f2937;
-            --border-light: #273449;
-            --text: #f8fafc;
-            --muted: #94a3b8;
-            --muted-dark: #64748b;
-            --blue: #3b82f6;
-            --blue-dark: #2563eb;
-        }
-
-        body {
-            font-family: Inter, Arial, Helvetica, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-        }
-
-        /* =========================
-           SIDEBAR
-        ========================= */
-
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 250px;
-            background: var(--sidebar);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 25px 16px;
-            z-index: 100;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            padding: 5px 12px 35px;
-        }
-
-        .brand-name {
-            font-size: 25px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .brand-dot {
-            color: var(--blue);
-        }
-
-        .nav-section {
-            margin-bottom: 25px;
-        }
-
-        .nav-label {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--muted-dark);
-            padding: 0 12px;
-            margin-bottom: 8px;
-        }
-
-        .nav-item {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 11px 12px;
-            margin-bottom: 3px;
-            border-radius: 8px;
-            color: var(--muted);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background 0.15s, color 0.15s;
-        }
-
-        .nav-item:hover {
-            background: #172033;
-            color: var(--text);
-        }
-
-        .nav-item.active {
-            background: rgba(59, 130, 246, 0.14);
-            color: #60a5fa;
-        }
-
-        .nav-icon {
-            width: 20px;
-            display: flex;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .sidebar-bottom {
-            margin-top: auto;
-        }
-
-        .logout {
-            color: #f87171;
-        }
-
-        .logout:hover {
-            background: rgba(127, 29, 29, 0.25);
-            color: #fca5a5;
-        }
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        .main {
-            margin-left: 250px;
-            min-height: 100vh;
-        }
-
-        /* =========================
-           TOP BAR
-        ========================= */
-
-        .topbar {
-            height: 72px;
-            background: var(--sidebar);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 34px;
-        }
-
-        .topbar-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--muted);
-        }
-
-        .account {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-        }
-
-        .account-email {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 700;
-            color: white;
-        }
-
-        /* =========================
-           CONTENT
-        ========================= */
-
-        .content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 38px 60px;
-        }
-
-        .page-header {
-            margin-bottom: 32px;
-        }
-
-        .page-title {
-            font-size: 30px;
-            font-weight: 700;
-            letter-spacing: -0.7px;
-            margin-bottom: 8px;
-        }
-
-        .page-subtitle {
-            font-size: 14px;
-            color: var(--muted);
-            line-height: 1.5;
-        }
-
-        /* =========================
-           SEARCH
-        ========================= */
-
-        .toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 18px;
-        }
-
-        .search-wrapper {
-            position: relative;
-            flex: 1;
-            max-width: 520px;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--muted-dark);
-            font-size: 15px;
-            pointer-events: none;
-        }
-
-        .search {
-            width: 100%;
-            height: 43px;
-            padding: 0 15px 0 40px;
-            background: var(--panel);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            outline: none;
-            color: var(--text);
-            font-size: 13px;
-        }
-
-        .search::placeholder {
-            color: var(--muted-dark);
-        }
-
-        .search:focus {
-            border-color: var(--blue);
-        }
-
-        .document-count {
-            font-size: 12px;
-            color: var(--muted-dark);
-        }
-
-        /* =========================
-           PANEL
-        ========================= */
-
-        .panel {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 11px;
-            overflow: hidden;
-        }
-
-        .panel-header {
-            height: 58px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .panel-title {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .panel-subtitle {
-            font-size: 12px;
-            color: var(--muted-dark);
-        }
-
-        /* =========================
-           DOCUMENT
-        ========================= */
-
-        .document {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 17px 20px;
-            border-bottom: 1px solid var(--border);
-            transition: background 0.15s;
-        }
-
-        .document:last-child {
-            border-bottom: none;
-        }
-
-        .document:hover {
-            background: var(--panel-hover);
-        }
-
-        .document-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
-        }
-
-        .document-icon {
-            width: 42px;
-            height: 42px;
-            flex-shrink: 0;
-            border-radius: 8px;
-            background: rgba(59, 130, 246, 0.12);
-            color: #60a5fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .document-details {
-            min-width: 0;
-        }
-
-        .document-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .document-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--muted-dark);
-            font-size: 11px;
-        }
-
-        .meta-dot {
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background: var(--muted-dark);
-        }
-
-        /* =========================
-           BUTTONS
-        ========================= */
-
-        .actions {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            flex-shrink: 0;
-        }
-
-        .button {
-            height: 34px;
-            padding: 0 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            border-radius: 6px;
-            border: 1px solid var(--border-light);
-            background: #182234;
-            color: #cbd5e1;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background 0.15s, border 0.15s;
-        }
-
-        .button:hover {
-            background: #243149;
-            border-color: #334155;
-            color: white;
-        }
-
-        .button.email {
-            background: var(--blue);
-            border-color: var(--blue);
-            color: white;
-        }
-
-        .button.email:hover {
-            background: var(--blue-dark);
-            border-color: var(--blue-dark);
-        }
-
-        /* =========================
-           FOLDERS
-        ========================= */
-
-        .folder {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .folder:last-child {
-            border-bottom: none;
-        }
-
-        .folder-header {
-            min-height: 68px;
-            padding: 13px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .folder-header:hover {
-            background: var(--panel-hover);
-        }
-
-        .folder-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
-        }
-
-        .folder-icon {
-            width: 42px;
-            height: 42px;
-            flex-shrink: 0;
-            border-radius: 8px;
-            background: rgba(245, 158, 11, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 19px;
-        }
-
-        .folder-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-
-        .folder-count {
-            font-size: 11px;
-            color: var(--muted-dark);
-        }
-
-        .folder-arrow {
-            font-size: 23px;
-            color: var(--muted-dark);
-            transition: transform 0.2s;
-        }
-
-        .folder-arrow.open {
-            transform: rotate(90deg);
-        }
-
-        .folder-contents {
-            display: none;
-            border-top: 1px solid var(--border);
-            background: rgba(0, 0, 0, 0.08);
-        }
-
-        .folder-contents.open {
-            display: block;
-        }
-
-        .folder-contents .document {
-            padding-left: 76px;
-        }
-
-        /* =========================
-           EMPTY
-        ========================= */
-
-        .empty {
-            padding: 70px 20px;
-            text-align: center;
-            color: var(--muted-dark);
-            display: none;
-        }
-
-        .empty-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-
-        .empty-title {
-            color: var(--muted);
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .empty-text {
-            font-size: 12px;
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 800px) {
-
-            .sidebar {
-                width: 68px;
-                padding: 20px 8px;
-            }
-
-            .brand {
-                justify-content: center;
-                padding: 5px 0 30px;
-            }
-
-            .brand-name {
-                font-size: 0;
-            }
-
-            .brand-name::before {
-                content: "F";
-                font-size: 22px;
-            }
-
-            .brand-dot {
-                display: none;
-            }
-
-            .nav-label {
-                display: none;
-            }
-
-            .nav-item {
-                justify-content: center;
-                padding: 12px 0;
-            }
-
-            .nav-item span:not(.nav-icon) {
-                display: none;
-            }
-
-            .main {
-                margin-left: 68px;
-            }
-
-            .content {
-                padding: 28px 20px 50px;
-            }
-
-            .topbar {
-                padding: 0 20px;
-            }
-
-            .account-email {
-                display: none;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .page-title {
-                font-size: 25px;
-            }
-
-            .toolbar {
-                display: block;
-            }
-
-            .search-wrapper {
-                max-width: none;
-                margin-bottom: 10px;
-            }
-
-            .document-count {
-                display: block;
-                padding-bottom: 5px;
-            }
-
-            .document {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .document-left {
-                width: 100%;
-            }
-
-            .actions {
-                width: 100%;
-            }
-
-            .button {
-                flex: 1;
-            }
-
-            .folder-contents .document {
-                padding-left: 20px;
-            }
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FRE | Documents</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #0b1120;
+    --sidebar: #0f172a;
+    --panel: #111827;
+    --panel-hover: #172033;
+    --border: #1f2937;
+    --border-light: #273449;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --muted-dark: #64748b;
+    --blue: #3b82f6;
+    --blue-dark: #2563eb;
+}
+
+body {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 25px 16px;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    padding: 5px 12px 35px;
+}
+
+.brand-name {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.brand-dot {
+    color: var(--blue);
+}
+
+.nav-section {
+    margin-bottom: 25px;
+}
+
+.nav-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--muted-dark);
+    padding: 0 12px;
+    margin-bottom: 8px;
+}
+
+.nav-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px;
+    margin-bottom: 3px;
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    background: #172033;
+    color: var(--text);
+}
+
+.nav-item.active {
+    background: rgba(59, 130, 246, 0.14);
+    color: #60a5fa;
+}
+
+.nav-icon {
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.logout {
+    color: #f87171;
+}
+
+.logout:hover {
+    background: rgba(127, 29, 29, 0.25);
+    color: #fca5a5;
+}
+
+
+/* MAIN */
+
+.main {
+    margin-left: 250px;
+    min-height: 100vh;
+}
+
+
+/* TOPBAR */
+
+.topbar {
+    height: 72px;
+    background: var(--sidebar);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 34px;
+}
+
+.topbar-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.account-email {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+}
+
+
+/* CONTENT */
+
+.content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 38px 60px;
+}
+
+.page-header {
+    margin-bottom: 32px;
+}
+
+.page-title {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    margin-bottom: 8px;
+}
+
+.page-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+
+/* SEARCH */
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 520px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-dark);
+    font-size: 15px;
+}
+
+.search {
+    width: 100%;
+    height: 43px;
+    padding: 0 15px 0 40px;
+    background: var(--panel);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    outline: none;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.search::placeholder {
+    color: var(--muted-dark);
+}
+
+.search:focus {
+    border-color: var(--blue);
+}
+
+.document-count {
+    font-size: 12px;
+    color: var(--muted-dark);
+}
+
+
+/* PANEL */
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+}
+
+.panel-header {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.panel-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.panel-subtitle {
+    font-size: 12px;
+    color: var(--muted-dark);
+}
+
+
+/* FOLDER */
+
+.folder {
+    border-bottom: 1px solid var(--border);
+}
+
+.folder:last-child {
+    border-bottom: none;
+}
+
+.folder-header {
+    min-height: 70px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.folder-header:hover {
+    background: var(--panel-hover);
+}
+
+.folder-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.folder-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: rgba(245, 158, 11, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+.folder-name {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.folder-count {
+    font-size: 11px;
+    color: var(--muted-dark);
+}
+
+.folder-arrow {
+    font-size: 24px;
+    color: var(--muted-dark);
+    transition: transform 0.2s;
+}
+
+.folder-arrow.open {
+    transform: rotate(90deg);
+}
+
+.folder-contents {
+    display: none;
+    border-top: 1px solid var(--border);
+}
+
+.folder-contents.open {
+    display: block;
+}
+
+
+/* DOCUMENT */
+
+.document {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 17px 20px 17px 76px;
+    border-bottom: 1px solid var(--border);
+}
+
+.document:last-child {
+    border-bottom: none;
+}
+
+.document:hover {
+    background: var(--panel-hover);
+}
+
+.document-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.document-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: rgba(59, 130, 246, 0.12);
+    color: #60a5fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.document-details {
+    min-width: 0;
+}
+
+.document-name {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.document-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted-dark);
+    font-size: 11px;
+}
+
+.meta-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--muted-dark);
+}
+
+
+/* BUTTONS */
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.button {
+    height: 34px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+    background: #182234;
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #243149;
+    color: white;
+}
+
+.button.email {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+}
+
+.button.email:hover {
+    background: var(--blue-dark);
+}
+
+
+/* EMPTY */
+
+.empty {
+    padding: 70px 20px;
+    text-align: center;
+    color: var(--muted-dark);
+    display: none;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 68px;
+        padding: 20px 8px;
+    }
+
+    .brand {
+        justify-content: center;
+        padding: 5px 0 30px;
+    }
+
+    .brand-name {
+        font-size: 0;
+    }
+
+    .brand-name::before {
+        content: "F";
+        font-size: 22px;
+    }
+
+    .brand-dot {
+        display: none;
+    }
+
+    .nav-label {
+        display: none;
+    }
+
+    .nav-item {
+        justify-content: center;
+        padding: 12px 0;
+    }
+
+    .nav-item span:not(.nav-icon) {
+        display: none;
+    }
+
+    .main {
+        margin-left: 68px;
+    }
+
+    .content {
+        padding: 28px 20px 50px;
+    }
+
+    .topbar {
+        padding: 0 20px;
+    }
+
+    .account-email {
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .page-title {
+        font-size: 25px;
+    }
+
+    .toolbar {
+        display: block;
+    }
+
+    .search-wrapper {
+        max-width: none;
+        margin-bottom: 10px;
+    }
+
+    .document {
+        padding-left: 20px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .actions {
+        width: 100%;
+    }
+
+    .button {
+        flex: 1;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -652,13 +600,9 @@
             href="downloads.html"
             class="nav-item">
 
-            <span class="nav-icon">
-                ▣
-            </span>
+            <span class="nav-icon">▣</span>
 
-            <span>
-                Documents
-            </span>
+            <span>Documents</span>
 
         </a>
 
@@ -667,13 +611,9 @@
             href="brokers.html"
             class="nav-item">
 
-            <span class="nav-icon">
-                ⌕
-            </span>
+            <span class="nav-icon">⌕</span>
 
-            <span>
-                Broker Search
-            </span>
+            <span>Broker Search</span>
 
         </a>
 
@@ -682,13 +622,9 @@
             href="extract.html"
             class="nav-item">
 
-            <span class="nav-icon">
-                ⇩
-            </span>
+            <span class="nav-icon">⇩</span>
 
-            <span>
-                FOS Extractor Tool
-            </span>
+            <span>FOS Extractor Tool</span>
 
         </a>
 
@@ -708,13 +644,9 @@
                 class="nav-item logout"
                 id="logoutBtn">
 
-                <span class="nav-icon">
-                    ↪
-                </span>
+                <span class="nav-icon">↪</span>
 
-                <span>
-                    Logout
-                </span>
+                <span>Logout</span>
 
             </div>
 
@@ -731,136 +663,117 @@
 <main class="main">
 
 
-    <!-- TOPBAR -->
+<header class="topbar">
 
-    <header class="topbar">
-
-        <div class="topbar-title">
-            FRE Documents
-        </div>
+    <div class="topbar-title">
+        FRE Documents
+    </div>
 
 
-        <div class="account">
+    <div class="account">
 
-            <span
-                class="account-email"
-                id="userEmail">
+        <span
+            class="account-email"
+            id="userEmail">
 
-                Loading...
+            Loading...
 
-            </span>
+        </span>
 
 
-            <div
-                class="avatar"
-                id="avatar">
+        <div
+            class="avatar"
+            id="avatar">
 
-                ?
-
-            </div>
+            ?
 
         </div>
 
-    </header>
+    </div>
+
+</header>
 
 
 
-    <!-- CONTENT -->
-
-    <section class="content">
+<section class="content">
 
 
-        <div class="page-header">
+<div class="page-header">
 
-            <h1 class="page-title">
-                Documents
-            </h1>
+    <h1 class="page-title">
+        Documents
+    </h1>
 
-            <p class="page-subtitle">
-                Access and manage your FRE documents.
-            </p>
+    <p class="page-subtitle">
+        Access and manage your FRE documents.
+    </p>
 
-        </div>
+</div>
 
 
 
-        <!-- SEARCH -->
+<div class="toolbar">
 
-        <div class="toolbar">
+    <div class="search-wrapper">
 
-            <div class="search-wrapper">
+        <span class="search-icon">
+            ⌕
+        </span>
 
-                <span class="search-icon">
-                    ⌕
-                </span>
+        <input
+            type="text"
+            id="search"
+            class="search"
+            placeholder="Search documents..."
+            autocomplete="off"
+        >
 
-                <input
-                    type="text"
-                    id="search"
-                    class="search"
-                    placeholder="Search documents..."
-                    autocomplete="off"
-                >
-
-            </div>
+    </div>
 
 
-            <div
-                class="document-count"
-                id="documentCount">
+    <div
+        class="document-count"
+        id="documentCount">
 
-                0 documents
+        0 documents
 
-            </div>
+    </div>
 
-        </div>
+</div>
 
 
 
-        <!-- DOCUMENT PANEL -->
-
-        <div class="panel">
+<div class="panel">
 
 
-            <div class="panel-header">
+<div class="panel-header">
 
-                <div class="panel-title">
-                    Available documents
-                </div>
+    <div class="panel-title">
+        Available documents
+    </div>
 
+    <div class="panel-subtitle">
+        FRE Portal
+    </div>
 
-                <div class="panel-subtitle">
-                    FRE Portal
-                </div>
-
-            </div>
-
-
-            <div id="documentList"></div>
+</div>
 
 
-            <div
-                class="empty"
-                id="emptyState">
-
-                <div class="empty-icon">
-                    ▱
-                </div>
-
-                <div class="empty-title">
-                    No documents found
-                </div>
-
-                <div class="empty-text">
-                    Try changing your search.
-                </div>
-
-            </div>
+<div id="documentList"></div>
 
 
-        </div>
+<div
+    class="empty"
+    id="emptyState">
 
-    </section>
+    No documents found.
+
+</div>
+
+
+</div>
+
+</section>
 
 </main>
 
@@ -871,11 +784,13 @@
 
 /* =====================================================
    FIREBASE
-   USE THE SAME CONFIG AS LOGIN.HTML
+   THIS IS LEFT THE SAME AS YOUR ORIGINAL DOWNLOADS PAGE
 ===================================================== */
 
-import { app }
-from "./firebase-config.js";
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 import {
@@ -883,10 +798,38 @@ import {
     onAuthStateChanged,
     signOut
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-const auth = getAuth(app);
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+
+    authDomain:
+        "fre-tools.firebaseapp.com",
+
+    projectId:
+        "fre-tools",
+
+    storageBucket:
+        "fre-tools.firebasestorage.app",
+
+    messagingSenderId:
+        "723940111430",
+
+    appId:
+        "1:723940111430:web:50cb5685913167f0dc4647"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
 
 
 
@@ -894,67 +837,56 @@ const auth = getAuth(app);
    DOCUMENTS
 ===================================================== */
 
-let documents = [];
+const documents = [
+
+    {
+        type: "folder",
+        name: "Logs",
+        items: [
+
+            {
+                type: "document",
+                name: "ULC Cases before 2007",
+                fileType: "Google Sheets",
+                link: "https://docs.google.com/spreadsheets/d/1rGZ5C7Ogon0Qc0vDPqU5I41kveJMNoC_/edit"
+            }
+
+        ]
+    },
 
 
+    {
+        type: "folder",
+        name: "Criteria",
+        items: [
 
-/* =====================================================
-   LOAD JSON
-===================================================== */
-
-async function loadDocumentsFromFile() {
-
-    try {
-
-        const response =
-            await fetch("documents.json");
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Unable to load documents.json"
-            );
-
-        }
+            {
+                type: "document",
+                name: "Commission structures updated - key",
+                fileType: "Google Sheets",
+                link: "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+            },
 
 
-        documents =
-            await response.json();
+            {
+                type: "document",
+                name: "Criteria and Upload Checklist",
+                fileType: "Google Sheets",
+                link: "https://docs.google.com/spreadsheets/d/1-1DkiOlZMGOEhoLg4Q2a17SaBpow8lBG/edit?usp=sharing&ouid=118442497962343945719&rtpof=true&sd=true"
+            },
 
 
-        loadDocuments();
+            {
+                type: "document",
+                name: "FOS DCA Criteria",
+                fileType: "PDF",
+                link: "https://drive.google.com/file/d/1V1aCY9u_hOVMD7LGClN_t8NV5m6UltrO/view?usp=sharing"
+            }
 
+        ]
     }
 
-    catch (error) {
-
-        console.error(
-            "Document loading error:",
-            error
-        );
-
-
-        document
-            .getElementById("documentList")
-            .innerHTML = `
-
-                <div
-                    style="
-                        padding:25px;
-                        color:#f87171;
-                    "
-                >
-
-                    Unable to load documents.
-
-                </div>
-
-            `;
-
-    }
-
-}
+];
 
 
 
@@ -966,17 +898,13 @@ function countDocuments(items) {
 
     let count = 0;
 
-
     items.forEach(item => {
 
-        if (
-            item.type === "document"
-        ) {
+        if (item.type === "document") {
 
             count++;
 
         }
-
 
         if (
             item.type === "folder" &&
@@ -984,14 +912,11 @@ function countDocuments(items) {
         ) {
 
             count +=
-                countDocuments(
-                    item.items
-                );
+                countDocuments(item.items);
 
         }
 
     });
-
 
     return count;
 
@@ -1000,55 +925,30 @@ function countDocuments(items) {
 
 
 /* =====================================================
-   DOCUMENT ICON
+   ESCAPE HTML
 ===================================================== */
 
-function getDocumentIcon(type) {
+function escapeHtml(value) {
 
-    if (!type) {
-
-        return "▣";
-
-    }
-
-
-    const value =
-        type.toLowerCase();
-
-
-    if (
-        value.includes("google sheets")
-    ) {
-
-        return "▦";
-
-    }
-
-
-    if (
-        value.includes("pdf")
-    ) {
-
-        return "▤";
-
-    }
-
-
-    return "▣";
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
 
 
 
 /* =====================================================
-   RENDER DOCUMENT
+   DOCUMENT
 ===================================================== */
 
-function renderDocument(doc) {
+function createDocument(doc) {
 
     const div =
         document.createElement("div");
-
 
     div.className =
         "document";
@@ -1060,9 +960,10 @@ function renderDocument(doc) {
 
             <div class="document-icon">
 
-                ${getDocumentIcon(
-                    doc.fileType
-                )}
+                ${doc.fileType === "PDF"
+                    ? "▤"
+                    : "▦"
+                }
 
             </div>
 
@@ -1071,9 +972,7 @@ function renderDocument(doc) {
 
                 <div class="document-name">
 
-                    ${escapeHtml(
-                        doc.name
-                    )}
+                    ${escapeHtml(doc.name)}
 
                 </div>
 
@@ -1081,17 +980,10 @@ function renderDocument(doc) {
                 <div class="document-meta">
 
                     <span>
-
-                        ${escapeHtml(
-                            doc.fileType ||
-                            "Document"
-                        )}
-
+                        ${escapeHtml(doc.fileType)}
                     </span>
 
-
                     <span class="meta-dot"></span>
-
 
                     <span>
                         Available
@@ -1110,8 +1002,7 @@ function renderDocument(doc) {
                 class="button"
                 href="${doc.link}"
                 target="_blank"
-                rel="noopener noreferrer"
-            >
+                rel="noopener noreferrer">
 
                 Open
 
@@ -1120,8 +1011,7 @@ function renderDocument(doc) {
 
             <button
                 class="button email"
-                type="button"
-            >
+                type="button">
 
                 Email
 
@@ -1147,34 +1037,13 @@ function renderDocument(doc) {
 
 
 /* =====================================================
-   ESCAPE HTML
+   FOLDER
 ===================================================== */
 
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-}
-
-
-
-/* =====================================================
-   RENDER FOLDER
-===================================================== */
-
-function renderFolder(
-    folder,
-    search = ""
-) {
+function createFolder(folder) {
 
     const wrapper =
         document.createElement("div");
-
 
     wrapper.className =
         "folder";
@@ -1183,15 +1052,12 @@ function renderFolder(
     const header =
         document.createElement("div");
 
-
     header.className =
         "folder-header";
 
 
-    const count =
-        countDocuments(
-            folder.items || []
-        );
+    const itemCount =
+        countDocuments(folder.items);
 
 
     header.innerHTML = `
@@ -1207,17 +1073,15 @@ function renderFolder(
 
                 <div class="folder-name">
 
-                    ${escapeHtml(
-                        folder.name
-                    )}
+                    ${escapeHtml(folder.name)}
 
                 </div>
 
 
                 <div class="folder-count">
 
-                    ${count}
-                    ${count === 1
+                    ${itemCount}
+                    ${itemCount === 1
                         ? " document"
                         : " documents"
                     }
@@ -1239,27 +1103,23 @@ function renderFolder(
     const contents =
         document.createElement("div");
 
-
     contents.className =
         "folder-contents";
 
 
-    if (search) {
+    folder.items.forEach(item => {
 
-        contents.classList.add(
-            "open"
-        );
+        if (
+            item.type === "document"
+        ) {
 
-
-        header
-            .querySelector(
-                ".folder-arrow"
-            )
-            .classList.add(
-                "open"
+            contents.appendChild(
+                createDocument(item)
             );
 
-    }
+        }
+
+    });
 
 
     header.addEventListener(
@@ -1283,44 +1143,9 @@ function renderFolder(
     );
 
 
-    (folder.items || [])
-        .forEach(item => {
+    wrapper.appendChild(header);
 
-            if (
-                item.type === "folder"
-            ) {
-
-                contents.appendChild(
-                    renderFolder(
-                        item,
-                        search
-                    )
-                );
-
-            }
-
-
-            else if (
-                item.type === "document"
-            ) {
-
-                contents.appendChild(
-                    renderDocument(item)
-                );
-
-            }
-
-        });
-
-
-    wrapper.appendChild(
-        header
-    );
-
-
-    wrapper.appendChild(
-        contents
-    );
+    wrapper.appendChild(contents);
 
 
     return wrapper;
@@ -1330,123 +1155,10 @@ function renderFolder(
 
 
 /* =====================================================
-   SEARCH
+   DISPLAY
 ===================================================== */
 
-function itemMatchesSearch(
-    item,
-    search
-) {
-
-    if (!search) {
-
-        return true;
-
-    }
-
-
-    if (
-        item.name &&
-        item.name
-            .toLowerCase()
-            .includes(search)
-    ) {
-
-        return true;
-
-    }
-
-
-    if (
-        item.fileType &&
-        item.fileType
-            .toLowerCase()
-            .includes(search)
-    ) {
-
-        return true;
-
-    }
-
-
-    if (
-        item.type === "folder" &&
-        Array.isArray(item.items)
-    ) {
-
-        return item.items.some(
-            child =>
-                itemMatchesSearch(
-                    child,
-                    search
-                )
-        );
-
-    }
-
-
-    return false;
-
-}
-
-
-
-function filterItems(
-    items,
-    search
-) {
-
-    if (!search) {
-
-        return items;
-
-    }
-
-
-    return items
-        .filter(
-            item =>
-                itemMatchesSearch(
-                    item,
-                    search
-                )
-        )
-        .map(item => {
-
-            if (
-                item.type === "folder"
-            ) {
-
-                return {
-
-                    ...item,
-
-                    items:
-                        filterItems(
-                            item.items || [],
-                            search
-                        )
-
-                };
-
-            }
-
-
-            return item;
-
-        });
-
-}
-
-
-
-/* =====================================================
-   DISPLAY DOCUMENTS
-===================================================== */
-
-function loadDocuments(
-    list = documents
-) {
+function loadDocuments(list) {
 
     const container =
         document.getElementById(
@@ -1460,7 +1172,7 @@ function loadDocuments(
         );
 
 
-    const countElement =
+    const count =
         document.getElementById(
             "documentCount"
         );
@@ -1473,7 +1185,7 @@ function loadDocuments(
         countDocuments(list);
 
 
-    countElement.textContent =
+    count.textContent =
         `${total} ${
             total === 1
                 ? "document"
@@ -1481,9 +1193,7 @@ function loadDocuments(
         }`;
 
 
-    if (
-        total === 0
-    ) {
+    if (total === 0) {
 
         empty.style.display =
             "block";
@@ -1497,14 +1207,6 @@ function loadDocuments(
         "none";
 
 
-    const search =
-        document
-            .getElementById("search")
-            .value
-            .trim()
-            .toLowerCase();
-
-
     list.forEach(item => {
 
         if (
@@ -1512,21 +1214,7 @@ function loadDocuments(
         ) {
 
             container.appendChild(
-                renderFolder(
-                    item,
-                    search
-                )
-            );
-
-        }
-
-
-        else if (
-            item.type === "document"
-        ) {
-
-            container.appendChild(
-                renderDocument(item)
+                createFolder(item)
             );
 
         }
@@ -1538,7 +1226,7 @@ function loadDocuments(
 
 
 /* =====================================================
-   SEARCH EVENT
+   SEARCH
 ===================================================== */
 
 document
@@ -1553,11 +1241,59 @@ document
                     .toLowerCase();
 
 
-            const filtered =
-                filterItems(
-                    documents,
-                    search
+            if (!search) {
+
+                loadDocuments(
+                    documents
                 );
+
+                return;
+
+            }
+
+
+            const filtered = [];
+
+
+            documents.forEach(folder => {
+
+                const matchingItems =
+                    folder.items.filter(
+                        doc =>
+                            doc.name
+                                .toLowerCase()
+                                .includes(search)
+                    );
+
+
+                if (
+                    folder.name
+                        .toLowerCase()
+                        .includes(search)
+                ) {
+
+                    filtered.push(
+                        folder
+                    );
+
+                }
+
+                else if (
+                    matchingItems.length
+                ) {
+
+                    filtered.push({
+
+                        ...folder,
+
+                        items:
+                            matchingItems
+
+                    });
+
+                }
+
+            });
 
 
             loadDocuments(
@@ -1634,29 +1370,17 @@ Sam`;
 
 /* =====================================================
    AUTHENTICATION
+   ORIGINAL SYSTEM
 ===================================================== */
 
 onAuthStateChanged(
     auth,
     async (user) => {
 
-        console.log(
-            "Firebase auth state:",
-            user
-        );
-
-
         if (!user) {
 
-            /*
-                IMPORTANT:
-                Only redirect to login when Firebase
-                has actually confirmed there is no user.
-            */
-
-            window.location.replace(
-                "login.html"
-            );
+            window.location.href =
+                "login.html";
 
             return;
 
@@ -1670,24 +1394,22 @@ onAuthStateChanged(
 
 
         document
-            .getElementById(
-                "userEmail"
-            )
+            .getElementById("userEmail")
             .textContent =
                 user.email;
 
 
         document
-            .getElementById(
-                "avatar"
-            )
+            .getElementById("avatar")
             .textContent =
                 user.email
                     .charAt(0)
                     .toUpperCase();
 
 
-        await loadDocumentsFromFile();
+        loadDocuments(
+            documents
+        );
 
     }
 );
@@ -1695,7 +1417,7 @@ onAuthStateChanged(
 
 
 /* =====================================================
-   ACTIVE NAVIGATION
+   ACTIVE SIDEBAR
 ===================================================== */
 
 const currentPage =
@@ -1743,14 +1465,11 @@ document
 
             try {
 
-                await signOut(
-                    auth
-                );
+                await signOut(auth);
 
 
-                window.location.replace(
-                    "index.html"
-                );
+                window.location.href =
+                    "index.html";
 
             }
 
