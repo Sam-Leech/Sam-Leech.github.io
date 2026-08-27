@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -584,6 +583,133 @@
 
 
         /* =========================
+           FOLDERS
+        ========================= */
+
+        .folder {
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        .folder:last-child {
+            border-bottom: none;
+        }
+
+
+        .folder-header {
+            min-height: 68px;
+
+            padding: 13px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            cursor: pointer;
+
+            transition: background 0.15s;
+        }
+
+
+        .folder-header:hover {
+            background: var(--panel-hover);
+        }
+
+
+        .folder-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            min-width: 0;
+        }
+
+
+        .folder-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            border-radius: 8px;
+
+            background: rgba(245, 158, 11, 0.12);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .folder-name {
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: var(--text);
+
+            margin-bottom: 4px;
+        }
+
+
+        .folder-count {
+            font-size: 11px;
+
+            color: var(--muted-dark);
+        }
+
+
+        .folder-arrow {
+            font-size: 23px;
+
+            color: var(--muted-dark);
+
+            transition: transform 0.2s;
+        }
+
+
+        .folder-arrow.open {
+            transform: rotate(90deg);
+        }
+
+
+        .folder-contents {
+            display: none;
+
+            border-top: 1px solid var(--border);
+
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+
+        .folder-contents.open {
+            display: block;
+        }
+
+
+        .folder-contents .document {
+            padding-left: 76px;
+        }
+
+
+        .folder-contents .folder {
+            margin-left: 20px;
+        }
+
+
+        .folder-contents .folder-header {
+            padding-left: 20px;
+        }
+
+
+        /* =========================
            EMPTY
         ========================= */
 
@@ -760,6 +886,16 @@
                 flex: 1;
             }
 
+
+            .folder-contents .document {
+                padding-left: 20px;
+            }
+
+
+            .folder-contents .folder {
+                margin-left: 10px;
+            }
+
         }
 
     </style>
@@ -788,59 +924,56 @@
 
     <div class="nav-section">
 
-    <div class="nav-label">
-        Workspace
-    </div>
+        <div class="nav-label">
+            Workspace
+        </div>
 
 
-    <!-- Documents -->
+        <a
+            href="downloads.html"
+            class="nav-item">
 
-    <a
-        href="downloads.html"
-          class="nav-item">
+            <span class="nav-icon">
+                ▣
+            </span>
 
-        <span class="nav-icon">
-            ▣
-        </span>
+            <span>
+                Documents
+            </span>
 
-        <span>
-            Documents
-        </span>
-
-    </a>
+        </a>
 
 
-    <!-- Broker Search -->
+        <a
+            href="brokers.html"
+            class="nav-item">
 
-    <a
-        href="brokers.html"
-        class="nav-item">
+            <span class="nav-icon">
+                ⌕
+            </span>
 
-        <span class="nav-icon">
-            ⌕
-        </span>
+            <span>
+                Broker Search
+            </span>
 
-        <span>
-            Broker Search
-        </span>
+        </a>
 
-    </a>  <a
-          href="extract.html"
-          class="nav-item">
 
-          <span class="nav-icon">
+        <a
+            href="extract.html"
+            class="nav-item">
+
+            <span class="nav-icon">
                 ⇩
-          </span>
+            </span>
 
-          <span>
-            FOS Extractor Tool
-          </span>
+            <span>
+                FOS Extractor Tool
+            </span>
 
-      </a>
+        </a>
 
-
-
-</div>
+    </div>
 
 
     <div class="sidebar-bottom">
@@ -882,8 +1015,6 @@
 <main class="main">
 
 
-    <!-- TOP BAR -->
-
     <header class="topbar">
 
         <div class="topbar-title">
@@ -916,8 +1047,6 @@
 
 
 
-    <!-- CONTENT -->
-
     <section class="content">
 
 
@@ -934,8 +1063,6 @@
         </div>
 
 
-
-        <!-- TOOLBAR -->
 
         <div class="toolbar">
 
@@ -970,8 +1097,6 @@
         </div>
 
 
-
-        <!-- DOCUMENT PANEL -->
 
         <div class="panel">
 
@@ -1047,11 +1172,10 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+        "AIzaSyAVqaht2BVQgVkZFcMZ3t34DQeA2uFYuU",
 
     authDomain:
         "fre-tools.firebaseapp.com",
@@ -1071,7 +1195,6 @@ const firebaseConfig = {
 };
 
 
-
 const app =
     initializeApp(firebaseConfig);
 
@@ -1084,164 +1207,641 @@ const auth =
 /* =========================
    DOCUMENTS
 ========================= */
+
 let documents = [];
 
-async function loadDocumentsFromFile() {
-
-    try {
-
-        const response = await fetch("documents.json");
-
-        if (!response.ok) {
-            throw new Error("Unable to load documents");
-        }
-
-        documents = await response.json();
-
-        loadDocuments();
-
-    } catch (error) {
-
-        console.error(error);
-
-        document.getElementById("documentList").innerHTML = `
-            <div style="padding:25px;color:#f87171;">
-                Unable to load documents.
-            </div>
-        `;
-
-    }
-
-}
 
 
 /* =========================
    LOAD DOCUMENTS
 ========================= */
 
-function loadDocuments(list = documents) {
+async function loadDocumentsFromFile() {
 
+    try {
+
+        const response =
+            await fetch("documents.json");
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load documents"
+            );
+
+        }
+
+
+        documents =
+            await response.json();
+
+
+        loadDocuments();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        document
+            .getElementById("documentList")
+            .innerHTML = `
+
+                <div
+                    style="
+                        padding:25px;
+                        color:#f87171;
+                    "
+                >
+
+                    Unable to load documents.
+
+                </div>
+
+            `;
+
+    }
+
+}
+
+
+
+/* =========================
+   COUNT DOCUMENTS
+========================= */
+
+function countDocuments(items) {
+
+    let count = 0;
+
+
+    items.forEach(item => {
+
+        if (
+            item.type === "document"
+        ) {
+
+            count++;
+
+        }
+
+
+        if (
+            item.type === "folder" &&
+            item.items
+        ) {
+
+            count +=
+                countDocuments(
+                    item.items
+                );
+
+        }
+
+    });
+
+
+    return count;
+
+}
+
+
+
+/* =========================
+   DOCUMENT ICON
+========================= */
+
+function getDocumentIcon(fileType) {
+
+    if (!fileType) {
+
+        return "▣";
+
+    }
+
+
+    const type =
+        fileType.toLowerCase();
+
+
+    if (
+        type.includes("google sheets")
+    ) {
+
+        return "▦";
+
+    }
+
+
+    if (
+        type.includes("pdf")
+    ) {
+
+        return "▤";
+
+    }
+
+
+    if (
+        type.includes("word")
+    ) {
+
+        return "▤";
+
+    }
+
+
+    return "▣";
+
+}
+
+
+
+/* =========================
+   RENDER DOCUMENT
+========================= */
+
+function renderDocument(doc) {
+
+    const div =
+        document.createElement("div");
+
+
+    div.className =
+        "document";
+
+
+    div.innerHTML = `
+
+        <div class="document-left">
+
+            <div class="document-icon">
+
+                ${getDocumentIcon(
+                    doc.fileType
+                )}
+
+            </div>
+
+
+            <div class="document-details">
+
+                <div class="document-name">
+
+                    ${doc.name}
+
+                </div>
+
+
+                <div class="document-meta">
+
+                    <span>
+
+                        ${doc.fileType || "Document"}
+
+                    </span>
+
+
+                    <span class="meta-dot"></span>
+
+
+                    <span>
+
+                        Available
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <a
+                class="button"
+                href="${doc.link}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                Open
+
+            </a>
+
+
+            <button
+                class="button email"
+                type="button"
+            >
+
+                Email
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    const emailButton =
+        div.querySelector(".email");
+
+
+    emailButton.addEventListener(
+        "click",
+        () => emailDocument(doc)
+    );
+
+
+    return div;
+
+}
+
+
+
+/* =========================
+   RENDER FOLDER
+========================= */
+
+function renderFolder(
+    folder,
+    search = ""
+) {
+
+    const wrapper =
+        document.createElement("div");
+
+
+    wrapper.className =
+        "folder";
+
+
+    const folderHeader =
+        document.createElement("div");
+
+
+    folderHeader.className =
+        "folder-header";
+
+
+    const folderDocuments =
+        countDocuments(
+            folder.items || []
+        );
+
+
+    folderHeader.innerHTML = `
+
+        <div class="folder-left">
+
+            <div class="folder-icon">
+                📁
+            </div>
+
+
+            <div>
+
+                <div class="folder-name">
+
+                    ${folder.name}
+
+                </div>
+
+
+                <div class="folder-count">
+
+                    ${folderDocuments}
+
+                    ${
+                        folderDocuments === 1
+                            ? " document"
+                            : " documents"
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="folder-arrow">
+
+            ›
+
+        </div>
+
+    `;
+
+
+    const contents =
+        document.createElement("div");
+
+
+    contents.className =
+        "folder-contents";
+
+
+    if (search) {
+
+        contents.classList.add(
+            "open"
+        );
+
+
+        folderHeader
+            .querySelector(
+                ".folder-arrow"
+            )
+            .classList.add(
+                "open"
+            );
+
+    }
+
+
+    folderHeader.addEventListener(
+        "click",
+        () => {
+
+            contents.classList.toggle(
+                "open"
+            );
+
+
+            folderHeader
+                .querySelector(
+                    ".folder-arrow"
+                )
+                .classList.toggle(
+                    "open"
+                );
+
+        }
+    );
+
+
+    const items =
+        folder.items || [];
+
+
+    items.forEach(item => {
+
+        if (
+            item.type === "folder"
+        ) {
+
+            contents.appendChild(
+                renderFolder(
+                    item,
+                    search
+                )
+            );
+
+        }
+
+
+        else if (
+            item.type === "document"
+        ) {
+
+            contents.appendChild(
+                renderDocument(item)
+            );
+
+        }
+
+    });
+
+
+    wrapper.appendChild(
+        folderHeader
+    );
+
+
+    wrapper.appendChild(
+        contents
+    );
+
+
+    return wrapper;
+
+}
+
+
+
+/* =========================
+   SEARCH MATCH
+========================= */
+
+function itemMatchesSearch(
+    item,
+    search
+) {
+
+    if (!search) {
+
+        return true;
+
+    }
+
+
+    if (
+        item.name &&
+        item.name
+            .toLowerCase()
+            .includes(search)
+    ) {
+
+        return true;
+
+    }
+
+
+    if (
+        item.fileType &&
+        item.fileType
+            .toLowerCase()
+            .includes(search)
+    ) {
+
+        return true;
+
+    }
+
+
+    if (
+        item.type === "folder" &&
+        item.items
+    ) {
+
+        return item.items.some(
+            child =>
+                itemMatchesSearch(
+                    child,
+                    search
+                )
+        );
+
+    }
+
+
+    return false;
+
+}
+
+
+
+/* =========================
+   FILTER TREE
+========================= */
+
+function filterItems(
+    items,
+    search
+) {
+
+    if (!search) {
+
+        return items;
+
+    }
+
+
+    return items
+        .filter(
+            item =>
+                itemMatchesSearch(
+                    item,
+                    search
+                )
+        )
+        .map(item => {
+
+            if (
+                item.type === "folder" &&
+                item.items
+            ) {
+
+                return {
+
+                    ...item,
+
+                    items:
+                        filterItems(
+                            item.items,
+                            search
+                        )
+
+                };
+
+            }
+
+
+            return item;
+
+        });
+
+}
+
+
+
+/* =========================
+   LOAD / RENDER
+========================= */
+
+function loadDocuments(
+    list = documents
+) {
 
     const container =
-        document.getElementById("documentList");
+        document.getElementById(
+            "documentList"
+        );
 
 
     const empty =
-        document.getElementById("emptyState");
+        document.getElementById(
+            "emptyState"
+        );
 
 
     const count =
-        document.getElementById("documentCount");
+        document.getElementById(
+            "documentCount"
+        );
 
 
     container.innerHTML = "";
 
 
+    const total =
+        countDocuments(list);
+
+
     count.textContent =
-        `${list.length} ${
-            list.length === 1
+        `${total} ${
+            total === 1
                 ? "document"
                 : "documents"
         }`;
 
 
-    if (list.length === 0) {
+    if (
+        total === 0
+    ) {
 
-        empty.style.display = "block";
+        empty.style.display =
+            "block";
 
         return;
 
     }
 
 
-    empty.style.display = "none";
+    empty.style.display =
+        "none";
 
 
-    list.forEach((doc) => {
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .trim()
+            .toLowerCase();
 
 
-        const div =
-            document.createElement("div");
+    list.forEach(item => {
+
+        if (
+            item.type === "folder"
+        ) {
+
+            container.appendChild(
+                renderFolder(
+                    item,
+                    search
+                )
+            );
+
+        }
 
 
-        div.className =
-            "document";
+        else if (
+            item.type === "document"
+        ) {
 
+            container.appendChild(
+                renderDocument(item)
+            );
 
-        div.innerHTML = `
-
-            <div class="document-left">
-
-                <div class="document-icon">
-                    ▣
-                </div>
-
-
-                <div class="document-details">
-
-                    <div class="document-name">
-                        ${doc.name}
-                    </div>
-
-
-                    <div class="document-meta">
-
-                        <span>
-                            ${doc.type}
-                        </span>
-
-                        <span class="meta-dot"></span>
-
-                        <span>
-                            Available
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="actions">
-
-
-                <a
-                    class="button"
-                    href="${doc.link}"
-                    target="_blank"
-                    rel="noopener noreferrer">
-
-                    Open
-
-                </a>
-
-
-                <button
-                    class="button email"
-                    type="button">
-
-                    Email
-
-                </button>
-
-
-            </div>
-
-        `;
-
-
-        const emailButton =
-            div.querySelector(".email");
-
-
-        emailButton.addEventListener(
-            "click",
-            () => emailDocument(doc)
-        );
-
-
-        container.appendChild(div);
+        }
 
     });
 
@@ -1259,7 +1859,6 @@ document
         "input",
         function () {
 
-
             const search =
                 this.value
                     .trim()
@@ -1267,15 +1866,15 @@ document
 
 
             const filtered =
-                documents.filter(
-                    doc =>
-                        doc.name
-                            .toLowerCase()
-                            .includes(search)
+                filterItems(
+                    documents,
+                    search
                 );
 
 
-            loadDocuments(filtered);
+            loadDocuments(
+                filtered
+            );
 
         }
     );
@@ -1287,7 +1886,6 @@ document
 ========================= */
 
 function emailDocument(doc) {
-
 
     const user =
         auth.currentUser;
@@ -1303,14 +1901,6 @@ function emailDocument(doc) {
 
     }
 
-
-    /*
-        At this stage the Firebase user's
-        email is used as the recipient.
-
-        We can later replace this with the
-        recipient stored against each document.
-    */
 
     const recipient =
         user.email;
@@ -1334,13 +1924,19 @@ Sam`;
 
     const mailto =
         "mailto:" +
-        encodeURIComponent(recipient) +
+        encodeURIComponent(
+            recipient
+        ) +
 
         "?subject=" +
-        encodeURIComponent(subject) +
+        encodeURIComponent(
+            subject
+        ) +
 
         "&body=" +
-        encodeURIComponent(body);
+        encodeURIComponent(
+            body
+        );
 
 
     window.location.href =
@@ -1374,31 +1970,23 @@ onAuthStateChanged(
         );
 
 
-        /*
-            Account email
-        */
-
         document
-            .getElementById("userEmail")
+            .getElementById(
+                "userEmail"
+            )
             .textContent =
                 user.email;
 
 
-        /*
-            Avatar
-        */
-
         document
-            .getElementById("avatar")
+            .getElementById(
+                "avatar"
+            )
             .textContent =
                 user.email
                     .charAt(0)
                     .toUpperCase();
 
-
-        /*
-            Load documents from documents.json
-        */
 
         await loadDocumentsFromFile();
 
@@ -1423,33 +2011,45 @@ document
     .forEach(link => {
 
         const linkPage =
-            link.getAttribute("href")
+            link
+                .getAttribute("href")
                 ?.split("/")
                 .pop()
                 .toLowerCase();
 
 
-        if (linkPage === currentPage) {
+        if (
+            linkPage === currentPage
+        ) {
 
-            link.classList.add("active");
+            link.classList.add(
+                "active"
+            );
 
         }
 
     });
+
+
+
 /* =========================
    LOGOUT
 ========================= */
 
 document
-    .getElementById("logoutBtn")
+    .getElementById(
+        "logoutBtn"
+    )
     .addEventListener(
         "click",
         async () => {
 
-
             try {
 
-                await signOut(auth);
+                await signOut(
+                    auth
+                );
+
 
                 window.location.href =
                     "index.html";
@@ -1462,6 +2062,7 @@ document
                     "Logout failed:",
                     error
                 );
+
 
                 alert(
                     "Unable to log out. Please try again."
@@ -1478,4 +2079,3 @@ document
 </body>
 
 </html>
-```
