@@ -1,44 +1,44 @@
-{
-  "type": "folder",
-  "name": "Logs",
-  "items": [
-    {
-      "type": "document",
-      "fileType": "Google Sheets",
-      "name": "ULC Cases before 2007",
-      "link": "https://docs.google.com/spreadsheets/d/1rGZ5C7Ogon0Qc0vDPqU5I41kveJMNoC_/edit"
-    },
-    {
-      "type": "document",
-      "fileType": "Google Sheets",
-      "name": "Min APR Log",
-      "link": "https://docs.google.com/spreadsheets/d/1O9dolGPRFM4HTQVCXA8PANpMnRjGxGzT/edit?usp=sharing&ouid=118442497962343945719&rtpof=true&sd=true"
-    }
-  ]
-}
-    },
-    {
-        "type": "folder",
-        "name": "Criteria",
-        "items": [
-            {
-                "type": "document",
-                "fileType": "Google Sheets",
-                "name": "Commission structures updated - key",
-                "link": "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
-            },
-            {
-                "type": "document",
-                "fileType": "Google Sheets",
-                "name": "Criteria and Upload Checklist",
-                "link": "https://docs.google.com/spreadsheets/d/1-1DkiOlZMGOEhoLg4Q2a17SaBpow8lBG/edit?usp=sharing&ouid=118442497962343945719&rtpof=true&sd=true"
-            }
-        ]
-    },
-    {
+[
+  {
+    "type": "folder",
+    "name": "Logs",
+    "items": [
+      {
+        "type": "document",
+        "fileType": "Google Sheets",
+        "name": "ULC Cases before 2007",
+        "link": "https://docs.google.com/spreadsheets/d/1rGZ5C7Ogon0Qc0vDPqU5I41kveJMNoC_/edit"
+      },
+      {
+        "type": "document",
+        "fileType": "Google Sheets",
+        "name": "Min APR Log",
+        "link": "https://docs.google.com/spreadsheets/d/1O9dolGPRFM4HTQVCXA8PANpMnRjGxGzT/edit"
+      }
+    ]
+  },
+  {
+    "type": "folder",
+    "name": "Criteria",
+    "items": [
+      {
+        "type": "document",
+        "fileType": "Google Sheets",
+        "name": "Commission structures updated - key",
+        "link": "https://docs.google.com/spreadsheets/d/1G_ykIwzw5kVfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+      },
+      {
+        "type": "document",
+        "fileType": "Google Sheets",
+        "name": "Criteria and Upload Checklist",
+        "link": "https://docs.google.com/spreadsheets/d/1-1DkiOlZMGOEhoLg4Q2a17SaBpow8lBG/edit?usp=sharing&ouid=118442497962343945719&rtpof=true&sd=true"
+      },
+      {
         "type": "document",
         "fileType": "PDF",
         "name": "FOS DCA Criteria",
         "link": "https://drive.google.com/file/d/1V1aCY9u_hOVMD7LGClN_t8NV5m6UltrO/view?usp=sharing"
-    }
+      }
+    ]
+  }
 ]
