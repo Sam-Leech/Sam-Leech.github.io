@@ -16,12 +16,9 @@
             padding: 0;
         }
 
-
         :root {
             --bg: #0b1120;
-            --sidebar: #0f172a;
             --panel: #111827;
-            --panel-hover: #172033;
             --border: #1f2937;
             --border-light: #273449;
             --text: #f8fafc;
@@ -31,264 +28,128 @@
             --blue-dark: #2563eb;
         }
 
-
         body {
             font-family: Inter, Arial, Helvetica, sans-serif;
-
             background: var(--bg);
-
             color: var(--text);
-
             min-height: 100vh;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             padding: 20px;
         }
 
-
-        /* =========================
-           LOGIN CONTAINER
-        ========================= */
-
         .login-wrapper {
             width: 100%;
-
             max-width: 420px;
         }
 
-
-        /* =========================
-           BRAND
-        ========================= */
-
         .brand {
             text-align: center;
-
             margin-bottom: 28px;
         }
 
-
         .brand-name {
             font-size: 32px;
-
             font-weight: 800;
-
             letter-spacing: -1px;
-
-            color: var(--text);
         }
-
 
         .brand-dot {
             color: var(--blue);
         }
 
-
         .brand-subtitle {
             margin-top: 8px;
-
             font-size: 13px;
-
             color: var(--muted-dark);
         }
 
-
-        /* =========================
-           LOGIN PANEL
-        ========================= */
-
         .login-panel {
             background: var(--panel);
-
             border: 1px solid var(--border);
-
             border-radius: 11px;
-
             padding: 32px;
         }
 
-
         .login-title {
             font-size: 20px;
-
             font-weight: 700;
-
             margin-bottom: 7px;
         }
 
-
         .login-description {
             font-size: 13px;
-
             line-height: 1.5;
-
             color: var(--muted);
-
             margin-bottom: 26px;
         }
-
-
-        /* =========================
-           FORM
-        ========================= */
 
         .form-group {
             margin-bottom: 17px;
         }
 
-
         .form-label {
             display: block;
-
             font-size: 11px;
-
             font-weight: 600;
-
             color: var(--muted);
-
             margin-bottom: 7px;
         }
 
-
         input {
             width: 100%;
-
             height: 44px;
-
             padding: 0 13px;
-
             background: #0f172a;
-
             border: 1px solid var(--border-light);
-
             border-radius: 7px;
-
             outline: none;
-
             color: var(--text);
-
             font-size: 13px;
-
-            transition:
-                border 0.15s,
-                background 0.15s;
         }
-
-
-        input::placeholder {
-            color: var(--muted-dark);
-        }
-
 
         input:focus {
             border-color: var(--blue);
-
             background: #111827;
         }
 
-
-        /* =========================
-           LOGIN BUTTON
-        ========================= */
-
         #loginBtn {
             width: 100%;
-
             height: 44px;
-
             margin-top: 5px;
-
             border: 1px solid var(--blue);
-
             border-radius: 7px;
-
             background: var(--blue);
-
             color: white;
-
             font-size: 13px;
-
             font-weight: 600;
-
             cursor: pointer;
-
-            transition:
-                background 0.15s,
-                border 0.15s;
         }
-
 
         #loginBtn:hover {
             background: var(--blue-dark);
-
-            border-color: var(--blue-dark);
         }
 
-
-        #loginBtn:active {
-            transform: translateY(1px);
+        #loginBtn:disabled {
+            opacity: 0.6;
+            cursor: wait;
         }
-
-
-        /* =========================
-           MESSAGE
-        ========================= */
 
         #message {
             min-height: 18px;
-
             margin-top: 16px;
-
             text-align: center;
-
             color: #f87171;
-
             font-size: 12px;
-
             line-height: 1.4;
         }
 
-
-        /* =========================
-           FOOTER
-        ========================= */
-
         .footer {
             text-align: center;
-
             margin-top: 22px;
-
             color: var(--muted-dark);
-
             font-size: 11px;
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 500px) {
-
-            body {
-                padding: 15px;
-            }
-
-
-            .login-panel {
-                padding: 25px 20px;
-            }
-
-
-            .brand-name {
-                font-size: 28px;
-            }
-
         }
 
     </style>
@@ -301,10 +162,6 @@
 
 <div class="login-wrapper">
 
-
-    <!-- =========================
-         BRAND
-    ========================= -->
 
     <div class="brand">
 
@@ -319,11 +176,6 @@
     </div>
 
 
-
-    <!-- =========================
-         LOGIN PANEL
-    ========================= -->
-
     <div class="login-panel">
 
 
@@ -337,9 +189,6 @@
         </div>
 
 
-
-        <!-- EMAIL -->
-
         <div class="form-group">
 
             <label
@@ -350,18 +199,15 @@
 
             </label>
 
-
             <input
                 type="email"
                 id="email"
                 placeholder="Enter your email"
-                autocomplete="email">
+                autocomplete="email"
+            >
 
         </div>
 
-
-
-        <!-- PASSWORD -->
 
         <div class="form-group">
 
@@ -373,18 +219,15 @@
 
             </label>
 
-
             <input
                 type="password"
                 id="password"
                 placeholder="Enter your password"
-                autocomplete="current-password">
+                autocomplete="current-password"
+            >
 
         </div>
 
-
-
-        <!-- LOGIN -->
 
         <button id="loginBtn">
 
@@ -399,7 +242,6 @@
     </div>
 
 
-
     <div class="footer">
         FRE Tools
     </div>
@@ -409,128 +251,243 @@
 
 
 
-<!-- =========================
-     FIREBASE
-========================= -->
-
 <script type="module">
 
-    import { app }
-    from "./firebase-config.js";
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import { app }
+from "./firebase-config.js";
 
 
-    import {
-        getAuth,
-        signInWithEmailAndPassword
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+const auth =
+    getAuth(app);
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const emailInput =
+    document.getElementById("email");
+
+const passwordInput =
+    document.getElementById("password");
+
+const loginButton =
+    document.getElementById("loginBtn");
+
+const message =
+    document.getElementById("message");
+
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function login() {
+
+    const email =
+        emailInput.value.trim();
+
+    const password =
+        passwordInput.value;
+
+
+    message.innerText = "";
+
+
+    if (!email || !password) {
+
+        message.style.color =
+            "#f87171";
+
+        message.innerText =
+            "Please enter your email and password.";
+
+        return;
+
     }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-    const auth =
-        getAuth(app);
+    loginButton.disabled = true;
+
+    loginButton.innerText =
+        "Signing in...";
 
 
+    try {
 
-    /* =========================
-       LOGIN
-    ========================= */
+        /*
+            Sign into Firebase.
+        */
 
-    document
-        .getElementById("loginBtn")
-        .addEventListener(
-            "click",
-            () => {
-
-
-                const email =
-                    document
-                        .getElementById("email")
-                        .value
-                        .trim();
+        const result =
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
 
-                const password =
-                    document
-                        .getElementById("password")
-                        .value;
-
-
-                const message =
-                    document
-                        .getElementById("message");
-
-
-                message.innerText = "";
-
-
-
-                if (!email || !password) {
-
-                    message.innerText =
-                        "Please enter your email and password.";
-
-                    return;
-
-                }
-
-
-
-                signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                )
-
-                .then(() => {
-
-                    message.style.color =
-                        "#10b981";
-
-                    message.innerText =
-                        "Login successful";
-
-
-                    window.location.href =
-                        "downloads.html";
-
-                })
-
-                .catch(error => {
-
-                    message.style.color =
-                        "#f87171";
-
-
-                    message.innerText =
-                        error.message;
-
-                });
-
-            }
+        console.log(
+            "LOGIN SUCCESS:",
+            result.user.email
         );
 
 
+        message.style.color =
+            "#10b981";
 
-    /* =========================
-       ENTER KEY LOGIN
-    ========================= */
+        message.innerText =
+            "Login successful.";
 
-    document
-        .getElementById("password")
-        .addEventListener(
-            "keydown",
-            event => {
 
-                if (event.key === "Enter") {
+        /*
+            Give Firebase a moment to persist
+            the authentication state before
+            moving to the protected page.
+        */
 
-                    document
-                        .getElementById("loginBtn")
-                        .click();
+        await result.user.reload();
 
-                }
 
-            }
+        window.location.replace(
+            "downloads.html"
         );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "LOGIN ERROR:",
+            error
+        );
+
+
+        message.style.color =
+            "#f87171";
+
+
+        /*
+            Show useful Firebase error.
+        */
+
+        switch (error.code) {
+
+            case "auth/invalid-credential":
+
+                message.innerText =
+                    "Incorrect email or password.";
+
+                break;
+
+
+            case "auth/invalid-email":
+
+                message.innerText =
+                    "Please enter a valid email address.";
+
+                break;
+
+
+            case "auth/user-disabled":
+
+                message.innerText =
+                    "This account has been disabled.";
+
+                break;
+
+
+            case "auth/too-many-requests":
+
+                message.innerText =
+                    "Too many attempts. Please try again later.";
+
+                break;
+
+
+            default:
+
+                message.innerText =
+                    error.message;
+
+        }
+
+
+        loginButton.disabled = false;
+
+        loginButton.innerText =
+            "Login";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+loginButton.addEventListener(
+    "click",
+    login
+);
+
+
+
+/* =====================================================
+   ENTER KEY
+===================================================== */
+
+passwordInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            login();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    user => {
+
+        console.log(
+            "AUTH STATE:",
+            user
+                ? user.email
+                : "NO USER"
+        );
+
+    }
+);
 
 </script>
 
