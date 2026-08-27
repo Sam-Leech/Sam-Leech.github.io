@@ -1,12 +1,40 @@
-[
+
     {
-        "name": "Commission structures updated - key",
-        "type": "Google Sheets",
-        "link": "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+        "type": "folder",
+        "name": "Logs",
+        "items": [
+
+          {
+              "type": "document",
+              "name": "ULC Cases before 2007",
+              "type": "Google Sheets",
+              "link": "https://docs.google.com/spreadsheets/d/1rGZ5C7Ogon0Qc0vDPqU5I41kveJMNoC_/edit"
+          }
+        ]
     },
     {
-        "name": "ULC Cases before 2007",
-        "type": "Google Sheets",
-        "link": "https://docs.google.com/spreadsheets/d/1rGZ5C7Ogon0Qc0vDPqU5I41kveJMNoC_/edit"
+        "type": "folder",
+        "name": "Criteria",
+        "items": [
+
+          {
+              "type": "document",
+              "name": "Commission structures updated - key",
+              "type": "Google Sheets",
+              "link": "https://docs.google.com/spreadsheets/d/1G_ykIwzwk5Vfg5Waiq8l0T4Xp0rUishQ/edit?gid=1441018370#gid=1441018370"
+          },
+            {
+                "type": "document",
+                "name": "Criteria and Upload Checklist",
+                "type": "Google Sheets",
+                "link": "https://docs.google.com/spreadsheets/d/1-1DkiOlZMGOEhoLg4Q2a17SaBpow8lBG/edit?usp=sharing&ouid=118442497962343945719&rtpof=true&sd=true
+            }
+        ]
+    },
+    {
+        "type": "document",
+        "name": "FOS DCA Criteria",
+        "type": "PDF",
+        "link": "https://drive.google.com/file/d/1V1aCY9u_hOVMD7LGClN_t8NV5m6UltrO/view?usp=sharing"
     }
 ]
