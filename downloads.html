@@ -28,7 +28,6 @@
             --muted-dark: #64748b;
             --blue: #3b82f6;
             --blue-dark: #2563eb;
-            --green: #10b981;
         }
 
         body {
@@ -37,7 +36,6 @@
             color: var(--text);
             min-height: 100vh;
         }
-
 
         /* =========================
            SIDEBAR
@@ -48,28 +46,20 @@
             left: 0;
             top: 0;
             bottom: 0;
-
             width: 250px;
-
             background: var(--sidebar);
             border-right: 1px solid var(--border);
-
             display: flex;
             flex-direction: column;
-
             padding: 25px 16px;
-
             z-index: 100;
         }
-
 
         .brand {
             display: flex;
             align-items: center;
-
             padding: 5px 12px 35px;
         }
-
 
         .brand-name {
             font-size: 25px;
@@ -77,88 +67,69 @@
             letter-spacing: -0.5px;
         }
 
-
         .brand-dot {
             color: var(--blue);
         }
-
 
         .nav-section {
             margin-bottom: 25px;
         }
 
-
         .nav-label {
             font-size: 10px;
             font-weight: 700;
-
             text-transform: uppercase;
-
             letter-spacing: 1.2px;
-
             color: var(--muted-dark);
-
             padding: 0 12px;
-
             margin-bottom: 8px;
         }
 
-
         .nav-item {
             width: 100%;
-
             display: flex;
             align-items: center;
-
             gap: 12px;
-
             padding: 11px 12px;
-
             margin-bottom: 3px;
-
             border-radius: 8px;
-
             color: var(--muted);
-
             font-size: 14px;
             font-weight: 500;
-
             text-decoration: none;
-
             cursor: pointer;
-
-            transition:
-                background 0.15s,
-                color 0.15s;
+            transition: background 0.15s, color 0.15s;
         }
-
 
         .nav-item:hover {
             background: #172033;
             color: var(--text);
         }
 
-
         .nav-item.active {
             background: rgba(59, 130, 246, 0.14);
             color: #60a5fa;
         }
 
-
         .nav-icon {
             width: 20px;
-
             display: flex;
             justify-content: center;
-
             font-size: 16px;
         }
-
 
         .sidebar-bottom {
             margin-top: auto;
         }
 
+        .logout {
+            color: #f87171;
+        }
+
+        .logout:hover {
+            background: rgba(127, 29, 29, 0.25);
+            color: #fca5a5;
+        }
 
         /* =========================
            MAIN
@@ -166,10 +137,8 @@
 
         .main {
             margin-left: 250px;
-
             min-height: 100vh;
         }
-
 
         /* =========================
            TOP BAR
@@ -177,62 +146,43 @@
 
         .topbar {
             height: 72px;
-
             background: var(--sidebar);
-
             border-bottom: 1px solid var(--border);
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             padding: 0 34px;
         }
-
 
         .topbar-title {
             font-size: 14px;
             font-weight: 600;
-
             color: var(--muted);
         }
-
 
         .account {
             display: flex;
             align-items: center;
-
             gap: 11px;
         }
 
-
         .account-email {
             color: var(--muted);
-
             font-size: 13px;
         }
-
 
         .avatar {
             width: 36px;
             height: 36px;
-
             border-radius: 50%;
-
             background: var(--blue);
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             font-size: 13px;
             font-weight: 700;
-
             color: white;
         }
-
 
         /* =========================
            CONTENT
@@ -240,163 +190,109 @@
 
         .content {
             max-width: 1400px;
-
             margin: 0 auto;
-
             padding: 40px 38px 60px;
         }
-
 
         .page-header {
             margin-bottom: 32px;
         }
 
-
         .page-title {
             font-size: 30px;
-
             font-weight: 700;
-
             letter-spacing: -0.7px;
-
             margin-bottom: 8px;
         }
 
-
         .page-subtitle {
             font-size: 14px;
-
             color: var(--muted);
-
             line-height: 1.5;
         }
 
-
         /* =========================
-           SEARCH / TOOLBAR
+           SEARCH
         ========================= */
 
         .toolbar {
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             gap: 15px;
-
             margin-bottom: 18px;
         }
 
-
         .search-wrapper {
             position: relative;
-
             flex: 1;
-
             max-width: 520px;
         }
 
-
         .search-icon {
             position: absolute;
-
             left: 14px;
             top: 50%;
-
             transform: translateY(-50%);
-
             color: var(--muted-dark);
-
             font-size: 15px;
-
             pointer-events: none;
         }
 
-
         .search {
             width: 100%;
-
             height: 43px;
-
             padding: 0 15px 0 40px;
-
             background: var(--panel);
-
             border: 1px solid var(--border-light);
-
             border-radius: 8px;
-
             outline: none;
-
             color: var(--text);
-
             font-size: 13px;
-
-            transition: border 0.15s;
         }
-
 
         .search::placeholder {
             color: var(--muted-dark);
         }
 
-
         .search:focus {
             border-color: var(--blue);
         }
 
-
         .document-count {
             font-size: 12px;
-
             color: var(--muted-dark);
         }
 
-
         /* =========================
-           DOCUMENT PANEL
+           PANEL
         ========================= */
 
         .panel {
             background: var(--panel);
-
             border: 1px solid var(--border);
-
             border-radius: 11px;
-
             overflow: hidden;
         }
 
-
         .panel-header {
             height: 58px;
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             padding: 0 20px;
-
             border-bottom: 1px solid var(--border);
         }
 
-
         .panel-title {
             font-size: 14px;
-
             font-weight: 600;
         }
 
-
         .panel-subtitle {
             font-size: 12px;
-
             color: var(--muted-dark);
         }
-
 
         /* =========================
            DOCUMENT
@@ -404,183 +300,116 @@
 
         .document {
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             gap: 20px;
-
             padding: 17px 20px;
-
             border-bottom: 1px solid var(--border);
-
             transition: background 0.15s;
         }
-
 
         .document:last-child {
             border-bottom: none;
         }
 
-
         .document:hover {
             background: var(--panel-hover);
         }
 
-
         .document-left {
             display: flex;
-
             align-items: center;
-
             gap: 14px;
-
             min-width: 0;
         }
-
 
         .document-icon {
             width: 42px;
             height: 42px;
-
             flex-shrink: 0;
-
             border-radius: 8px;
-
             background: rgba(59, 130, 246, 0.12);
-
             color: #60a5fa;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             font-size: 18px;
         }
-
 
         .document-details {
             min-width: 0;
         }
 
-
         .document-name {
             font-size: 13px;
-
             font-weight: 600;
-
             color: var(--text);
-
             margin-bottom: 5px;
-
             white-space: nowrap;
-
             overflow: hidden;
-
             text-overflow: ellipsis;
         }
 
-
         .document-meta {
             display: flex;
-
             align-items: center;
-
             gap: 8px;
-
             color: var(--muted-dark);
-
             font-size: 11px;
         }
-
 
         .meta-dot {
             width: 3px;
             height: 3px;
-
             border-radius: 50%;
-
             background: var(--muted-dark);
         }
 
-
         /* =========================
-           ACTIONS
+           BUTTONS
         ========================= */
 
         .actions {
             display: flex;
-
             align-items: center;
-
             gap: 7px;
-
             flex-shrink: 0;
         }
 
-
         .button {
             height: 34px;
-
             padding: 0 12px;
-
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
-
             gap: 6px;
-
             border-radius: 6px;
-
             border: 1px solid var(--border-light);
-
             background: #182234;
-
             color: #cbd5e1;
-
             font-size: 12px;
-
             font-weight: 600;
-
             text-decoration: none;
-
             cursor: pointer;
-
-            transition:
-                background 0.15s,
-                border 0.15s;
+            transition: background 0.15s, border 0.15s;
         }
-
 
         .button:hover {
             background: #243149;
-
             border-color: #334155;
-
             color: white;
         }
-
 
         .button.email {
             background: var(--blue);
-
             border-color: var(--blue);
-
             color: white;
         }
 
-
         .button.email:hover {
             background: var(--blue-dark);
-
             border-color: var(--blue-dark);
         }
-
 
         /* =========================
            FOLDERS
@@ -590,124 +419,78 @@
             border-bottom: 1px solid var(--border);
         }
 
-
         .folder:last-child {
             border-bottom: none;
         }
 
-
         .folder-header {
             min-height: 68px;
-
             padding: 13px 20px;
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             cursor: pointer;
-
             transition: background 0.15s;
         }
-
 
         .folder-header:hover {
             background: var(--panel-hover);
         }
 
-
         .folder-left {
             display: flex;
-
             align-items: center;
-
             gap: 14px;
-
             min-width: 0;
         }
-
 
         .folder-icon {
             width: 42px;
             height: 42px;
-
             flex-shrink: 0;
-
             border-radius: 8px;
-
             background: rgba(245, 158, 11, 0.12);
-
             display: flex;
-
             align-items: center;
             justify-content: center;
-
             font-size: 19px;
         }
 
-
         .folder-name {
             font-size: 13px;
-
             font-weight: 600;
-
             color: var(--text);
-
             margin-bottom: 4px;
         }
 
-
         .folder-count {
             font-size: 11px;
-
             color: var(--muted-dark);
         }
-
 
         .folder-arrow {
             font-size: 23px;
-
             color: var(--muted-dark);
-
             transition: transform 0.2s;
         }
-
 
         .folder-arrow.open {
             transform: rotate(90deg);
         }
 
-
         .folder-contents {
             display: none;
-
             border-top: 1px solid var(--border);
-
             background: rgba(0, 0, 0, 0.08);
         }
-
 
         .folder-contents.open {
             display: block;
         }
 
-
         .folder-contents .document {
             padding-left: 76px;
         }
-
-
-        .folder-contents .folder {
-            margin-left: 20px;
-        }
-
-
-        .folder-contents .folder-header {
-            padding-left: 20px;
-        }
-
 
         /* =========================
            EMPTY
@@ -715,51 +498,25 @@
 
         .empty {
             padding: 70px 20px;
-
             text-align: center;
-
             color: var(--muted-dark);
-
             display: none;
         }
 
-
         .empty-icon {
             font-size: 32px;
-
             margin-bottom: 12px;
         }
 
-
         .empty-title {
             color: var(--muted);
-
             font-size: 14px;
-
             margin-bottom: 5px;
         }
-
 
         .empty-text {
             font-size: 12px;
         }
-
-
-        /* =========================
-           LOGOUT
-        ========================= */
-
-        .logout {
-            color: #f87171;
-        }
-
-
-        .logout:hover {
-            background: rgba(127, 29, 29, 0.25);
-
-            color: #fca5a5;
-        }
-
 
         /* =========================
            MOBILE
@@ -769,73 +526,56 @@
 
             .sidebar {
                 width: 68px;
-
                 padding: 20px 8px;
             }
 
-
             .brand {
                 justify-content: center;
-
                 padding: 5px 0 30px;
             }
-
 
             .brand-name {
                 font-size: 0;
             }
 
-
             .brand-name::before {
                 content: "F";
-
                 font-size: 22px;
             }
-
 
             .brand-dot {
                 display: none;
             }
 
-
             .nav-label {
                 display: none;
             }
 
-
             .nav-item {
                 justify-content: center;
-
                 padding: 12px 0;
             }
-
 
             .nav-item span:not(.nav-icon) {
                 display: none;
             }
 
-
             .main {
                 margin-left: 68px;
             }
-
 
             .content {
                 padding: 28px 20px 50px;
             }
 
-
             .topbar {
                 padding: 0 20px;
             }
 
-
             .account-email {
                 display: none;
             }
-
         }
-
 
         @media (max-width: 600px) {
 
@@ -843,59 +583,41 @@
                 font-size: 25px;
             }
 
-
             .toolbar {
                 display: block;
             }
 
-
             .search-wrapper {
                 max-width: none;
-
                 margin-bottom: 10px;
             }
 
-
             .document-count {
                 display: block;
-
                 padding-bottom: 5px;
             }
 
-
             .document {
                 align-items: flex-start;
-
                 flex-direction: column;
-
                 gap: 15px;
             }
-
 
             .document-left {
                 width: 100%;
             }
 
-
             .actions {
                 width: 100%;
             }
-
 
             .button {
                 flex: 1;
             }
 
-
             .folder-contents .document {
                 padding-left: 20px;
             }
-
-
-            .folder-contents .folder {
-                margin-left: 10px;
-            }
-
         }
 
     </style>
@@ -906,12 +628,9 @@
 <body>
 
 
-<!-- =========================
-     SIDEBAR
-========================= -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
-
 
     <div class="brand">
 
@@ -1003,17 +722,16 @@
 
     </div>
 
-
 </aside>
 
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- MAIN -->
 
 <main class="main">
 
+
+    <!-- TOPBAR -->
 
     <header class="topbar">
 
@@ -1047,6 +765,8 @@
 
 
 
+    <!-- CONTENT -->
+
     <section class="content">
 
 
@@ -1064,15 +784,15 @@
 
 
 
-        <div class="toolbar">
+        <!-- SEARCH -->
 
+        <div class="toolbar">
 
             <div class="search-wrapper">
 
                 <span class="search-icon">
                     ⌕
                 </span>
-
 
                 <input
                     type="text"
@@ -1093,22 +813,19 @@
 
             </div>
 
-
         </div>
 
 
+
+        <!-- DOCUMENT PANEL -->
 
         <div class="panel">
 
 
             <div class="panel-header">
 
-                <div>
-
-                    <div class="panel-title">
-                        Available documents
-                    </div>
-
+                <div class="panel-title">
+                    Available documents
                 </div>
 
 
@@ -1143,9 +860,7 @@
 
         </div>
 
-
     </section>
-
 
 </main>
 
@@ -1154,14 +869,13 @@
 <script type="module">
 
 
-/* =========================
+/* =====================================================
    FIREBASE
-========================= */
+   USE THE SAME CONFIG AS LOGIN.HTML
+===================================================== */
 
-import {
-    initializeApp
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { app }
+from "./firebase-config.js";
 
 
 import {
@@ -1169,52 +883,24 @@ import {
     onAuthStateChanged,
     signOut
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyAVqaht2BVQgVkZFcMZ3t34DQeA2uFYuU",
-
-    authDomain:
-        "fre-tools.firebaseapp.com",
-
-    projectId:
-        "fre-tools",
-
-    storageBucket:
-        "fre-tools.firebasestorage.app",
-
-    messagingSenderId:
-        "723940111430",
-
-    appId:
-        "1:723940111430:web:50cb5685913167f0dc4647"
-
-};
-
-
-const app =
-    initializeApp(firebaseConfig);
-
-
-const auth =
-    getAuth(app);
+const auth = getAuth(app);
 
 
 
-/* =========================
+/* =====================================================
    DOCUMENTS
-========================= */
+===================================================== */
 
 let documents = [];
 
 
 
-/* =========================
-   LOAD DOCUMENTS
-========================= */
+/* =====================================================
+   LOAD JSON
+===================================================== */
 
 async function loadDocumentsFromFile() {
 
@@ -1227,7 +913,7 @@ async function loadDocumentsFromFile() {
         if (!response.ok) {
 
             throw new Error(
-                "Unable to load documents"
+                "Unable to load documents.json"
             );
 
         }
@@ -1243,7 +929,10 @@ async function loadDocumentsFromFile() {
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Document loading error:",
+            error
+        );
 
 
         document
@@ -1269,9 +958,9 @@ async function loadDocumentsFromFile() {
 
 
 
-/* =========================
+/* =====================================================
    COUNT DOCUMENTS
-========================= */
+===================================================== */
 
 function countDocuments(items) {
 
@@ -1291,7 +980,7 @@ function countDocuments(items) {
 
         if (
             item.type === "folder" &&
-            item.items
+            Array.isArray(item.items)
         ) {
 
             count +=
@@ -1310,25 +999,25 @@ function countDocuments(items) {
 
 
 
-/* =========================
+/* =====================================================
    DOCUMENT ICON
-========================= */
+===================================================== */
 
-function getDocumentIcon(fileType) {
+function getDocumentIcon(type) {
 
-    if (!fileType) {
+    if (!type) {
 
         return "▣";
 
     }
 
 
-    const type =
-        fileType.toLowerCase();
+    const value =
+        type.toLowerCase();
 
 
     if (
-        type.includes("google sheets")
+        value.includes("google sheets")
     ) {
 
         return "▦";
@@ -1337,16 +1026,7 @@ function getDocumentIcon(fileType) {
 
 
     if (
-        type.includes("pdf")
-    ) {
-
-        return "▤";
-
-    }
-
-
-    if (
-        type.includes("word")
+        value.includes("pdf")
     ) {
 
         return "▤";
@@ -1360,9 +1040,9 @@ function getDocumentIcon(fileType) {
 
 
 
-/* =========================
+/* =====================================================
    RENDER DOCUMENT
-========================= */
+===================================================== */
 
 function renderDocument(doc) {
 
@@ -1391,7 +1071,9 @@ function renderDocument(doc) {
 
                 <div class="document-name">
 
-                    ${doc.name}
+                    ${escapeHtml(
+                        doc.name
+                    )}
 
                 </div>
 
@@ -1400,7 +1082,10 @@ function renderDocument(doc) {
 
                     <span>
 
-                        ${doc.fileType || "Document"}
+                        ${escapeHtml(
+                            doc.fileType ||
+                            "Document"
+                        )}
 
                     </span>
 
@@ -1409,9 +1094,7 @@ function renderDocument(doc) {
 
 
                     <span>
-
                         Available
-
                     </span>
 
                 </div>
@@ -1449,14 +1132,12 @@ function renderDocument(doc) {
     `;
 
 
-    const emailButton =
-        div.querySelector(".email");
-
-
-    emailButton.addEventListener(
-        "click",
-        () => emailDocument(doc)
-    );
+    div
+        .querySelector(".email")
+        .addEventListener(
+            "click",
+            () => emailDocument(doc)
+        );
 
 
     return div;
@@ -1465,9 +1146,26 @@ function renderDocument(doc) {
 
 
 
-/* =========================
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+
+/* =====================================================
    RENDER FOLDER
-========================= */
+===================================================== */
 
 function renderFolder(
     folder,
@@ -1482,21 +1180,21 @@ function renderFolder(
         "folder";
 
 
-    const folderHeader =
+    const header =
         document.createElement("div");
 
 
-    folderHeader.className =
+    header.className =
         "folder-header";
 
 
-    const folderDocuments =
+    const count =
         countDocuments(
             folder.items || []
         );
 
 
-    folderHeader.innerHTML = `
+    header.innerHTML = `
 
         <div class="folder-left">
 
@@ -1509,19 +1207,19 @@ function renderFolder(
 
                 <div class="folder-name">
 
-                    ${folder.name}
+                    ${escapeHtml(
+                        folder.name
+                    )}
 
                 </div>
 
 
                 <div class="folder-count">
 
-                    ${folderDocuments}
-
-                    ${
-                        folderDocuments === 1
-                            ? " document"
-                            : " documents"
+                    ${count}
+                    ${count === 1
+                        ? " document"
+                        : " documents"
                     }
 
                 </div>
@@ -1532,9 +1230,7 @@ function renderFolder(
 
 
         <div class="folder-arrow">
-
             ›
-
         </div>
 
     `;
@@ -1555,7 +1251,7 @@ function renderFolder(
         );
 
 
-        folderHeader
+        header
             .querySelector(
                 ".folder-arrow"
             )
@@ -1566,7 +1262,7 @@ function renderFolder(
     }
 
 
-    folderHeader.addEventListener(
+    header.addEventListener(
         "click",
         () => {
 
@@ -1575,7 +1271,7 @@ function renderFolder(
             );
 
 
-            folderHeader
+            header
                 .querySelector(
                     ".folder-arrow"
                 )
@@ -1587,41 +1283,38 @@ function renderFolder(
     );
 
 
-    const items =
-        folder.items || [];
+    (folder.items || [])
+        .forEach(item => {
+
+            if (
+                item.type === "folder"
+            ) {
+
+                contents.appendChild(
+                    renderFolder(
+                        item,
+                        search
+                    )
+                );
+
+            }
 
 
-    items.forEach(item => {
+            else if (
+                item.type === "document"
+            ) {
 
-        if (
-            item.type === "folder"
-        ) {
+                contents.appendChild(
+                    renderDocument(item)
+                );
 
-            contents.appendChild(
-                renderFolder(
-                    item,
-                    search
-                )
-            );
+            }
 
-        }
-
-
-        else if (
-            item.type === "document"
-        ) {
-
-            contents.appendChild(
-                renderDocument(item)
-            );
-
-        }
-
-    });
+        });
 
 
     wrapper.appendChild(
-        folderHeader
+        header
     );
 
 
@@ -1636,9 +1329,9 @@ function renderFolder(
 
 
 
-/* =========================
-   SEARCH MATCH
-========================= */
+/* =====================================================
+   SEARCH
+===================================================== */
 
 function itemMatchesSearch(
     item,
@@ -1678,7 +1371,7 @@ function itemMatchesSearch(
 
     if (
         item.type === "folder" &&
-        item.items
+        Array.isArray(item.items)
     ) {
 
         return item.items.some(
@@ -1697,10 +1390,6 @@ function itemMatchesSearch(
 }
 
 
-
-/* =========================
-   FILTER TREE
-========================= */
 
 function filterItems(
     items,
@@ -1725,8 +1414,7 @@ function filterItems(
         .map(item => {
 
             if (
-                item.type === "folder" &&
-                item.items
+                item.type === "folder"
             ) {
 
                 return {
@@ -1735,7 +1423,7 @@ function filterItems(
 
                     items:
                         filterItems(
-                            item.items,
+                            item.items || [],
                             search
                         )
 
@@ -1752,9 +1440,9 @@ function filterItems(
 
 
 
-/* =========================
-   LOAD / RENDER
-========================= */
+/* =====================================================
+   DISPLAY DOCUMENTS
+===================================================== */
 
 function loadDocuments(
     list = documents
@@ -1772,7 +1460,7 @@ function loadDocuments(
         );
 
 
-    const count =
+    const countElement =
         document.getElementById(
             "documentCount"
         );
@@ -1785,7 +1473,7 @@ function loadDocuments(
         countDocuments(list);
 
 
-    count.textContent =
+    countElement.textContent =
         `${total} ${
             total === 1
                 ? "document"
@@ -1849,9 +1537,9 @@ function loadDocuments(
 
 
 
-/* =========================
-   SEARCH
-========================= */
+/* =====================================================
+   SEARCH EVENT
+===================================================== */
 
 document
     .getElementById("search")
@@ -1881,9 +1569,9 @@ document
 
 
 
-/* =========================
-   EMAIL DOCUMENT
-========================= */
+/* =====================================================
+   EMAIL
+===================================================== */
 
 function emailDocument(doc) {
 
@@ -1927,12 +1615,10 @@ Sam`;
         encodeURIComponent(
             recipient
         ) +
-
         "?subject=" +
         encodeURIComponent(
             subject
         ) +
-
         "&body=" +
         encodeURIComponent(
             body
@@ -1946,18 +1632,31 @@ Sam`;
 
 
 
-/* =========================
+/* =====================================================
    AUTHENTICATION
-========================= */
+===================================================== */
 
 onAuthStateChanged(
     auth,
     async (user) => {
 
+        console.log(
+            "Firebase auth state:",
+            user
+        );
+
+
         if (!user) {
 
-            window.location.href =
-                "login.html";
+            /*
+                IMPORTANT:
+                Only redirect to login when Firebase
+                has actually confirmed there is no user.
+            */
+
+            window.location.replace(
+                "login.html"
+            );
 
             return;
 
@@ -1995,9 +1694,9 @@ onAuthStateChanged(
 
 
 
-/* =========================
-   ACTIVE SIDEBAR LINK
-========================= */
+/* =====================================================
+   ACTIVE NAVIGATION
+===================================================== */
 
 const currentPage =
     window.location.pathname
@@ -2032,14 +1731,12 @@ document
 
 
 
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
 document
-    .getElementById(
-        "logoutBtn"
-    )
+    .getElementById("logoutBtn")
     .addEventListener(
         "click",
         async () => {
@@ -2051,8 +1748,9 @@ document
                 );
 
 
-                window.location.href =
-                    "index.html";
+                window.location.replace(
+                    "index.html"
+                );
 
             }
 
