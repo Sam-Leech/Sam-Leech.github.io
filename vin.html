@@ -5,95 +5,344 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FRE VIN Search</title>
 <style>
-:root{--bg:#0b1120;--sidebar:#0f172a;--panel:#111827;--panel-hover:#172033;--border:#1f2937;--border-light:#273449;--text:#f8fafc;--muted:#94a3b8;--muted-dark:#64748b;--blue:#3b82f6;--blue-dark:#2563eb}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;background:var(--sidebar);border-right:1px solid var(--border);padding:25px 14px;z-index:10;display:flex;flex-direction:column}.brand{padding:0 14px 30px}.brand-name{font-size:25px;font-weight:800;letter-spacing:-1px}.brand-dot{color:var(--blue)}.nav-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-dark);font-weight:700;padding:0 14px 9px}.nav-item{display:flex;align-items:center;gap:12px;height:43px;padding:0 14px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:14px;margin:2px 0;cursor:pointer}.nav-item:hover{background:var(--panel-hover);color:var(--text)}.nav-item.active{background:#172b4d;color:#fff}.nav-icon{width:18px;text-align:center;font-size:17px}.sidebar-bottom{margin-top:auto}.logout:hover{color:#f87171}
-main{margin-left:250px;min-height:100vh}.topbar{height:72px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;padding:0 38px}.account{display:flex;align-items:center;gap:11px}.account-email{font-size:13px;color:var(--muted)}.avatar{width:34px;height:34px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
-.content{max-width:1600px;padding:40px 38px 60px}.page-title{font-size:30px;font-weight:750;letter-spacing:-.5px;margin:0 0 6px}.page-subtitle{font-size:14px;color:var(--muted);margin-bottom:28px}.panel{background:var(--panel);border:1px solid var(--border);border-radius:11px;margin-bottom:20px;overflow:hidden}.panel-header{padding:19px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}.panel-title{font-size:14px;font-weight:700}.panel-subtitle{font-size:12px;color:var(--muted-dark)}.search-body{padding:22px}.label{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:8px}.search-row{display:flex;gap:10px}.vin-input{flex:1;min-width:0;background:#0b1220;border:1px solid var(--border-light);border-radius:8px;color:var(--text);font:600 15px Consolas,monospace;padding:13px 14px;outline:none;text-transform:uppercase}.vin-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12)}button{border:0;border-radius:8px;background:var(--blue);color:#fff;font-weight:700;padding:0 22px;cursor:pointer}button:hover{background:var(--blue-dark)}button:disabled{opacity:.55;cursor:wait}.hint{font-size:12px;color:var(--muted-dark);margin-top:9px}.status{font-size:12px;color:var(--muted);margin-top:12px;min-height:16px}.results{display:none}.table-wrap{overflow:auto}.result-table{width:100%;border-collapse:collapse;font-size:13px}.result-table th{text-align:left;color:var(--muted-dark);font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:12px 18px;border-bottom:1px solid var(--border);background:#0e1625}.result-table td{padding:12px 18px;border-bottom:1px solid var(--border);vertical-align:top}.result-table td:first-child{width:280px;color:var(--muted);font-weight:600}.result-table tr:hover td{background:rgba(255,255,255,.015)}.result-table tr.selected td{background:#172b4d}.structure{background:#0c1422!important;color:#7fb0ff!important;font-size:11px!important;text-transform:uppercase;letter-spacing:.1em}.copy-note{font-size:12px;color:var(--muted-dark)}.error{color:#f87171}.success{color:#4ade80}
-@media(max-width:800px){.sidebar{width:68px;padding:20px 8px}.brand{padding:0 8px 30px}.brand-name{font-size:0}.brand-name:before{content:'F';font-size:22px;color:var(--text)}.nav-label,.nav-item span:not(.nav-icon){display:none}.nav-item{justify-content:center;padding:0}.sidebar-bottom{width:100%}main{margin-left:68px}.topbar{padding:0 20px}.content{padding:28px 20px}.account-email{display:none}.search-row{flex-direction:column}.search-row button{height:44px}}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0b1120;
+            --sidebar: #0f172a;
+            --panel: #111827;
+            --panel-hover: #172033;
+            --border: #1f2937;
+            --border-light: #273449;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --muted-dark: #64748b;
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
+        }
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 25px 16px;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            padding: 5px 12px 35px;
+        }
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-dot { color: var(--blue); }
+
+        .nav-section { margin-bottom: 25px; }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--muted-dark);
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 12px;
+            margin-bottom: 3px;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .nav-item:hover {
+            background: #172033;
+            color: var(--text);
+        }
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.14);
+            color: #60a5fa;
+        }
+
+        .nav-icon {
+            width: 20px;
+            display: flex;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom { margin-top: auto; }
+        .logout { color: #f87171; }
+
+        .logout:hover {
+            background: rgba(127, 29, 29, 0.25);
+            color: #fca5a5;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+            height: 72px;
+            background: var(--sidebar);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 34px;
+        }
+
+        .topbar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .account {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .account-email {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 38px 60px;
+        }
+
+        .page-title {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.7px;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        /* VIN CONTENT */
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 19px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title { font-size: 14px; font-weight: 700; }
+        .panel-subtitle { font-size: 12px; color: var(--muted-dark); }
+        .search-body { padding: 22px; }
+        .label { font-size: 12px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 8px; }
+        .search-row { display: flex; gap: 10px; }
+        .vin-input { flex: 1; min-width: 0; background: #0b1220; border: 1px solid var(--border-light); border-radius: 8px; color: var(--text); font: 600 15px Consolas, monospace; padding: 13px 14px; outline: none; text-transform: uppercase; }
+        .vin-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,.12); }
+        button { border: 0; border-radius: 8px; background: var(--blue); color: #fff; font-weight: 700; padding: 0 22px; cursor: pointer; }
+        button:hover { background: var(--blue-dark); }
+        button:disabled { opacity: .55; cursor: wait; }
+        .hint { font-size: 12px; color: var(--muted-dark); margin-top: 9px; }
+        .status { font-size: 12px; color: var(--muted); margin-top: 12px; min-height: 16px; }
+        .results { display: none; }
+        .table-wrap { overflow: auto; }
+        .result-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .result-table th { text-align: left; color: var(--muted-dark); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; padding: 12px 18px; border-bottom: 1px solid var(--border); background: #0e1625; }
+        .result-table td { padding: 12px 18px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        .result-table td:first-child { width: 280px; color: var(--muted); font-weight: 600; }
+        .result-table tr:hover td { background: rgba(255,255,255,.015); }
+        .result-table tr.selected td { background: #172b4d; }
+        .structure { background: #0c1422 !important; color: #7fb0ff !important; font-size: 11px !important; text-transform: uppercase; letter-spacing: .1em; }
+        .copy-note { font-size: 12px; color: var(--muted-dark); }
+        .error { color: #f87171; }
+        .success { color: #4ade80; }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+            .sidebar { width: 68px; padding: 20px 8px; }
+            .brand { justify-content: center; padding: 5px 0 30px; }
+            .brand-name { font-size: 0; }
+            .brand-name::before { content: "F"; font-size: 22px; }
+            .brand-dot { display: none; }
+            .nav-label { display: none; }
+            .nav-item { justify-content: center; padding: 12px 0; }
+            .nav-item span:not(.nav-icon) { display: none; }
+            main { margin-left: 68px; }
+            .content { padding: 28px 20px 50px; }
+            .topbar { padding: 0 20px; }
+            .account-email { display: none; }
+            .search-row { flex-direction: column; }
+            .search-row button { height: 44px; }
+        }
+
+        @media (max-width: 600px) {
+            .page-title { font-size: 25px; }
+            .panel { padding: 0; }
+            .panel-header { display: block; }
+            .panel-subtitle { margin-top: 5px; }
+        }
 </style>
 </head>
 <body>
-  <aside class="sidebar">
+<aside class="sidebar">
 
+    <div class="brand">
 
-      <div class="brand">
+        <div class="brand-name">
+            FRE<span class="brand-dot">.</span>
+        </div>
 
-          <div class="brand-name">
-              FRE<span class="brand-dot">.</span>
-          </div>
+    </div>
 
-      </div>
+    <div class="nav-section">
 
+        <div class="nav-label">
+            Workspace
+        </div>
 
-      <div class="nav-section">
+        <a href="downloads.html" class="nav-item">
+            <span class="nav-icon">▣</span>
+            <span>Documents</span>
+        </a>
 
-          <div class="nav-label">
-              Workspace
-          </div>
+        <a href="brokers.html" class="nav-item">
+            <span class="nav-icon">⌕</span>
+            <span>Broker Search</span>
+        </a>
 
+        <a href="extract.html" class="nav-item">
+            <span class="nav-icon">⇩</span>
+            <span>FOS Extracter Tool</span>
+        </a>
 
+        <a href="vin.html" class="nav-item active">
+            <span class="nav-icon">⌁</span>
+            <span>VIN Search</span>
+        </a>
 
+    </div>
 
-          <!-- Broker Search -->
+    <div class="sidebar-bottom">
 
+        <div class="nav-section">
 
-                  <a href="downloads.html" class="nav-item">
-                  <span class="nav-icon">▣</span>
-                  <span>Documents</span>
-              </a>
+            <div class="nav-label">
+                Account
+            </div>
 
-              <a href="brokers.html" class="nav-item">
-                  <span class="nav-icon">⌕</span>
-                  <span>Broker Search</span>
-              </a>
+            <div class="nav-item logout" id="logoutBtn">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </div>
 
-              <a href="extract.html" class="nav-item">
-                  <span class="nav-icon">⇩</span>
-                  <span>FOS Extracter Tool</span>
-              </a>
+        </div>
 
-              <a href="vin.html" class="nav-item">
-                  <span class="nav-icon">⌁</span>
-                  <span>VIN Search</span>
-              </a>
+    </div>
 
-      </div>
-
-
-      <div class="sidebar-bottom">
-
-          <div class="nav-section">
-
-              <div class="nav-label">
-                  Account
-              </div>
-
-
-              <div
-                  class="nav-item logout"
-                  id="logoutBtn">
-
-                  <span class="nav-icon">
-                      ↪
-                  </span>
-
-                  <span>
-                      Logout
-                  </span>
-
-              </div>
-
-          </div>
-
-      </div>
-
-
-  </aside>
-
+</aside>
 <main>
-  <div class="topbar"><div class="account"><span class="account-email" id="userEmail"></span><div class="avatar" id="avatar">?</div></div></div>
-  <div class="content">
+  <div class="topbar">
+
+    <div class="topbar-title">
+        FRE VIN Search
+    </div>
+
+    <div class="account">
+
+        <span class="account-email" id="userEmail">
+            Loading...
+        </span>
+
+        <div class="avatar" id="avatar">
+            ?
+        </div>
+
+    </div>
+
+</div>
+<div class="content">
     <h1 class="page-title">FRE VIN Search</h1>
     <div class="page-subtitle">Vehicle identification and VIN structure lookup</div>
     <section class="panel">
