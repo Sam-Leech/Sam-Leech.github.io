@@ -1,374 +1,100 @@
-from pathlib import Path
-
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FRE VIN Search</title>
 <style>
-:root{
-    --bg:#0b1120;--sidebar:#0f172a;--panel:#111827;--panel-hover:#172033;
-    --border:#1f2937;--border-light:#273449;--text:#f8fafc;--muted:#94a3b8;
-    --muted-dark:#64748b;--blue:#3b82f6;--blue-dark:#2563eb;
-    --danger:#ef4444;--success:#22c55e;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;background:var(--sidebar);border-right:1px solid var(--border);padding:24px 14px;z-index:10}
-.brand{font-size:20px;font-weight:700;padding:0 12px 30px}
-.nav-section{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-dark);padding:0 12px 8px}
-.nav-item{display:flex;align-items:center;gap:12px;height:44px;padding:0 12px;margin:3px 0;border-radius:8px;color:var(--muted);text-decoration:none;font-size:14px}
-.nav-item:hover{background:var(--panel-hover);color:var(--text)}
-.nav-item.active{background:#172033;color:var(--text)}
-.nav-icon{width:20px;text-align:center;font-size:17px;color:#cbd5e1}
-.account{position:absolute;left:14px;right:14px;bottom:18px}
-.user{display:flex;align-items:center;gap:10px;padding:10px 12px;color:var(--muted);font-size:12px}
-.avatar{width:30px;height:30px;border-radius:50%;background:var(--blue);display:grid;place-items:center;color:#fff;font-weight:700}
-.main{margin-left:250px;min-height:100vh}
-.topbar{height:72px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 38px;font-size:14px;font-weight:600}
-.content{max-width:1600px;padding:40px 38px 60px}
-h1{font-size:30px;margin:0 0 6px}.subtitle{font-size:14px;color:var(--muted);margin-bottom:30px}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:11px;margin-bottom:22px}
-.panel-head{padding:18px 20px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;letter-spacing:.05em}
-.panel-body{padding:22px 20px}
-.form-row{display:flex;gap:12px;align-items:end}
-.field{flex:1}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:8px}
-input{width:100%;height:46px;background:#0b1120;border:1px solid var(--border-light);border-radius:8px;color:var(--text);padding:0 13px;font-family:Consolas,monospace;font-size:15px;outline:none}
-input:focus{border-color:var(--blue)}
-button{height:46px;border:0;border-radius:8px;background:var(--blue);color:white;font-weight:700;padding:0 24px;cursor:pointer}
-button:hover{background:var(--blue-dark)}button:disabled{opacity:.55;cursor:not-allowed}
-.hint{font-size:12px;color:var(--muted-dark);margin-top:9px}
-.status{font-size:12px;color:var(--muted);margin-top:14px;min-height:18px}
-.status.ok{color:var(--success)}.status.error{color:var(--danger)}
-.results-head{display:flex;justify-content:space-between;align-items:center}
-.results-head span{font-size:12px;color:var(--muted)}
-.table-wrap{overflow:auto}
-table{width:100%;border-collapse:collapse}
-th,td{text-align:left;padding:13px 20px;border-bottom:1px solid var(--border);font-size:13px}
-th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
-td:first-child{width:280px;color:var(--muted)}
-td.value{font-family:Consolas,monospace;word-break:break-word}
-tr:hover td{background:rgba(255,255,255,.018)}
-.structure{color:#60a5fa!important;font-family:Inter,Segoe UI,Arial,sans-serif!important;font-weight:700}
-.empty{padding:45px 20px;text-align:center;color:var(--muted-dark);font-size:13px}
-.copy{height:34px;padding:0 12px;font-size:12px;background:transparent;border:1px solid var(--border-light);color:var(--muted)}
-.copy:hover{background:var(--panel-hover);color:var(--text)}
-@media(max-width:800px){
-.sidebar{width:68px;padding:24px 8px}.brand{font-size:0;padding-bottom:30px}.brand:after{content:"F";font-size:20px}
-.nav-section,.nav-item span:last-child,.user span{display:none}.nav-item{justify-content:center;padding:0}
-.account{left:8px;right:8px}.user{justify-content:center}.main{margin-left:68px}.content{padding:28px 18px}
-.form-row{flex-direction:column;align-items:stretch}button{width:100%}td:first-child{width:40%}
-}
+:root{--bg:#0b1120;--sidebar:#0f172a;--panel:#111827;--panel-hover:#172033;--border:#1f2937;--border-light:#273449;--text:#f8fafc;--muted:#94a3b8;--muted-dark:#64748b;--blue:#3b82f6;--blue-dark:#2563eb}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;background:var(--sidebar);border-right:1px solid var(--border);padding:25px 14px;z-index:10;display:flex;flex-direction:column}.brand{padding:0 14px 30px}.brand-name{font-size:25px;font-weight:800;letter-spacing:-1px}.brand-dot{color:var(--blue)}.nav-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-dark);font-weight:700;padding:0 14px 9px}.nav-item{display:flex;align-items:center;gap:12px;height:43px;padding:0 14px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:14px;margin:2px 0;cursor:pointer}.nav-item:hover{background:var(--panel-hover);color:var(--text)}.nav-item.active{background:#172b4d;color:#fff}.nav-icon{width:18px;text-align:center;font-size:17px}.sidebar-bottom{margin-top:auto}.logout:hover{color:#f87171}
+main{margin-left:250px;min-height:100vh}.topbar{height:72px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;padding:0 38px}.account{display:flex;align-items:center;gap:11px}.account-email{font-size:13px;color:var(--muted)}.avatar{width:34px;height:34px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+.content{max-width:1600px;padding:40px 38px 60px}.page-title{font-size:30px;font-weight:750;letter-spacing:-.5px;margin:0 0 6px}.page-subtitle{font-size:14px;color:var(--muted);margin-bottom:28px}.panel{background:var(--panel);border:1px solid var(--border);border-radius:11px;margin-bottom:20px;overflow:hidden}.panel-header{padding:19px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}.panel-title{font-size:14px;font-weight:700}.panel-subtitle{font-size:12px;color:var(--muted-dark)}.search-body{padding:22px}.label{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:8px}.search-row{display:flex;gap:10px}.vin-input{flex:1;min-width:0;background:#0b1220;border:1px solid var(--border-light);border-radius:8px;color:var(--text);font:600 15px Consolas,monospace;padding:13px 14px;outline:none;text-transform:uppercase}.vin-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12)}button{border:0;border-radius:8px;background:var(--blue);color:#fff;font-weight:700;padding:0 22px;cursor:pointer}button:hover{background:var(--blue-dark)}button:disabled{opacity:.55;cursor:wait}.hint{font-size:12px;color:var(--muted-dark);margin-top:9px}.status{font-size:12px;color:var(--muted);margin-top:12px;min-height:16px}.results{display:none}.table-wrap{overflow:auto}.result-table{width:100%;border-collapse:collapse;font-size:13px}.result-table th{text-align:left;color:var(--muted-dark);font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:12px 18px;border-bottom:1px solid var(--border);background:#0e1625}.result-table td{padding:12px 18px;border-bottom:1px solid var(--border);vertical-align:top}.result-table td:first-child{width:280px;color:var(--muted);font-weight:600}.result-table tr:hover td{background:rgba(255,255,255,.015)}.structure{background:#0c1422!important;color:#7fb0ff!important;font-size:11px!important;text-transform:uppercase;letter-spacing:.1em}.copy-note{font-size:12px;color:var(--muted-dark)}.error{color:#f87171}.success{color:#4ade80}
+@media(max-width:800px){.sidebar{width:68px;padding:20px 8px}.brand{padding:0 8px 30px}.brand-name{font-size:0}.brand-name:before{content:'F';font-size:22px;color:var(--text)}.nav-label,.nav-item span:not(.nav-icon){display:none}.nav-item{justify-content:center;padding:0}.sidebar-bottom{width:100%}main{margin-left:68px}.topbar{padding:0 20px}.content{padding:28px 20px}.account-email{display:none}.search-row{flex-direction:column}.search-row button{height:44px}}
 </style>
 </head>
 <body>
-
 <aside class="sidebar">
-    <div class="brand">FRE.</div>
-
-    <div class="nav-section">Workspace</div>
-    <a href="downloads.html" class="nav-item"><span class="nav-icon">▣</span><span>Documents</span></a>
-    <a href="brokers.html" class="nav-item"><span class="nav-icon">⌕</span><span>Broker Search</span></a>
-    <a href="extract.html" class="nav-item"><span class="nav-icon">⇩</span><span>FOS Extractor Tool</span></a>
-    <a href="vin.html" class="nav-item active"><span class="nav-icon">⌁</span><span>VIN Search</span></a>
-
-    <div class="account">
-        <div class="nav-section">Account</div>
-        <a href="#" class="nav-item" id="logoutBtn"><span class="nav-icon">↪</span><span>Logout</span></a>
-        <div class="user"><div class="avatar" id="avatar">?</div><span id="userEmail"></span></div>
-    </div>
+  <div class="brand"><div class="brand-name">FRE<span class="brand-dot">.</span></div></div>
+  <div class="nav-section">
+    <div class="nav-label">Workspace</div>
+    <a class="nav-item" href="downloads.html"><span class="nav-icon">▣</span><span>Documents</span></a>
+    <a class="nav-item" href="brokers.html"><span class="nav-icon">⌕</span><span>Broker Search</span></a>
+    <a class="nav-item" href="extract.html"><span class="nav-icon">⇩</span><span>FOS Extractor Tool</span></a>
+    <a class="nav-item active" href="vin.html"><span class="nav-icon">⌁</span><span>VIN Search</span></a>
+  </div>
+  <div class="sidebar-bottom"><div class="nav-label">Account</div><div class="nav-item logout" id="logoutBtn"><span class="nav-icon">↪</span><span>Logout</span></div></div>
 </aside>
-
-<main class="main">
-    <div class="topbar">FRE VIN Search</div>
-    <div class="content">
-        <h1>VIN Search</h1>
-        <div class="subtitle">Vehicle identification and VIN structure lookup</div>
-
-        <section class="panel">
-            <div class="panel-head">VEHICLE IDENTIFICATION</div>
-            <div class="panel-body">
-                <div class="form-row">
-                    <div class="field">
-                        <label for="vinInput">VIN</label>
-                        <input id="vinInput" maxlength="17" autocomplete="off" spellcheck="false" placeholder="Enter 17-character VIN">
-                        <div class="hint">Enter a 17-character VIN</div>
-                    </div>
-                    <button id="searchBtn">SEARCH</button>
-                </div>
-                <div id="status" class="status">Ready</div>
-            </div>
-        </section>
-
-        <section class="panel">
-            <div class="panel-head results-head">
-                <div>DECODED INFORMATION</div>
-                <span>Ctrl+C copies the selected row</span>
-            </div>
-            <div id="results" class="empty">Enter a VIN above to begin.</div>
-        </section>
-    </div>
+<main>
+  <div class="topbar"><div class="account"><span class="account-email" id="userEmail"></span><div class="avatar" id="avatar">?</div></div></div>
+  <div class="content">
+    <h1 class="page-title">FRE VIN Search</h1>
+    <div class="page-subtitle">Vehicle identification and VIN structure lookup</div>
+    <section class="panel">
+      <div class="panel-header"><div class="panel-title">VEHICLE IDENTIFICATION</div><div class="panel-subtitle">NHTSA vPIC + WMI fallback</div></div>
+      <div class="search-body">
+        <label class="label" for="vinInput">VIN</label>
+        <div class="search-row"><input id="vinInput" class="vin-input" maxlength="17" autocomplete="off" spellcheck="false" placeholder="Enter 17-character VIN"><button id="searchBtn">SEARCH</button></div>
+        <div class="hint">Enter a 17-character VIN. I, O and Q are not permitted.</div>
+        <div class="status" id="status">Ready</div>
+      </div>
+    </section>
+    <section class="panel results" id="resultsPanel">
+      <div class="panel-header"><div class="panel-title">DECODED INFORMATION</div><div class="copy-note">Click a row or use Ctrl+C to copy</div></div>
+      <div class="table-wrap"><table class="result-table"><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody id="resultsBody"></tbody></table></div>
+    </section>
+  </div>
 </main>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAVqaht2BVQgVkZFcMZ3t34DQeA2uFYu",
-    authDomain: "fre-tools.firebaseapp.com",
-    projectId: "fre-tools",
-    storageBucket: "fre-tools.firebasestorage.app",
-    messagingSenderId: "723940111430",
-    appId: "1:723940111430:web:50cb5685913167f0dc4647"
+const firebaseConfig={apiKey:"AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",authDomain:"fre-tools.firebaseapp.com",projectId:"fre-tools",storageBucket:"fre-tools.firebasestorage.app",messagingSenderId:"723940111430",appId:"1:723940111430:web:50cb5685913167f0dc4647"};
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+
+const WMI_DATABASE={
+"WBA":["BMW AG","Germany"],"WBS":["BMW M GmbH","Germany"],"WBX":["BMW AG","Germany"],"WBY":["BMW i","Germany"],"WMW":["MINI","United Kingdom"],
+"WDB":["Mercedes-Benz","Germany"],"WDC":["Mercedes-Benz","Germany"],"WDD":["Mercedes-Benz","Germany"],"W1K":["Mercedes-Benz","Germany"],"W1N":["Mercedes-Benz","Germany"],
+"WVW":["Volkswagen AG","Germany"],"WVG":["Volkswagen AG","Germany"],"WAU":["Audi AG","Germany"],"TRU":["Audi AG","Hungary"],"TMB":["Skoda Auto","Czech Republic"],"VSS":["SEAT S.A.","Spain"],
+"WF0":["Ford-Werke GmbH","Germany"],"SFA":["Ford of Britain","United Kingdom"],"1FA":["Ford Motor Company","USA"],"1FT":["Ford Motor Company","USA"],
+"SAL":["Land Rover","United Kingdom"],"SAJ":["Jaguar","United Kingdom"],"SAD":["Jaguar Land Rover","United Kingdom"],"W0L":["Opel / Vauxhall","Germany"],
+"VF1":["Renault","France"],"VF2":["Renault","France"],"VF3":["Peugeot","France"],"VF7":["Citroen","France"],"VR3":["Peugeot","France"],"VR7":["Citroen","France"],
+"SJN":["Nissan Manufacturing UK","United Kingdom"],"JN1":["Nissan","Japan"],"JN8":["Nissan","Japan"],
+"SB1":["Toyota Motor Europe","United Kingdom"],"JTD":["Toyota","Japan"],"JTE":["Toyota","Japan"],"JTH":["Lexus","Japan"],
+"SHH":["Honda UK Manufacturing","United Kingdom"],"SHS":["Honda UK Manufacturing","United Kingdom"],"JHM":["Honda","Japan"],
+"TMA":["Hyundai","Czech Republic"],"KMH":["Hyundai","South Korea"],"U5Y":["Kia Slovakia","Slovakia"],"KNA":["Kia","South Korea"],"KNM":["Kia","South Korea"],
+"YV1":["Volvo Cars","Sweden"],"YV4":["Volvo Cars","Sweden"],"JMZ":["Mazda","Japan"],"JM1":["Mazda","Japan"],"JMB":["Mitsubishi","Japan"],
+"ZFA":["Fiat","Italy"],"ZAR":["Alfa Romeo","Italy"],"WP0":["Porsche AG","Germany"],"WP1":["Porsche AG","Germany"],
+"5YJ":["Tesla","USA"],"LRW":["Tesla","China"],"JF1":["Subaru","Japan"],"JF2":["Subaru","Japan"]
 };
+const YEAR_CODES={"A":[1980,2010],"B":[1981,2011],"C":[1982,2012],"D":[1983,2013],"E":[1984,2014],"F":[1985,2015],"G":[1986,2016],"H":[1987,2017],"J":[1988,2018],"K":[1989,2019],"L":[1990,2020],"M":[1991,2021],"N":[1992,2022],"P":[1993,2023],"R":[1994,2024],"S":[1995,2025],"T":[1996,2026],"V":[1997,2027],"W":[1998,2028],"X":[1999,2029],"Y":[2000,2030],"1":[2001,2031],"2":[2002,2032],"3":[2003,2033],"4":[2004,2034],"5":[2005,2035],"6":[2006,2036],"7":[2007,2037],"8":[2008,2038],"9":[2009,2039]};
+const VIN_VALUES={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,J:1,K:2,L:3,M:4,N:5,P:7,R:9,S:2,T:3,U:4,V:5,W:6,X:7,Y:8,Z:9,"0":0,"1":1,"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9};
+const VIN_WEIGHTS=[8,7,6,5,4,3,2,10,0,9,8,7,6,5,4,3,2];
+const CACHE_KEY="fre_vin_cache_v1";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+function validateVin(vin){vin=vin.trim().toUpperCase();if(vin.length!==17)return[false,"VIN must contain exactly 17 characters."];if(/[IOQ]/.test(vin))return[false,"VIN cannot contain I, O or Q."];if(!/^[A-Z0-9]+$/.test(vin))return[false,"VIN must only contain letters and numbers."];return[true,""];}
+function lookupWmi(vin){const wmi=vin.slice(0,3),x=WMI_DATABASE[wmi];return{WMI:wmi,Manufacturer:x?x[0]:"Unknown","WMI Country":x?x[1]:""};}
+function decodeYear(vin){const years=YEAR_CODES[vin[9]]||[];return years.join(" / ");}
+function validateCheckDigit(vin){let total=0;for(let i=0;i<17;i++)total+=(VIN_VALUES[vin[i]]??0)*VIN_WEIGHTS[i];const r=total%11,expected=r===10?"X":String(r),actual=vin[8];return{Expected:expected,Actual:actual,Valid:expected===actual};}
+function decodeStructure(vin){const w=lookupWmi(vin),c=validateCheckDigit(vin);return{WMI:vin.slice(0,3),"VIN Descriptor":vin.slice(3,8),"Check Digit":vin[8],"Check Digit Valid":c.Valid?"Yes":"No / Not applicable","Year Code":vin[9],"Possible Model Year":decodeYear(vin),"Plant Code":vin[10],"Serial Number":vin.slice(11),"WMI Manufacturer":w.Manufacturer,"WMI Country":w["WMI Country"]};}
+function getCache(){try{return JSON.parse(localStorage.getItem(CACHE_KEY)||"{}");}catch{return{};}}
+function getCachedVin(vin){return getCache()[vin]||null;}
+function saveCache(data){const c=getCache();const copy={};for(const k of ["VIN","Manufacturer","Make","Model","Model Year","Vehicle Type","Body Class","Engine","Fuel Type","Transmission","Country","Plant City","Source"] )copy[k]=data[k]||"";c[data.VIN]=copy;localStorage.setItem(CACHE_KEY,JSON.stringify(c));}
+function value(data,key){const v=data?.[key];return v==null?"":String(v).trim();}
+function processNhtsa(vin,d){if(!d)return{};let engine="",disp=value(d,"DisplacementL"),cyl=value(d,"EngineCylinders");if(disp)engine=disp+"L";if(cyl)engine+=engine?` (${cyl} cylinders)`:`${cyl} cylinders`;return{VIN:vin,Manufacturer:value(d,"Manufacturer"),Make:value(d,"Make"),Model:value(d,"Model"),"Model Year":value(d,"ModelYear"),"Vehicle Type":value(d,"VehicleType"),"Body Class":value(d,"BodyClass"),Engine:engine,"Fuel Type":value(d,"FuelTypePrimary"),Transmission:value(d,"TransmissionStyle"),Country:value(d,"PlantCountry"),"Plant City":value(d,"PlantCity"),Source:"NHTSA vPIC"};}
+async function lookupNhtsa(vin){const url=`https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/${encodeURIComponent(vin)}?format=json`;try{const response=await fetch(url,{method:"GET",cache:"no-store"});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json();return data?.Results?.[0]||null;}catch(error){console.warn("NHTSA API error:",error);return null;}}
+async function processVin(vin){const cached=getCachedVin(vin);let base;if(cached){base={...cached,Source:"Local Cache"};const w=lookupWmi(vin);if(!base.Manufacturer)base.Manufacturer=w.Manufacturer;if(!base.Country)base.Country=w["WMI Country"];}else{const raw=await lookupNhtsa(vin);base=processNhtsa(vin,raw);const w=lookupWmi(vin);if(!base||Object.keys(base).length===0){base={VIN:vin,Manufacturer:w.Manufacturer,Make:"",Model:"","Model Year":"","Vehicle Type":"","Body Class":"",Engine:"","Fuel Type":"",Transmission:"",Country:w["WMI Country"],"Plant City":"",Source:"WMI Database"};}else{let used=false;if(!base.Manufacturer){base.Manufacturer=w.Manufacturer;used=true;}if(!base.Country){base.Country=w["WMI Country"];used=true;}if(used)base.Source="NHTSA vPIC + WMI";}}saveCache(base);}
+const result={...base,"--- VIN STRUCTURE ---":"",...decodeStructure(vin)};return result;}
 
-onAuthStateChanged(auth, user => {
-    if (!user) {
-        window.location.href = "login.html";
-        return;
-    }
-    document.getElementById("userEmail").textContent = user.email || "";
-    document.getElementById("avatar").textContent = (user.email || "?").charAt(0).toUpperCase();
-});
+const input=document.getElementById("vinInput"),button=document.getElementById("searchBtn"),status=document.getElementById("status"),panel=document.getElementById("resultsPanel"),body=document.getElementById("resultsBody");
+let selectedRow=null;
+function render(result){body.innerHTML="";for(const [field,val] of Object.entries(result)){const tr=document.createElement("tr");if(field==="--- VIN STRUCTURE ---"){tr.innerHTML='<td colspan="2" class="structure">VIN STRUCTURE</td>';}else{tr.innerHTML="<td></td><td></td>";tr.cells[0].textContent=field;tr.cells[1].textContent=val??"";tr.addEventListener("click",()=>{document.querySelectorAll(".result-table tr.selected").forEach(x=>x.classList.remove("selected"));tr.classList.add("selected");selectedRow=`${field}\t${val??""}`;});}body.appendChild(tr);}panel.style.display="block";}
+async function search(){const vin=input.value.trim().toUpperCase();input.value=vin;const [ok,msg]=validateVin(vin);if(!ok){status.textContent=msg;status.className="status error";panel.style.display="none";return;}button.disabled=true;status.textContent="Searching...";status.className="status";try{const result=await processVin(vin);render(result);status.textContent="Lookup complete";status.className="status success";}catch(e){console.error(e);status.textContent="Lookup failed: "+e.message;status.className="status error";}finally{button.disabled=false;}}
+button.addEventListener("click",search);input.addEventListener("keydown",e=>{if(e.key==="Enter")search();});document.addEventListener("keydown",e=>{if(e.ctrlKey&&e.key.toLowerCase()==="c"&&selectedRow){e.preventDefault();navigator.clipboard?.writeText(selectedRow);}});
+document.getElementById("logoutBtn").addEventListener("click",async()=>{try{await signOut(auth);window.location.href="login.html";}catch(e){console.error(e);alert("Unable to log out. Please try again.");}});
 
-document.getElementById("logoutBtn").addEventListener("click", async e => {
-    e.preventDefault();
-    try {
-        await signOut(auth);
-        window.location.href = "login.html";
-    } catch (error) {
-        console.error(error);
-        alert("Unable to log out. Please try again.");
-    }
-});
-
-const NHTSA_API_URL = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/{vin}?format=json";
-const CACHE_PREFIX = "fre_vin_cache_";
-
-const WMI_DATABASE = {
-    "WBA":["BMW AG","Germany"],"WBS":["BMW M GmbH","Germany"],"WBX":["BMW AG","Germany"],"WBY":["BMW i","Germany"],"WMW":["BMW AG","United Kingdom"],
-    "WDB":["Mercedes-Benz","Germany"],"WDC":["Mercedes-Benz","Germany"],"WDD":["Mercedes-Benz","Germany"],"W1K":["Mercedes-Benz","Germany"],"W1N":["Mercedes-Benz","Germany"],"W1V":["Mercedes-Benz","Germany"],
-    "WVW":["Volkswagen AG","Germany"],"WVG":["Volkswagen AG","Germany"],"WV1":["Volkswagen Commercial Vehicles","Germany"],"WV2":["Volkswagen Commercial Vehicles","Germany"],"WV3":["Volkswagen Commercial Vehicles","Germany"],
-    "WAU":["Audi AG","Germany"],"WA1":["Audi AG","Germany"],"WUA":["Audi Sport","Germany"],"TRU":["Audi","Hungary"],"TMB":["Skoda","Czech Republic"],"TMP":["Skoda","Czech Republic"],"VSS":["SEAT","Spain"],"VSZ":["SEAT","Spain"],
-    "WL0":["Opel","Germany"],"W0L":["Opel","Germany"],"W0V":["Opel","Germany"],"W0G":["Opel","Germany"],"VXK":["Vauxhall","United Kingdom"],"VLG":["Vauxhall","United Kingdom"],"SED":["Vauxhall","United Kingdom"],
-    "WF0":["Ford","Germany"],"SFA":["Ford","United Kingdom"],"SBC":["Ford","United Kingdom"],"1FA":["Ford","United States"],"1FT":["Ford","United States"],
-    "SAL":["Land Rover","United Kingdom"],"SAJ":["Jaguar","United Kingdom"],"SAD":["Jaguar Land Rover","United Kingdom"],"SCC":["Lotus","United Kingdom"],
-    "VF1":["Renault","France"],"VF2":["Renault","France"],"UU1":["Dacia","Romania"],"UU5":["Dacia","Romania"],
-    "VF3":["Peugeot","France"],"VR3":["Peugeot","France"],"VF7":["Citroen","France"],"VR7":["Citroen","France"],"VF8":["DS Automobiles","France"],
-    "SJN":["Nissan","United Kingdom"],"JN1":["Nissan","Japan"],"JN8":["Nissan","Japan"],
-    "SB1":["Toyota","United Kingdom"],"SBM":["Toyota","United Kingdom"],"JTD":["Toyota","Japan"],"JTE":["Toyota","Japan"],"JTH":["Lexus","Japan"],
-    "SHH":["Honda","United Kingdom"],"SHS":["Honda","United Kingdom"],"JHM":["Honda","Japan"],
-    "TMA":["Hyundai","Czech Republic"],"KMH":["Hyundai","South Korea"],"U5Y":["Kia","Slovakia"],"KNA":["Kia","South Korea"],"KNM":["Kia","South Korea"],
-    "YV1":["Volvo","Sweden"],"YV4":["Volvo","Sweden"],"XLB":["Volvo","Netherlands"],
-    "JMZ":["Mazda","Japan"],"JM1":["Mazda","Japan"],"JMB":["Mitsubishi","Japan"],
-    "ZFA":["Fiat","Italy"],"ZAR":["Alfa Romeo","Italy"],"WP0":["Porsche","Germany"],"WP1":["Porsche","Germany"],
-    "SCB":["Bentley","United Kingdom"],"SCF":["Aston Martin","United Kingdom"],
-    "5YJ":["Tesla","United States"],"LRW":["Tesla","China"],"JF1":["Subaru","Japan"],"JF2":["Subaru","Japan"],
-    "KL1":["Chevrolet / GM Korea","South Korea"],"JAC":["Isuzu","Japan"],"TSM":["Suzuki","Hungary"],"JS3":["Suzuki","Japan"]
-};
-
-const YEAR_CODES = {
-"A":[1980,2010],"B":[1981,2011],"C":[1982,2012],"D":[1983,2013],"E":[1984,2014],"F":[1985,2015],
-"G":[1986,2016],"H":[1987,2017],"J":[1988,2018],"K":[1989,2019],"L":[1990,2020],"M":[1991,2021],
-"N":[1992,2022],"P":[1993,2023],"R":[1994,2024],"S":[1995,2025],"T":[1996,2026],"V":[1997,2027],
-"W":[1998,2028],"X":[1999,2029],"Y":[2000,2030],"1":[2001,2031],"2":[2002,2032],"3":[2003,2033],
-"4":[2004,2034],"5":[2005,2035],"6":[2006,2036],"7":[2007,2037],"8":[2008,2038],"9":[2009,2039]
-};
-
-const VIN_VALUES = {
-"A":1,"B":2,"C":3,"D":4,"E":5,"F":6,"G":7,"H":8,"J":1,"K":2,"L":3,"M":4,"N":5,"P":7,"R":9,
-"S":2,"T":3,"U":4,"V":5,"W":6,"X":7,"Y":8,"Z":9,
-"0":0,"1":1,"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9
-};
-const VIN_WEIGHTS = [8,7,6,5,4,3,2,10,0,9,8,7,6,5,4,3,2];
-
-function getCachedVin(vin){
-    try { return JSON.parse(localStorage.getItem(CACHE_PREFIX + vin)); }
-    catch { return null; }
-}
-function saveToCache(data){
-    try { localStorage.setItem(CACHE_PREFIX + data.VIN, JSON.stringify({...data, lookup_date:new Date().toISOString()})); }
-    catch(e){ console.warn("Cache unavailable:", e); }
-}
-function validateVin(vin){
-    vin = vin.trim().toUpperCase();
-    if(vin.length !== 17) return [false,"VIN must contain exactly 17 characters."];
-    if(/[IOQ]/.test(vin)) return [false,"VIN cannot contain I, O or Q."];
-    if(!/^[A-Z0-9]+$/.test(vin)) return [false,"VIN must contain only letters and numbers."];
-    return [true,vin];
-}
-function lookupWmi(vin){
-    const wmi=vin.slice(0,3), entry=WMI_DATABASE[wmi];
-    return {WMI:wmi,"WMI Manufacturer":entry?entry[0]:"Unknown","WMI Country":entry?entry[1]:""};
-}
-function decodeYear(vin){
-    const code=vin[9], years=YEAR_CODES[code];
-    return { "Year Code":code, "Possible Model Year":years?years.join(" / "):"Unknown" };
-}
-function validateCheckDigit(vin){
-    let sum=0;
-    for(let i=0;i<17;i++) sum += (VIN_VALUES[vin[i]] ?? 0) * VIN_WEIGHTS[i];
-    const remainder=sum%11;
-    const expected=remainder===10?"X":String(remainder);
-    const actual=vin[8];
-    return {"Check Digit":actual,"Check Digit Valid":expected===actual?"Yes":"No","Expected Check Digit":expected};
-}
-function decodeVinStructure(vin){
-    return {
-        "WMI":vin.slice(0,3),
-        "VIN Descriptor":vin.slice(3,8),
-        "Check Digit":vin[8],
-        "Check Digit Valid":validateCheckDigit(vin)["Check Digit Valid"],
-        "Year Code":vin[9],
-        "Possible Model Year":decodeYear(vin)["Possible Model Year"],
-        "Plant Code":vin[10],
-        "Serial Number":vin.slice(11)
-    };
-}
-function val(data,key){
-    const v=data?.[key];
-    return v == null ? "" : String(v).trim();
-}
-function processNhtsaData(vin,d){
-    const displacement=val(d,"DisplacementL");
-    const cylinders=val(d,"EngineCylinders");
-    let engine="";
-    if(displacement && cylinders) engine=`${displacement}L (${cylinders} cylinders)`;
-    else if(displacement) engine=`${displacement}L`;
-    else if(cylinders) engine=`${cylinders} cylinders`;
-    return {
-        VIN:vin,
-        Manufacturer:val(d,"Manufacturer"),
-        Make:val(d,"Make"),
-        Model:val(d,"Model"),
-        "Model Year":val(d,"ModelYear"),
-        "Vehicle Type":val(d,"VehicleType"),
-        "Body Class":val(d,"BodyClass"),
-        Engine:engine,
-        "Fuel Type":val(d,"FuelTypePrimary"),
-        Transmission:val(d,"TransmissionStyle"),
-        Country:val(d,"PlantCountry"),
-        "Plant City":val(d,"PlantCity"),
-        Source:"NHTSA vPIC"
-    };
-}
-function applyWmiFallback(result,vin){
-    const w=lookupWmi(vin);
-    let used=false;
-    if(!result.Manufacturer){ result.Manufacturer=w["WMI Manufacturer"]; used=true; }
-    if(!result.Country){ result.Country=w["WMI Country"]; used=true; }
-    return [result,used];
-}
-async function lookupNhtsa(vin){
-    const url=NHTSA_API_URL.replace("{vin}",encodeURIComponent(vin));
-    const response=await fetch(url,{method:"GET",headers:{"Accept":"application/json"}});
-    if(!response.ok) throw new Error(`NHTSA returned HTTP ${response.status}`);
-    const json=await response.json();
-    return json?.Results?.[0] || null;
-}
-async function processVin(vin){
-    const cached=getCachedVin(vin);
-    let result;
-    if(cached){
-        result={...cached,Source:"Local Cache"};
-        delete result.lookup_date;
-        [result]=applyWmiFallback(result,vin);
-        saveToCache(result);
-    }else{
-        let apiData=null;
-        try{ apiData=await lookupNhtsa(vin); }catch(e){ console.warn(e); }
-        if(!apiData){
-            const w=lookupWmi(vin);
-            result={
-                VIN:vin,Manufacturer:w["WMI Manufacturer"],Make:"",Model:"",
-                "Model Year":"","Vehicle Type":"","Body Class":"",Engine:"",
-                "Fuel Type":"","Transmission":"",Country:w["WMI Country"],"Plant City":"",
-                Source:"WMI Database"
-            };
-        }else{
-            result=processNhtsaData(vin,apiData);
-            const before=result.Manufacturer||result.Country;
-            let used=false;
-            [result,used]=applyWmiFallback(result,vin);
-            if(used) result.Source="NHTSA vPIC + WMI";
-        }
-        saveToCache(result);
-    }
-    return {...result,"--- VIN STRUCTURE ---":"",...decodeVinStructure(vin)};
-}
-function setStatus(text,type=""){
-    const s=document.getElementById("status"); s.textContent=text; s.className="status "+type;
-}
-function renderResults(data){
-    const box=document.getElementById("results");
-    const entries=Object.entries(data);
-    let html=`<div class="table-wrap"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>`;
-    for(const [k,v] of entries){
-        if(k==="--- VIN STRUCTURE ---"){
-            html+=`<tr><td colspan="2" class="structure">--- VIN STRUCTURE ---</td></tr>`;
-        }else{
-            const safe=String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-            html+=`<tr data-field="${k.replace(/"/g,"&quot;")}"><td>${k}</td><td class="value">${safe || "—"}</td></tr>`;
-        }
-    }
-    html+=`</tbody></table></div>`;
-    box.className="";
-    box.innerHTML=html;
-    box.querySelectorAll("tbody tr").forEach(row=>{
-        row.addEventListener("click",()=>{
-            box.querySelectorAll("tbody tr").forEach(r=>r.style.outline="");
-            row.style.outline="1px solid var(--blue)";
-            row.dataset.selected="1";
-        });
-    });
-}
-async function search(){
-    const input=document.getElementById("vinInput");
-    const button=document.getElementById("searchBtn");
-    const checked=validateVin(input.value);
-    if(!checked[0]){ setStatus(checked[1],"error"); input.focus(); return; }
-    const vin=checked[1];
-    input.value=vin;
-    button.disabled=true;
-    setStatus("Searching...");
-    try{
-        const result=await processVin(vin);
-        renderResults(result);
-        setStatus("Lookup complete","ok");
-    }catch(e){
-        console.error(e);
-        setStatus("Error: "+(e.message||"Lookup failed"),"error");
-    }finally{ button.disabled=false; }
-}
-document.getElementById("searchBtn").addEventListener("click",search);
-document.getElementById("vinInput").addEventListener("keydown",e=>{if(e.key==="Enter")search();});
-document.getElementById("results").addEventListener("click",e=>{
-    const row=e.target.closest("tr[data-selected='1']");
-    if(!row)return;
-    const cells=row.querySelectorAll("td");
-    if(cells.length<2)return;
-    navigator.clipboard.writeText(cells[0].textContent+"\t"+cells[1].textContent).catch(()=>{});
-});
-document.addEventListener("keydown",e=>{
-    if(e.ctrlKey && e.key.toLowerCase()==="c"){
-        const row=document.querySelector("tbody tr[data-selected='1']");
-        if(!row)return;
-        const cells=row.querySelectorAll("td");
-        if(cells.length>=2){
-            e.preventDefault();
-            navigator.clipboard.writeText(cells[0].textContent+"\t"+cells[1].textContent).catch(()=>{});
-        }
-    }
-});
+onAuthStateChanged(auth,user=>{if(!user){window.location.href="login.html";return;}document.getElementById("userEmail").textContent=user.email||"";document.getElementById("avatar").textContent=(user.email||"?").charAt(0).toUpperCase();input.focus();});
 </script>
 </body>
 </html>
-'''
-path = Path("/mnt/data/vin.html")
-path.write_text(html, encoding="utf-8")
-print(f"Created {path} ({len(html):,} characters)")
