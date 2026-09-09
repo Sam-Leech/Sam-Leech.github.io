@@ -94,7 +94,21 @@ async function search(){const vin=input.value.trim().toUpperCase();input.value=v
 button.addEventListener("click",search);input.addEventListener("keydown",e=>{if(e.key==="Enter")search();});document.addEventListener("keydown",e=>{if(e.ctrlKey&&e.key.toLowerCase()==="c"&&selectedRow){e.preventDefault();navigator.clipboard?.writeText(selectedRow);}});
 document.getElementById("logoutBtn").addEventListener("click",async()=>{try{await signOut(auth);window.location.href="login.html";}catch(e){console.error(e);alert("Unable to log out. Please try again.");}});
 
-onAuthStateChanged(auth,user=>{if(!user){window.location.href="login.html";return;}document.getElementById("userEmail").textContent=user.email||"";document.getElementById("avatar").textContent=(user.email||"?").charAt(0).toUpperCase();input.focus();});
+(async()=>{
+  try {
+    await auth.authStateReady();
+    const user=auth.currentUser;
+    console.log("VIN AUTH STATE:",user?user.email:"NO USER");
+    if(!user){window.location.replace("login.html");return;}
+    document.getElementById("userEmail").textContent=user.email||"";
+    document.getElementById("avatar").textContent=(user.email||"?").charAt(0).toUpperCase();
+    input.focus();
+  } catch(error) {
+    console.error("VIN Firebase auth error:",error);
+    status.textContent="Firebase authentication error: "+error.message;
+    status.className="status error";
+  }
+})();
 </script>
 </body>
 </html>
