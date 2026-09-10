@@ -1,5 +1,5 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -555,7 +555,6 @@ body {
     .account-email {
         display: none;
     }
-
 }
 
 
@@ -588,16 +587,13 @@ body {
     .button {
         flex: 1;
     }
-
 }
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      SIDEBAR
@@ -605,106 +601,106 @@ body {
 
 <aside class="sidebar">
 
-    <div class="brand">
+```
+<div class="brand">
 
-        <div class="brand-name">
-            FRE<span class="brand-dot">.</span>
-        </div>
-
+    <div class="brand-name">
+        FRE<span class="brand-dot">.</span>
     </div>
 
+</div>
+
+
+<div class="nav-section">
+
+    <div class="nav-label">
+        Workspace
+    </div>
+
+
+    <a href="downloads.html" class="nav-item">
+
+        <span class="nav-icon">
+            ▣
+        </span>
+
+        <span>
+            Documents
+        </span>
+
+    </a>
+
+
+    <a href="brokers.html" class="nav-item">
+
+        <span class="nav-icon">
+            ⌕
+        </span>
+
+        <span>
+            Broker Search
+        </span>
+
+    </a>
+
+
+    <a href="extract.html" class="nav-item">
+
+        <span class="nav-icon">
+            ⇩
+        </span>
+
+        <span>
+            FOS Extracter Tool
+        </span>
+
+    </a>
+
+
+    <a href="vin.html" class="nav-item">
+
+        <span class="nav-icon">
+            ⌁
+        </span>
+
+        <span>
+            VIN Search
+        </span>
+
+    </a>
+
+</div>
+
+
+<div class="sidebar-bottom">
 
     <div class="nav-section">
 
         <div class="nav-label">
-            Workspace
+            Account
         </div>
 
 
-        <a href="downloads.html" class="nav-item">
+        <div
+            class="nav-item logout"
+            id="logoutBtn">
 
             <span class="nav-icon">
-                ▣
+                ↪
             </span>
 
             <span>
-                Documents
+                Logout
             </span>
-
-        </a>
-
-
-        <a href="brokers.html" class="nav-item">
-
-            <span class="nav-icon">
-                ⌕
-            </span>
-
-            <span>
-                Broker Search
-            </span>
-
-        </a>
-
-
-        <a href="extract.html" class="nav-item">
-
-            <span class="nav-icon">
-                ⇩
-            </span>
-
-            <span>
-                FOS Extracter Tool
-            </span>
-
-        </a>
-
-
-        <a href="vin.html" class="nav-item">
-
-            <span class="nav-icon">
-                ⌁
-            </span>
-
-            <span>
-                VIN Search
-            </span>
-
-        </a>
-
-    </div>
-
-
-    <div class="sidebar-bottom">
-
-        <div class="nav-section">
-
-            <div class="nav-label">
-                Account
-            </div>
-
-
-            <div
-                class="nav-item logout"
-                id="logoutBtn">
-
-                <span class="nav-icon">
-                    ↪
-                </span>
-
-                <span>
-                    Logout
-                </span>
-
-            </div>
 
         </div>
 
     </div>
+
+</div>
+```
 
 </aside>
-
-
 
 <!-- =====================================================
      MAIN
@@ -712,122 +708,118 @@ body {
 
 <main class="main">
 
-
 <header class="topbar">
 
-    <div class="topbar-title">
-        FRE Documents
-    </div>
-
-
-    <div class="account">
-
-        <span
-            class="account-email"
-            id="userEmail">
-
-            Loading...
-
-        </span>
-
-
-        <div
-            class="avatar"
-            id="avatar">
-
-            ?
-
-        </div>
-
-    </div>
-
-</header>
-
-
-
-<section class="content">
-
-
-<div class="page-header">
-
-    <h1 class="page-title">
-        Documents
-    </h1>
-
-    <p class="page-subtitle">
-        Access and manage your FRE documents.
-    </p>
-
+```
+<div class="topbar-title">
+    FRE Documents
 </div>
 
 
+<div class="account">
 
-<div class="toolbar">
+    <span
+        class="account-email"
+        id="userEmail">
 
-    <div class="search-wrapper">
+        Loading...
 
-        <span class="search-icon">
-            ⌕
-        </span>
-
-        <input
-            type="text"
-            id="search"
-            class="search"
-            placeholder="Search documents..."
-            autocomplete="off"
-        >
-
-    </div>
+    </span>
 
 
     <div
-        class="document-count"
-        id="documentCount">
+        class="avatar"
+        id="avatar">
 
-        0 documents
+        ?
 
     </div>
 
 </div>
+```
+
+</header>
+
+<section class="content">
+
+<div class="page-header">
+
+```
+<h1 class="page-title">
+    Documents
+</h1>
+
+<p class="page-subtitle">
+    Access and manage your FRE documents.
+</p>
+```
+
+</div>
+
+<div class="toolbar">
+
+```
+<div class="search-wrapper">
+
+    <span class="search-icon">
+        ⌕
+    </span>
+
+    <input
+        type="text"
+        id="search"
+        class="search"
+        placeholder="Search documents..."
+        autocomplete="off"
+    >
+
+</div>
 
 
+<div
+    class="document-count"
+    id="documentCount">
+
+    0 documents
+
+</div>
+```
+
+</div>
 
 <div class="panel">
 
-
 <div class="panel-header">
 
-    <div class="panel-title">
-        Available documents
-    </div>
+```
+<div class="panel-title">
+    Available documents
+</div>
 
-    <div class="panel-subtitle">
-        FRE Portal
-    </div>
+<div class="panel-subtitle">
+    FRE Portal
+</div>
+```
 
 </div>
 
-
 <div id="documentList"></div>
-
 
 <div
     class="empty"
     id="emptyState">
 
-    No documents found.
+```
+No documents found.
+```
 
 </div>
-
 
 </div>
 
 </section>
 
 </main>
-
-
 
 <script type="module">
 
@@ -881,7 +873,6 @@ const auth =
     getAuth(app);
 
 
-
 /* =====================================================
    DOCUMENT DATA
 ===================================================== */
@@ -889,14 +880,49 @@ const auth =
 let documents = [];
 
 
-
 /* =====================================================
-   FRE BACKEND URL
+   FRE BACKEND
 ===================================================== */
 
 const DOCUMENT_API_URL =
-    "https://script.google.com/macros/s/AKfycbxkziL-xNYQUK0sm5pNUATfhmSeAyQslJg3bihviRhxstH9_w9699q2IWnp9OtMY04fXg/exec";
+    "https://script.google.com/macros/s/AKfycbxkziL-xNYQUK0sm5pNUATFhmSeAyQslJg3bihviRhxstH9_w9699q2IWnp9OtMY04fXg/exec";
 
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function isObject(value) {
+
+    return (
+        value !== null &&
+        typeof value === "object"
+    );
+
+}
+
+
+function normaliseItems(value) {
+
+    if (Array.isArray(value)) {
+        return value;
+    }
+
+    return [];
+
+}
 
 
 /* =====================================================
@@ -905,47 +931,116 @@ const DOCUMENT_API_URL =
 
 async function loadDocumentData() {
 
+    console.log(
+        "Requesting documents from FRE backend..."
+    );
+
     try {
-
-        console.log(
-            "Requesting documents from FRE backend..."
-        );
-
 
         const response =
             await fetch(
-                DOCUMENT_API_URL,
-                {
-                    method: "GET",
-                    cache: "no-store"
-                }
+                DOCUMENT_API_URL +
+                "?t=" +
+                Date.now()
             );
+
+
+        console.log(
+            "Backend HTTP status:",
+            response.status
+        );
+
+
+        console.log(
+            "Backend content type:",
+            response.headers.get("content-type")
+        );
 
 
         if (!response.ok) {
 
             throw new Error(
-                "FRE backend returned HTTP " +
+                "Backend returned HTTP " +
                 response.status
             );
 
         }
 
 
-        const data =
-            await response.json();
+        /*
+         * Read the response as TEXT first.
+         *
+         * This is deliberate.
+         *
+         * It means we can see exactly what
+         * Google Apps Script actually sent.
+         */
+
+        const rawText =
+            await response.text();
 
 
         console.log(
-            "Raw FRE backend response:",
+            "RAW FRE BACKEND RESPONSE:",
+            rawText
+        );
+
+
+        if (!rawText || !rawText.trim()) {
+
+            throw new Error(
+                "FRE backend returned an empty response."
+            );
+
+        }
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(
+                    rawText
+                );
+
+        }
+
+        catch (parseError) {
+
+            console.error(
+                "JSON parsing failed.",
+                parseError
+            );
+
+            throw new Error(
+                "FRE backend did not return valid JSON."
+            );
+
+        }
+
+
+        console.log(
+            "PARSED FRE BACKEND RESPONSE:",
             data
         );
 
 
+        console.log(
+            "Backend data type:",
+            typeof data
+        );
+
+
+        console.log(
+            "Backend is array:",
+            Array.isArray(data)
+        );
+
+
         /*
-         * THE BACKEND MUST RETURN AN ARRAY.
-         *
-         * Expected structure:
+         * Normally the Apps Script returns:
          *
          * [
          *   {
@@ -954,12 +1049,96 @@ async function loadDocumentData() {
          *      items: [...]
          *   }
          * ]
+         *
+         * Handle that first.
          */
 
-        if (!Array.isArray(data)) {
+        if (Array.isArray(data)) {
+
+            documents =
+                data;
+
+        }
+
+
+        /*
+         * If the backend has somehow returned the
+         * array as a JSON string, parse it again.
+         */
+
+        else if (
+            typeof data === "string"
+        ) {
+
+            let secondParse;
+
+            try {
+
+                secondParse =
+                    JSON.parse(data);
+
+            }
+
+            catch (error) {
+
+                throw new Error(
+                    "Backend returned a JSON string, but it could not be parsed."
+                );
+
+            }
+
+
+            if (
+                !Array.isArray(
+                    secondParse
+                )
+            ) {
+
+                throw new Error(
+                    "Backend JSON string does not contain a document list."
+                );
+
+            }
+
+
+            documents =
+                secondParse;
+
+        }
+
+
+        /*
+         * If the backend returns an object
+         * containing the list under "documents"
+         * or "data", support that too.
+         */
+
+        else if (
+            isObject(data) &&
+            Array.isArray(data.documents)
+        ) {
+
+            documents =
+                data.documents;
+
+        }
+
+
+        else if (
+            isObject(data) &&
+            Array.isArray(data.data)
+        ) {
+
+            documents =
+                data.data;
+
+        }
+
+
+        else {
 
             console.error(
-                "Invalid backend response:",
+                "Unexpected backend structure:",
                 data
             );
 
@@ -970,23 +1149,17 @@ async function loadDocumentData() {
         }
 
 
-        /*
-         * Store the validated document list.
-         */
-
-        documents =
-            data;
-
-
         console.log(
-            "Validated document list:",
+            "VALIDATED DOCUMENT LIST:",
             documents
         );
 
 
-        /*
-         * Render the documents.
-         */
+        console.log(
+            "Number of top-level entries:",
+            documents.length
+        );
+
 
         loadDocuments(
             documents
@@ -1002,11 +1175,8 @@ async function loadDocumentData() {
         );
 
 
-        /*
-         * Clear any old display.
-         */
-
-        documents = [];
+        documents =
+            [];
 
 
         const count =
@@ -1041,7 +1211,7 @@ async function loadDocumentData() {
 
 
         alert(
-            "Error loading documents from FRE backend: " +
+            "Error loading documents from FRE backend:\n\n" +
             error.message
         );
 
@@ -1050,65 +1220,42 @@ async function loadDocumentData() {
 }
 
 
-
 /* =====================================================
    COUNT DOCUMENTS
 ===================================================== */
 
 function countDocuments(items) {
 
-    /*
-     * NEVER call .forEach() unless we know
-     * the value is actually an array.
-     */
-
-    if (!Array.isArray(items)) {
-
-        return 0;
-
-    }
+    const safeItems =
+        normaliseItems(items);
 
 
     let count = 0;
 
 
-    items.forEach(
+    safeItems.forEach(
         item => {
 
-            /*
-             * Ignore invalid entries.
-             */
+            if (!isObject(item)) {
+                return;
+            }
+
 
             if (
-                !item ||
-                typeof item !== "object"
+                item.type ===
+                "document"
             ) {
+
+                count++;
 
                 return;
 
             }
 
 
-            /*
-             * Direct document.
-             */
-
             if (
-                item.type === "document"
-            ) {
-
-                count++;
-
-            }
-
-
-            /*
-             * Nested folder.
-             */
-
-            if (
-                item.type === "folder" &&
-                Array.isArray(item.items)
+                item.type ===
+                "folder"
             ) {
 
                 count +=
@@ -1127,59 +1274,15 @@ function countDocuments(items) {
 }
 
 
-
 /* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value) {
-
-    return String(
-        value ?? ""
-    )
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-
-}
-
-
-
-/* =====================================================
-   DOCUMENT
+   CREATE DOCUMENT
 ===================================================== */
 
 function createDocument(doc) {
 
-    /*
-     * Make sure we have an object.
-     */
+    if (!isObject(doc)) {
 
-    if (
-        !doc ||
-        typeof doc !== "object"
-    ) {
-
-        return document.createElement(
-            "div"
-        );
+        return null;
 
     }
 
@@ -1196,19 +1299,21 @@ function createDocument(doc) {
 
     const fileType =
         String(
-            doc.fileType ?? ""
+            doc.fileType || ""
         );
 
 
     const documentName =
         String(
-            doc.name ?? "Unnamed document"
+            doc.name ||
+            "Unnamed document"
         );
 
 
     const documentLink =
         String(
-            doc.link ?? "#"
+            doc.link ||
+            "#"
         );
 
 
@@ -1223,38 +1328,24 @@ function createDocument(doc) {
         <div class="document-left">
 
             <div class="document-icon">
-
                 ${icon}
-
             </div>
 
 
             <div class="document-details">
 
                 <div class="document-name">
-
-                    ${escapeHtml(
-                        documentName
-                    )}
-
+                    ${escapeHtml(documentName)}
                 </div>
 
 
                 <div class="document-meta">
 
                     <span>
-
-                        ${escapeHtml(
-                            fileType
-                        )}
-
+                        ${escapeHtml(fileType)}
                     </span>
 
-
-                    <span
-                        class="meta-dot">
-                    </span>
-
+                    <span class="meta-dot"></span>
 
                     <span>
                         Available
@@ -1271,9 +1362,7 @@ function createDocument(doc) {
 
             <a
                 class="button"
-                href="${escapeHtml(
-                    documentLink
-                )}"
+                href="${escapeHtml(documentLink)}"
                 target="_blank"
                 rel="noopener noreferrer">
 
@@ -1305,7 +1394,13 @@ function createDocument(doc) {
 
         emailButton.addEventListener(
             "click",
-            () => emailDocument(doc)
+            function () {
+
+                emailDocument(
+                    doc
+                );
+
+            }
         );
 
     }
@@ -1316,12 +1411,18 @@ function createDocument(doc) {
 }
 
 
-
 /* =====================================================
-   FOLDER
+   CREATE FOLDER
 ===================================================== */
 
 function createFolder(folder) {
+
+    if (!isObject(folder)) {
+
+        return null;
+
+    }
+
 
     const wrapper =
         document.createElement(
@@ -1346,23 +1447,27 @@ function createFolder(folder) {
     /*
      * IMPORTANT:
      *
-     * folder.items is the exact place
-     * where your previous error could occur.
-     *
-     * We therefore normalise it first.
+     * Always convert folder.items
+     * into an actual array before
+     * doing anything with it.
      */
 
     const items =
-        Array.isArray(
-            folder?.items
-        )
-            ? folder.items
-            : [];
+        normaliseItems(
+            folder.items
+        );
 
 
     const itemCount =
         countDocuments(
             items
+        );
+
+
+    const folderName =
+        String(
+            folder.name ||
+            "Unnamed folder"
         );
 
 
@@ -1378,24 +1483,16 @@ function createFolder(folder) {
             <div>
 
                 <div class="folder-name">
-
-                    ${escapeHtml(
-                        folder?.name ??
-                        "Unnamed folder"
-                    )}
-
+                    ${escapeHtml(folderName)}
                 </div>
 
 
                 <div class="folder-count">
 
                     ${itemCount}
-
-                    ${
-                        itemCount === 1
-                            ? " document"
-                            : " documents"
-                    }
+                    ${itemCount === 1
+                        ? " document"
+                        : " documents"}
 
                 </div>
 
@@ -1422,24 +1519,35 @@ function createFolder(folder) {
 
 
     /*
-     * We now iterate over the
-     * already-normalised array.
+     * IMPORTANT:
+     *
+     * We are only calling forEach
+     * on "items", which was already
+     * confirmed to be an array.
      */
 
     items.forEach(
         item => {
 
             if (
-                item &&
-                typeof item === "object" &&
-                item.type === "document"
+                isObject(item) &&
+                item.type ===
+                "document"
             ) {
 
-                contents.appendChild(
+                const documentElement =
                     createDocument(
                         item
-                    )
-                );
+                    );
+
+
+                if (documentElement) {
+
+                    contents.appendChild(
+                        documentElement
+                    );
+
+                }
 
             }
 
@@ -1449,7 +1557,7 @@ function createFolder(folder) {
 
     header.addEventListener(
         "click",
-        () => {
+        function () {
 
             contents.classList.toggle(
                 "open"
@@ -1489,7 +1597,6 @@ function createFolder(folder) {
 }
 
 
-
 /* =====================================================
    DISPLAY DOCUMENTS
 ===================================================== */
@@ -1525,25 +1632,21 @@ function loadDocuments(list) {
     }
 
 
-    /*
-     * ALWAYS clear the current display first.
-     */
-
     container.innerHTML =
         "";
 
 
     /*
-     * Validate the top-level list.
+     * Do not attempt to render
+     * anything that isn't an array.
      */
 
     if (!Array.isArray(list)) {
 
         console.error(
-            "loadDocuments received invalid data:",
+            "loadDocuments received:",
             list
         );
-
 
         if (count) {
 
@@ -1551,7 +1654,6 @@ function loadDocuments(list) {
                 "0 documents";
 
         }
-
 
         if (empty) {
 
@@ -1563,15 +1665,10 @@ function loadDocuments(list) {
 
         }
 
-
         return;
 
     }
 
-
-    /*
-     * Count documents.
-     */
 
     const total =
         countDocuments(
@@ -1582,18 +1679,16 @@ function loadDocuments(list) {
     if (count) {
 
         count.textContent =
-            `${total} ${
+            total +
+            " " +
+            (
                 total === 1
                     ? "document"
                     : "documents"
-            }`;
+            );
 
     }
 
-
-    /*
-     * No documents.
-     */
 
     if (total === 0) {
 
@@ -1612,10 +1707,6 @@ function loadDocuments(list) {
     }
 
 
-    /*
-     * Documents exist.
-     */
-
     if (empty) {
 
         empty.style.display =
@@ -1625,23 +1716,32 @@ function loadDocuments(list) {
 
 
     /*
-     * Render each top-level folder.
+     * Only top-level folders
+     * are rendered here.
      */
 
     list.forEach(
         item => {
 
             if (
-                item &&
-                typeof item === "object" &&
-                item.type === "folder"
+                isObject(item) &&
+                item.type ===
+                "folder"
             ) {
 
-                container.appendChild(
+                const folderElement =
                     createFolder(
                         item
-                    )
-                );
+                    );
+
+
+                if (folderElement) {
+
+                    container.appendChild(
+                        folderElement
+                    );
+
+                }
 
             }
 
@@ -1651,15 +1751,12 @@ function loadDocuments(list) {
 }
 
 
-
 /* =====================================================
    SEARCH
 ===================================================== */
 
 document
-    .getElementById(
-        "search"
-    )
+    .getElementById("search")
     .addEventListener(
         "input",
         function () {
@@ -1671,8 +1768,8 @@ document
 
 
             /*
-             * If search is empty,
-             * restore the complete backend list.
+             * Empty search restores
+             * the complete backend data.
              */
 
             if (!search) {
@@ -1686,11 +1783,6 @@ document
             }
 
 
-            /*
-             * Make absolutely sure
-             * documents is an array.
-             */
-
             if (
                 !Array.isArray(
                     documents
@@ -1698,7 +1790,7 @@ document
             ) {
 
                 console.error(
-                    "Search attempted with invalid documents:",
+                    "Invalid documents during search:",
                     documents
                 );
 
@@ -1713,15 +1805,10 @@ document
             documents.forEach(
                 folder => {
 
-                    /*
-                     * Ignore anything that
-                     * isn't a folder.
-                     */
-
                     if (
-                        !folder ||
-                        typeof folder !== "object" ||
-                        folder.type !== "folder"
+                        !isObject(folder) ||
+                        folder.type !==
+                        "folder"
                     ) {
 
                         return;
@@ -1729,23 +1816,51 @@ document
                     }
 
 
+                    const items =
+                        normaliseItems(
+                            folder.items
+                        );
+
+
+                    const folderName =
+                        String(
+                            folder.name ||
+                            ""
+                        ).toLowerCase();
+
+
                     /*
-                     * THIS IS ANOTHER PLACE WHERE
-                     * .items COULD PREVIOUSLY CRASH.
-                     *
-                     * Normalise it first.
+                     * If the folder itself matches,
+                     * keep all of its documents.
                      */
 
-                    const items =
-                        Array.isArray(
-                            folder.items
+                    if (
+                        folderName.includes(
+                            search
                         )
-                            ? folder.items
-                            : [];
+                    ) {
+
+                        filtered.push({
+
+                            type:
+                                "folder",
+
+                            name:
+                                folder.name,
+
+                            items:
+                                items
+
+                        });
+
+                        return;
+
+                    }
 
 
                     /*
-                     * Only search actual documents.
+                     * Otherwise find matching
+                     * documents within the folder.
                      */
 
                     const matchingItems =
@@ -1753,9 +1868,9 @@ document
                             doc => {
 
                                 if (
-                                    !doc ||
-                                    typeof doc !== "object" ||
-                                    doc.type !== "document"
+                                    !isObject(doc) ||
+                                    doc.type !==
+                                    "document"
                                 ) {
 
                                     return false;
@@ -1765,9 +1880,9 @@ document
 
                                 const name =
                                     String(
-                                        doc.name ?? ""
-                                    )
-                                        .toLowerCase();
+                                        doc.name ||
+                                        ""
+                                    ).toLowerCase();
 
 
                                 return name.includes(
@@ -1778,43 +1893,22 @@ document
                         );
 
 
-                    /*
-                     * Search folder name too.
-                     */
-
-                    const folderName =
-                        String(
-                            folder.name ?? ""
-                        )
-                            .toLowerCase();
-
-
                     if (
-                        folderName.includes(
-                            search
-                        )
-                    ) {
-
-                        filtered.push(
-                            {
-                                ...folder,
-                                items: items
-                            }
-                        );
-
-                    }
-
-                    else if (
                         matchingItems.length > 0
                     ) {
 
-                        filtered.push(
-                            {
-                                ...folder,
-                                items:
-                                    matchingItems
-                            }
-                        );
+                        filtered.push({
+
+                            type:
+                                "folder",
+
+                            name:
+                                folder.name,
+
+                            items:
+                                matchingItems
+
+                        });
 
                     }
 
@@ -1822,17 +1916,12 @@ document
             );
 
 
-            /*
-             * Display the filtered results.
-             */
-
             loadDocuments(
                 filtered
             );
 
         }
     );
-
 
 
 /* =====================================================
@@ -1862,15 +1951,19 @@ function emailDocument(doc) {
 
     const subject =
         String(
-            doc?.name ??
-            "FRE Document"
+            doc &&
+            doc.name
+                ? doc.name
+                : "FRE Document"
         );
 
 
     const link =
         String(
-            doc?.link ??
-            ""
+            doc &&
+            doc.link
+                ? doc.link
+                : ""
         );
 
 
@@ -1907,14 +2000,13 @@ Sam`;
 }
 
 
-
 /* =====================================================
    AUTHENTICATION
 ===================================================== */
 
 onAuthStateChanged(
     auth,
-    async (user) => {
+    async function (user) {
 
         if (!user) {
 
@@ -1963,15 +2055,15 @@ onAuthStateChanged(
 
 
         /*
-         * Only load the documents once
-         * authentication has succeeded.
+         * Only request the document
+         * catalogue after Firebase
+         * authentication succeeds.
          */
 
         await loadDocumentData();
 
     }
 );
-
 
 
 /* =====================================================
@@ -1990,14 +2082,22 @@ document
         ".nav-item"
     )
     .forEach(
-        link => {
+        function (link) {
+
+            const href =
+                link.getAttribute(
+                    "href"
+                );
+
+
+            if (!href) {
+                return;
+            }
+
 
             const linkPage =
-                link
-                    .getAttribute(
-                        "href"
-                    )
-                    ?.split("/")
+                href
+                    .split("/")
                     .pop()
                     .toLowerCase();
 
@@ -2017,7 +2117,6 @@ document
     );
 
 
-
 /* =====================================================
    LOGOUT
 ===================================================== */
@@ -2028,7 +2127,7 @@ document
     )
     .addEventListener(
         "click",
-        async () => {
+        async function () {
 
             try {
 
@@ -2062,8 +2161,6 @@ document
 
 </script>
 
-
 </body>
 
 </html>
-```
