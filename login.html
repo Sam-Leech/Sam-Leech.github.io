@@ -264,6 +264,8 @@ from "./firebase-config.js";
 
 import {
     getAuth,
+    setPersistence,
+    browserLocalPersistence,
     signInWithEmailAndPassword,
     onAuthStateChanged
 }
@@ -272,6 +274,11 @@ from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 const auth =
     getAuth(app);
+
+await setPersistence(
+    auth,
+    browserLocalPersistence
+);
 
 
 
