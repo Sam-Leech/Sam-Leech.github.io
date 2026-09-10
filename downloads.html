@@ -268,7 +268,40 @@ body {
     color: var(--muted-dark);
 }
 
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
 
+.upload-button {
+    height: 43px;
+    padding: 0 16px;
+    border: 1px solid var(--blue);
+    border-radius: 8px;
+    background: var(--blue);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.upload-button:hover {
+    background: var(--blue-dark);
+}
+
+.upload-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.upload-status {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+}
 /* =====================================================
    UPLOAD
 ===================================================== */
@@ -613,7 +646,22 @@ body {
         display: none;
     }
 }
+@media (max-width: 600px) {
 
+    .toolbar-actions {
+        width: 100%;
+        display: flex;
+    }
+
+    .upload-button {
+        flex: 1;
+    }
+
+    .document-count {
+        display: none;
+    }
+
+}
 
 @media (max-width: 600px) {
 
@@ -978,7 +1026,7 @@ let documents = [];
 ===================================================== */
 
 const DOCUMENT_API_URL =
-    "https://script.google.com/macros/s/AKfycbxxtqCP0YLKS0kd_fbNsE5FH8g8SSI3BPoqeve2TqCgvgZ5zM0bkNEGb33RpJ7Zxq61nA/exec";
+    "https://script.google.com/macros/s/AKfycby3e7aBv6Zw51sPQBqzuOxx4Uft4tRM648U0sH_q14bc7v7MWUV46GSvKKKEDzHmCVbBw/exec";
 
 
 /* =====================================================
@@ -1314,23 +1362,18 @@ async function loadDocumentData() {
 
 
 /* =====================================================
-   FILE UPLOAD
+   UPLOAD
 ===================================================== */
-
-const fileUpload =
-    document.getElementById("fileUpload");
 
 const uploadButton =
     document.getElementById("uploadButton");
 
+const fileUpload =
+    document.getElementById("fileUpload");
+
 const uploadStatus =
     document.getElementById("uploadStatus");
 
-
-/*
- * Clicking the visible button opens
- * the normal Windows file picker.
- */
 
 uploadButton.addEventListener(
     "click",
@@ -1342,10 +1385,6 @@ uploadButton.addEventListener(
 );
 
 
-/*
- * File selected.
- */
-
 fileUpload.addEventListener(
     "change",
     async function () {
@@ -1353,206 +1392,126 @@ fileUpload.addEventListener(
         const file =
             this.files[0];
 
-
         if (!file) {
-
             return;
-
         }
 
+        try {
 
-        await uploadDocument(file);
+            uploadButton.disabled = true;
 
-    }
-);
+            uploadStatus.textContent =
+                "Preparing upload...";
 
+            const base64 =
+                await fileToBase64(file);
 
-/*
- * Upload the selected file.
- */
+            uploadStatus.textContent =
+                "Uploading...";
 
-async function uploadDocument(file) {
+            const response =
+                await fetch(
+                    DOCUMENT_API_URL,
+                    {
+                        method: "POST",
 
-    const user =
-        auth.currentUser;
+                        headers: {
+                            "Content-Type":
+                                "text/plain;charset=utf-8"
+                        },
 
-
-    if (!user) {
-
-        alert(
-            "Your session has expired. Please log in again."
-        );
-
-        return;
-
-    }
-
-
-    uploadButton.disabled =
-        true;
-
-
-    uploadStatus.textContent =
-        "Uploading...";
-
-
-    console.log(
-        "Starting upload:",
-        file.name,
-        file.type,
-        file.size
-    );
-
-
-    try {
-
-        /*
-         * Read the file as a Data URL.
-         *
-         * The part before the comma is the
-         * MIME/type information.
-         *
-         * The part after the comma is the
-         * Base64 file data.
-         */
-
-        const base64 =
-            await fileToBase64(file);
-
-
-        console.log(
-            "File converted to Base64."
-        );
-
-
-        const response =
-            await fetch(
-                DOCUMENT_API_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
-
-                    body:
-                        JSON.stringify({
+                        body: JSON.stringify({
 
                             fileName:
                                 file.name,
 
                             mimeType:
-                                file.type ||
-                                "application/octet-stream",
+                                file.type,
 
                             fileData:
                                 base64
 
                         })
+                    }
+                );
 
-                }
-            );
+            if (!response.ok) {
 
+                throw new Error(
+                    "Upload request failed with HTTP " +
+                    response.status
+                );
 
-        if (!response.ok) {
+            }
 
-            throw new Error(
-                "Upload request returned HTTP " +
-                response.status
+            const result =
+                await response.json();
+
+            if (!result.success) {
+
+                throw new Error(
+                    result.error ||
+                    "Upload failed."
+                );
+
+            }
+
+            uploadStatus.textContent =
+                "Uploaded successfully.";
+
+            /*
+             * Reload the catalogue so the new
+             * document appears immediately.
+             */
+            await loadDocumentData();
+
+            /*
+             * Clear the file input so selecting
+             * the same file again triggers change.
+             */
+            fileUpload.value = "";
+
+            setTimeout(
+                function () {
+
+                    uploadStatus.textContent = "";
+
+                },
+                3000
             );
 
         }
 
+        catch (error) {
 
-        const result =
-            await response.json();
+            console.error(
+                "UPLOAD ERROR:",
+                error
+            );
 
+            uploadStatus.textContent =
+                "Upload failed.";
 
-        console.log(
-            "Upload response:",
-            result
-        );
-
-
-        if (!result.success) {
-
-            throw new Error(
-                result.error ||
-                "The upload failed."
+            alert(
+                "Unable to upload the document:\n\n" +
+                error.message
             );
 
         }
 
+        finally {
 
-        uploadStatus.textContent =
-            "Uploaded";
+            uploadButton.disabled = false;
 
-
-        /*
-         * Refresh the catalogue so the
-         * newly uploaded document appears.
-         */
-
-        await loadDocumentData();
-
-
-        /*
-         * Clear the selected file so the
-         * same file can be uploaded again
-         * if necessary.
-         */
-
-        fileUpload.value =
-            "";
-
-
-        setTimeout(
-            function () {
-
-                uploadStatus.textContent =
-                    "";
-
-            },
-            3000
-        );
-
+        }
 
     }
-
-    catch (error) {
-
-        console.error(
-            "UPLOAD ERROR:",
-            error
-        );
+);
 
 
-        uploadStatus.textContent =
-            "Upload failed";
-
-
-        alert(
-            "Unable to upload the document:\n\n" +
-            error.message
-        );
-
-    }
-
-    finally {
-
-        uploadButton.disabled =
-            false;
-
-    }
-
-}
-
-
-/*
- * Convert a browser File object
- * into Base64.
- */
+/* =====================================================
+   FILE → BASE64
+===================================================== */
 
 function fileToBase64(file) {
 
@@ -1562,51 +1521,26 @@ function fileToBase64(file) {
             const reader =
                 new FileReader();
 
-
             reader.onload =
                 function () {
+
+                    /*
+                     * FileReader returns:
+                     *
+                     * data:application/pdf;base64,XXXX
+                     *
+                     * We only want XXXX.
+                     */
 
                     const result =
                         reader.result;
 
+                    const base64 =
+                        result.split(",")[1];
 
-                    /*
-                     * Data URL looks like:
-                     *
-                     * data:application/pdf;base64,JVBER...
-                     *
-                     * We only want:
-                     *
-                     * JVBER...
-                     */
-
-                    const commaIndex =
-                        result.indexOf(",");
-
-
-                    if (
-                        commaIndex === -1
-                    ) {
-
-                        reject(
-                            new Error(
-                                "Unable to read file data."
-                            )
-                        );
-
-                        return;
-
-                    }
-
-
-                    resolve(
-                        result.substring(
-                            commaIndex + 1
-                        )
-                    );
+                    resolve(base64);
 
                 };
-
 
             reader.onerror =
                 function () {
@@ -1619,10 +1553,7 @@ function fileToBase64(file) {
 
                 };
 
-
-            reader.readAsDataURL(
-                file
-            );
+            reader.readAsDataURL(file);
 
         }
     );
