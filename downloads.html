@@ -624,11 +624,6 @@ body {
     border-color: var(--blue);
 }
 
-.modal-file {
-    padding: 10px;
-    height: auto;
-}
-
 .selected-file {
     margin-top: 10px;
     font-size: 12px;
@@ -784,112 +779,112 @@ body {
 
 <body>
 
-
 <!-- =====================================================
      SIDEBAR
 ===================================================== -->
 
 <aside class="sidebar">
 
-    <div class="brand">
+```
+<div class="brand">
 
-        <div class="brand-name">
-            FRE<span class="brand-dot">.</span>
-        </div>
-
+    <div class="brand-name">
+        FRE<span class="brand-dot">.</span>
     </div>
 
+</div>
+
+
+<div class="nav-section">
+
+    <div class="nav-label">
+        Workspace
+    </div>
+
+
+    <a href="downloads.html" class="nav-item">
+
+        <span class="nav-icon">
+            ▣
+        </span>
+
+        <span>
+            Documents
+        </span>
+
+    </a>
+
+
+    <a href="brokers.html" class="nav-item">
+
+        <span class="nav-icon">
+            ⌕
+        </span>
+
+        <span>
+            Broker Search
+        </span>
+
+    </a>
+
+
+    <a href="extract.html" class="nav-item">
+
+        <span class="nav-icon">
+            ⇩
+        </span>
+
+        <span>
+            FOS Extracter Tool
+        </span>
+
+    </a>
+
+
+    <a href="vin.html" class="nav-item">
+
+        <span class="nav-icon">
+            ⌁
+        </span>
+
+        <span>
+            VIN Search
+        </span>
+
+    </a>
+
+</div>
+
+
+<div class="sidebar-bottom">
 
     <div class="nav-section">
 
         <div class="nav-label">
-            Workspace
+            Account
         </div>
 
 
-        <a href="downloads.html" class="nav-item">
+        <div
+            class="nav-item logout"
+            id="logoutBtn">
 
             <span class="nav-icon">
-                ▣
+                ↪
             </span>
 
             <span>
-                Documents
+                Logout
             </span>
-
-        </a>
-
-
-        <a href="brokers.html" class="nav-item">
-
-            <span class="nav-icon">
-                ⌕
-            </span>
-
-            <span>
-                Broker Search
-            </span>
-
-        </a>
-
-
-        <a href="extract.html" class="nav-item">
-
-            <span class="nav-icon">
-                ⇩
-            </span>
-
-            <span>
-                FOS Extracter Tool
-            </span>
-
-        </a>
-
-
-        <a href="vin.html" class="nav-item">
-
-            <span class="nav-icon">
-                ⌁
-            </span>
-
-            <span>
-                VIN Search
-            </span>
-
-        </a>
-
-    </div>
-
-
-    <div class="sidebar-bottom">
-
-        <div class="nav-section">
-
-            <div class="nav-label">
-                Account
-            </div>
-
-
-            <div
-                class="nav-item logout"
-                id="logoutBtn">
-
-                <span class="nav-icon">
-                    ↪
-                </span>
-
-                <span>
-                    Logout
-                </span>
-
-            </div>
 
         </div>
 
     </div>
+
+</div>
+```
 
 </aside>
-
 
 <!-- =====================================================
      MAIN
@@ -899,157 +894,159 @@ body {
 
 <header class="topbar">
 
-    <div class="topbar-title">
-        FRE Documents
+```
+<div class="topbar-title">
+    FRE Documents
+</div>
+
+
+<div class="account">
+
+    <span
+        class="account-email"
+        id="userEmail">
+
+        Loading...
+
+    </span>
+
+
+    <div
+        class="avatar"
+        id="avatar">
+
+        ?
+
+    </div>
+
+</div>
+```
+
+</header>
+
+<section class="content">
+
+```
+<div class="page-header">
+
+    <h1 class="page-title">
+        Documents
+    </h1>
+
+    <p class="page-subtitle">
+        Access and manage your FRE documents.
+    </p>
+
+</div>
+
+
+<!-- =================================================
+     TOOLBAR
+================================================= -->
+
+<div class="toolbar">
+
+    <div class="search-wrapper">
+
+        <span class="search-icon">
+            ⌕
+        </span>
+
+        <input
+            type="text"
+            id="search"
+            class="search"
+            placeholder="Search documents..."
+            autocomplete="off"
+        >
+
     </div>
 
 
-    <div class="account">
+    <div class="toolbar-actions">
+
+        <button
+            type="button"
+            class="toolbar-button"
+            id="newFolderButton">
+
+            ＋ New Folder
+
+        </button>
+
+
+        <button
+            type="button"
+            class="toolbar-button primary"
+            id="uploadButton">
+
+            ↑ Upload Document
+
+        </button>
+
+
+        <input
+            type="file"
+            id="fileUpload"
+            style="display:none;"
+        >
+
 
         <span
-            class="account-email"
-            id="userEmail">
-
-            Loading...
-
+            class="upload-status"
+            id="uploadStatus">
         </span>
 
 
         <div
-            class="avatar"
-            id="avatar">
+            class="document-count"
+            id="documentCount">
 
-            ?
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<section class="content">
-
-    <div class="page-header">
-
-        <h1 class="page-title">
-            Documents
-        </h1>
-
-        <p class="page-subtitle">
-            Access and manage your FRE documents.
-        </p>
-
-    </div>
-
-
-    <!-- =================================================
-         TOOLBAR
-    ================================================= -->
-
-    <div class="toolbar">
-
-        <div class="search-wrapper">
-
-            <span class="search-icon">
-                ⌕
-            </span>
-
-            <input
-                type="text"
-                id="search"
-                class="search"
-                placeholder="Search documents..."
-                autocomplete="off"
-            >
-
-        </div>
-
-
-        <div class="toolbar-actions">
-
-            <button
-                type="button"
-                class="toolbar-button"
-                id="newFolderButton">
-
-                ＋ New Folder
-
-            </button>
-
-
-            <button
-                type="button"
-                class="toolbar-button primary"
-                id="uploadButton">
-
-                ↑ Upload Document
-
-            </button>
-
-
-            <input
-                type="file"
-                id="fileUpload"
-                style="display:none;"
-            >
-
-
-            <span
-                class="upload-status"
-                id="uploadStatus">
-            </span>
-
-
-            <div
-                class="document-count"
-                id="documentCount">
-
-                0 documents
-
-            </div>
+            0 documents
 
         </div>
 
     </div>
 
+</div>
 
-    <!-- =================================================
-         DOCUMENT PANEL
-    ================================================= -->
 
-    <div class="panel">
+<!-- =================================================
+     DOCUMENT PANEL
+================================================= -->
 
-        <div class="panel-header">
+<div class="panel">
 
-            <div class="panel-title">
-                Available documents
-            </div>
+    <div class="panel-header">
 
-            <div class="panel-subtitle">
-                FRE Portal
-            </div>
-
+        <div class="panel-title">
+            Available documents
         </div>
 
-
-        <div id="documentList"></div>
-
-
-        <div
-            class="empty"
-            id="emptyState">
-
-            No documents found.
-
+        <div class="panel-subtitle">
+            FRE Portal
         </div>
 
     </div>
+
+
+    <div id="documentList"></div>
+
+
+    <div
+        class="empty"
+        id="emptyState">
+
+        No documents found.
+
+    </div>
+
+</div>
+```
 
 </section>
 
 </main>
-
 
 <!-- =====================================================
      NEW FOLDER MODAL
@@ -1059,70 +1056,71 @@ body {
     class="modal-overlay"
     id="folderModal">
 
-    <div class="modal">
+```
+<div class="modal">
 
-        <div class="modal-header">
+    <div class="modal-header">
 
-            <div class="modal-title">
-                Create New Folder
-            </div>
-
-            <div class="modal-subtitle">
-                Create a new folder in the FRE document catalogue.
-            </div>
-
+        <div class="modal-title">
+            Create New Folder
         </div>
 
-
-        <div class="modal-body">
-
-            <label
-                class="modal-label"
-                for="folderNameInput">
-
-                Folder name
-
-            </label>
-
-
-            <input
-                type="text"
-                id="folderNameInput"
-                class="modal-input"
-                placeholder="e.g. BMW, Santander, Policies..."
-                autocomplete="off"
-            >
-
-        </div>
-
-
-        <div class="modal-footer">
-
-            <button
-                type="button"
-                class="modal-button"
-                id="cancelFolderButton">
-
-                Cancel
-
-            </button>
-
-
-            <button
-                type="button"
-                class="modal-button primary"
-                id="createFolderButton">
-
-                Create Folder
-
-            </button>
-
+        <div class="modal-subtitle">
+            Create a new folder in the FRE document catalogue.
         </div>
 
     </div>
 
-</div>
 
+    <div class="modal-body">
+
+        <label
+            class="modal-label"
+            for="folderNameInput">
+
+            Folder name
+
+        </label>
+
+
+        <input
+            type="text"
+            id="folderNameInput"
+            class="modal-input"
+            placeholder="e.g. BMW, Santander, Policies..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <div class="modal-footer">
+
+        <button
+            type="button"
+            class="modal-button"
+            id="cancelFolderButton">
+
+            Cancel
+
+        </button>
+
+
+        <button
+            type="button"
+            class="modal-button primary"
+            id="createFolderButton">
+
+            Create Folder
+
+        </button>
+
+    </div>
+
+</div>
+```
+
+</div>
 
 <!-- =====================================================
      UPLOAD MODAL
@@ -1132,75 +1130,74 @@ body {
     class="modal-overlay"
     id="uploadModal">
 
-    <div class="modal">
+```
+<div class="modal">
 
-        <div class="modal-header">
+    <div class="modal-header">
 
-            <div class="modal-title">
-                Upload Document
-            </div>
-
-            <div class="modal-subtitle">
-                Choose the folder where this document should appear.
-            </div>
-
+        <div class="modal-title">
+            Upload Document
         </div>
 
-
-        <div class="modal-body">
-
-            <label
-                class="modal-label"
-                for="uploadFolderSelect">
-
-                Folder
-
-            </label>
-
-
-            <select
-                id="uploadFolderSelect"
-                class="modal-select">
-
-            </select>
-
-
-            <div
-                class="selected-file"
-                id="selectedFileName">
-
-            </div>
-
-        </div>
-
-
-        <div class="modal-footer">
-
-            <button
-                type="button"
-                class="modal-button"
-                id="cancelUploadButton">
-
-                Cancel
-
-            </button>
-
-
-            <button
-                type="button"
-                class="modal-button primary"
-                id="confirmUploadButton">
-
-                Upload
-
-            </button>
-
+        <div class="modal-subtitle">
+            Choose the folder where this document should appear.
         </div>
 
     </div>
 
-</div>
 
+    <div class="modal-body">
+
+        <label
+            class="modal-label"
+            for="uploadFolderSelect">
+
+            Folder
+
+        </label>
+
+
+        <select
+            id="uploadFolderSelect"
+            class="modal-select">
+        </select>
+
+
+        <div
+            class="selected-file"
+            id="selectedFileName">
+        </div>
+
+    </div>
+
+
+    <div class="modal-footer">
+
+        <button
+            type="button"
+            class="modal-button"
+            id="cancelUploadButton">
+
+            Cancel
+
+        </button>
+
+
+        <button
+            type="button"
+            class="modal-button primary"
+            id="confirmUploadButton">
+
+            Upload
+
+        </button>
+
+    </div>
+
+</div>
+```
+
+</div>
 
 <script type="module">
 
@@ -1226,7 +1223,7 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+        "AIzaSyAVqaht2BVQgVkZFcWmZ3t34DQeA2uFYuU",
 
     authDomain:
         "fre-tools.firebaseapp.com",
@@ -1416,6 +1413,9 @@ async function loadDocumentData() {
         );
 
 
+        updateUploadFolderOptions();
+
+
     } catch (error) {
 
         console.error(
@@ -1500,7 +1500,7 @@ function getFolders() {
 
 
 /* =====================================================
-   NEW FOLDER
+   NEW FOLDER MODAL
 ===================================================== */
 
 const newFolderButton =
@@ -1589,6 +1589,8 @@ folderNameInput.addEventListener(
             "Enter"
         ) {
 
+            event.preventDefault();
+
             createFolder();
 
         }
@@ -1615,6 +1617,10 @@ function closeFolderModal() {
 
 }
 
+
+/* =====================================================
+   CREATE FOLDER REQUEST
+===================================================== */
 
 createFolderButton.addEventListener(
     "click",
@@ -1646,8 +1652,35 @@ async function createFolder() {
         createFolderButton.disabled =
             true;
 
+        cancelFolderButton.disabled =
+            true;
+
         createFolderButton.textContent =
             "Creating...";
+
+
+        /*
+         * THIS REQUEST IS ONLY FOR FOLDER CREATION.
+         *
+         * There is deliberately no fileName,
+         * fileData or file input involved.
+         */
+
+        const requestBody = {
+
+            action:
+                "createFolder",
+
+            folderName:
+                folderName
+
+        };
+
+
+        console.log(
+            "CREATE FOLDER REQUEST:",
+            requestBody
+        );
 
 
         const response =
@@ -1666,22 +1699,52 @@ async function createFolder() {
                     },
 
                     body:
-                        JSON.stringify({
-
-                            action:
-                                "createFolder",
-
-                            folderName:
-                                folderName
-
-                        })
+                        JSON.stringify(
+                            requestBody
+                        )
 
                 }
             );
 
 
-        const result =
-            await response.json();
+        const rawText =
+            await response.text();
+
+
+        console.log(
+            "CREATE FOLDER RESPONSE:",
+            rawText
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Backend returned HTTP " +
+                response.status
+            );
+
+        }
+
+
+        let result;
+
+
+        try {
+
+            result =
+                JSON.parse(
+                    rawText
+                );
+
+        } catch (parseError) {
+
+            throw new Error(
+                "Backend returned invalid JSON:\n\n" +
+                rawText
+            );
+
+        }
 
 
         if (
@@ -1699,10 +1762,21 @@ async function createFolder() {
         closeFolderModal();
 
 
+        /*
+         * Reload the catalogue so the newly-created
+         * folder immediately appears on the page.
+         */
+
         await loadDocumentData();
 
 
-        updateUploadFolderOptions();
+        /*
+         * Select the new folder in the upload dropdown.
+         */
+
+        updateUploadFolderOptions(
+            folderName
+        );
 
 
         showStatus(
@@ -1727,6 +1801,9 @@ async function createFolder() {
     } finally {
 
         createFolderButton.disabled =
+            false;
+
+        cancelFolderButton.disabled =
             false;
 
         createFolderButton.textContent =
@@ -1870,7 +1947,9 @@ function closeUploadModal() {
 }
 
 
-function updateUploadFolderOptions() {
+function updateUploadFolderOptions(
+    preferredFolder
+) {
 
     uploadFolderSelect.innerHTML =
         "";
@@ -1924,6 +2003,22 @@ function updateUploadFolderOptions() {
                 folder.name;
 
 
+            if (
+                preferredFolder &&
+                String(
+                    folder.name
+                ).toLowerCase() ===
+                String(
+                    preferredFolder
+                ).toLowerCase()
+            ) {
+
+                option.selected =
+                    true;
+
+            }
+
+
             uploadFolderSelect.appendChild(
                 option
             );
@@ -1933,6 +2028,10 @@ function updateUploadFolderOptions() {
 
 }
 
+
+/* =====================================================
+   UPLOAD REQUEST
+===================================================== */
 
 confirmUploadButton.addEventListener(
     "click",
@@ -1984,6 +2083,41 @@ async function uploadSelectedFile() {
             "Uploading...";
 
 
+        const requestBody = {
+
+            action:
+                "upload",
+
+            fileName:
+                selectedFile.name,
+
+            mimeType:
+                selectedFile.type,
+
+            fileData:
+                base64,
+
+            folderName:
+                folderName
+
+        };
+
+
+        console.log(
+            "UPLOAD REQUEST:",
+            {
+                action:
+                    requestBody.action,
+
+                fileName:
+                    requestBody.fileName,
+
+                folderName:
+                    requestBody.folderName
+            }
+        );
+
+
         const response =
             await fetch(
                 DOCUMENT_API_URL,
@@ -2000,24 +2134,9 @@ async function uploadSelectedFile() {
                     },
 
                     body:
-                        JSON.stringify({
-
-                            action:
-                                "upload",
-
-                            fileName:
-                                selectedFile.name,
-
-                            mimeType:
-                                selectedFile.type,
-
-                            fileData:
-                                base64,
-
-                            folderName:
-                                folderName
-
-                        })
+                        JSON.stringify(
+                            requestBody
+                        )
 
                 }
             );
@@ -2033,8 +2152,34 @@ async function uploadSelectedFile() {
         }
 
 
-        const result =
-            await response.json();
+        const rawText =
+            await response.text();
+
+
+        console.log(
+            "UPLOAD RESPONSE:",
+            rawText
+        );
+
+
+        let result;
+
+
+        try {
+
+            result =
+                JSON.parse(
+                    rawText
+                );
+
+        } catch (parseError) {
+
+            throw new Error(
+                "Backend returned invalid JSON:\n\n" +
+                rawText
+            );
+
+        }
 
 
         if (
@@ -2052,9 +2197,11 @@ async function uploadSelectedFile() {
         closeUploadModal();
 
 
-        selectedFile = null;
+        selectedFile =
+            null;
 
-        fileUpload.value = "";
+        fileUpload.value =
+            "";
 
 
         uploadStatus.textContent =
@@ -2387,7 +2534,7 @@ function createDocument(doc) {
 
 
 /* =====================================================
-   CREATE FOLDER
+   CREATE FOLDER ELEMENT
 ===================================================== */
 
 function createFolderElement(folder) {
