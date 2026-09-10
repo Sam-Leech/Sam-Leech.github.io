@@ -217,7 +217,7 @@ body {
 
 
 /* =====================================================
-   SEARCH
+   TOOLBAR
 ===================================================== */
 
 .toolbar {
@@ -263,77 +263,46 @@ body {
     border-color: var(--blue);
 }
 
-.document-count {
-    font-size: 12px;
-    color: var(--muted-dark);
-}
-
 .toolbar-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-shrink: 0;
 }
 
-.upload-button {
-    height: 43px;
-    padding: 0 16px;
-    border: 1px solid var(--blue);
-    border-radius: 8px;
-    background: var(--blue);
-    color: white;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.upload-button:hover {
-    background: var(--blue-dark);
-}
-
-.upload-button:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
-
-.upload-status {
-    font-size: 12px;
-    color: var(--muted);
-    white-space: nowrap;
-}
-/* =====================================================
-   UPLOAD
-===================================================== */
-
-.toolbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.upload-button {
+.toolbar-button {
     height: 43px;
     padding: 0 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 7px;
     border-radius: 8px;
-    border: 1px solid var(--blue);
-    background: var(--blue);
-    color: white;
+    border: 1px solid var(--border-light);
+    background: #182234;
+    color: #cbd5e1;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
 }
 
-.upload-button:hover {
+.toolbar-button:hover {
+    background: #243149;
+    color: white;
+}
+
+.toolbar-button.primary {
+    border-color: var(--blue);
+    background: var(--blue);
+    color: white;
+}
+
+.toolbar-button.primary:hover {
     background: var(--blue-dark);
 }
 
-.upload-button:disabled {
+.toolbar-button:disabled {
     opacity: 0.6;
     cursor: wait;
 }
@@ -341,22 +310,14 @@ body {
 .upload-status {
     font-size: 12px;
     color: var(--muted-dark);
-    min-width: 90px;
+    white-space: nowrap;
 }
 
-@media (max-width: 600px) {
-
-    .toolbar-actions {
-        width: 100%;
-        flex-wrap: wrap;
-    }
-
-    .upload-button {
-        flex: 1;
-    }
-
+.document-count {
+    font-size: 12px;
+    color: var(--muted-dark);
+    white-space: nowrap;
 }
-
 
 
 /* =====================================================
@@ -589,6 +550,134 @@ body {
 
 
 /* =====================================================
+   MODAL
+===================================================== */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 500;
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal {
+    width: 100%;
+    max-width: 450px;
+    background: var(--panel);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.modal-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.modal-input,
+.modal-select {
+    width: 100%;
+    height: 43px;
+    padding: 0 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: #0b1120;
+    color: var(--text);
+    outline: none;
+    font-size: 13px;
+}
+
+.modal-input:focus,
+.modal-select:focus {
+    border-color: var(--blue);
+}
+
+.modal-file {
+    padding: 10px;
+    height: auto;
+}
+
+.selected-file {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--muted-dark);
+    word-break: break-word;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+}
+
+.modal-button {
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 7px;
+    border: 1px solid var(--border-light);
+    background: #182234;
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-button:hover {
+    background: #243149;
+    color: white;
+}
+
+.modal-button.primary {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+}
+
+.modal-button.primary:hover {
+    background: var(--blue-dark);
+}
+
+.modal-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+/* =====================================================
    MOBILE
 ===================================================== */
 
@@ -645,29 +734,10 @@ body {
     .account-email {
         display: none;
     }
-}
-@media (max-width: 600px) {
-
-    .toolbar-actions {
-        width: 100%;
-        display: flex;
-    }
-
-    .upload-button {
-        flex: 1;
-    }
-
-    .document-count {
-        display: none;
-    }
 
 }
 
-@media (max-width: 600px) {
-
-    .page-title {
-        font-size: 25px;
-    }
+@media (max-width: 650px) {
 
     .toolbar {
         display: block;
@@ -676,6 +746,19 @@ body {
     .search-wrapper {
         max-width: none;
         margin-bottom: 10px;
+    }
+
+    .toolbar-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .toolbar-button {
+        flex: 1;
+    }
+
+    .document-count {
+        display: none;
     }
 
     .document {
@@ -692,6 +775,7 @@ body {
     .button {
         flex: 1;
     }
+
 }
 
 </style>
@@ -700,112 +784,112 @@ body {
 
 <body>
 
+
 <!-- =====================================================
      SIDEBAR
 ===================================================== -->
 
 <aside class="sidebar">
 
+    <div class="brand">
 
-<div class="brand">
+        <div class="brand-name">
+            FRE<span class="brand-dot">.</span>
+        </div>
 
-    <div class="brand-name">
-        FRE<span class="brand-dot">.</span>
     </div>
 
-</div>
-
-
-<div class="nav-section">
-
-    <div class="nav-label">
-        Workspace
-    </div>
-
-
-    <a href="downloads.html" class="nav-item">
-
-        <span class="nav-icon">
-            ▣
-        </span>
-
-        <span>
-            Documents
-        </span>
-
-    </a>
-
-
-    <a href="brokers.html" class="nav-item">
-
-        <span class="nav-icon">
-            ⌕
-        </span>
-
-        <span>
-            Broker Search
-        </span>
-
-    </a>
-
-
-    <a href="extract.html" class="nav-item">
-
-        <span class="nav-icon">
-            ⇩
-        </span>
-
-        <span>
-            FOS Extracter Tool
-        </span>
-
-    </a>
-
-
-    <a href="vin.html" class="nav-item">
-
-        <span class="nav-icon">
-            ⌁
-        </span>
-
-        <span>
-            VIN Search
-        </span>
-
-    </a>
-
-</div>
-
-
-<div class="sidebar-bottom">
 
     <div class="nav-section">
 
         <div class="nav-label">
-            Account
+            Workspace
         </div>
 
 
-        <div
-            class="nav-item logout"
-            id="logoutBtn">
+        <a href="downloads.html" class="nav-item">
 
             <span class="nav-icon">
-                ↪
+                ▣
             </span>
 
             <span>
-                Logout
+                Documents
             </span>
+
+        </a>
+
+
+        <a href="brokers.html" class="nav-item">
+
+            <span class="nav-icon">
+                ⌕
+            </span>
+
+            <span>
+                Broker Search
+            </span>
+
+        </a>
+
+
+        <a href="extract.html" class="nav-item">
+
+            <span class="nav-icon">
+                ⇩
+            </span>
+
+            <span>
+                FOS Extracter Tool
+            </span>
+
+        </a>
+
+
+        <a href="vin.html" class="nav-item">
+
+            <span class="nav-icon">
+                ⌁
+            </span>
+
+            <span>
+                VIN Search
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="nav-section">
+
+            <div class="nav-label">
+                Account
+            </div>
+
+
+            <div
+                class="nav-item logout"
+                id="logoutBtn">
+
+                <span class="nav-icon">
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
-
 </aside>
+
 
 <!-- =====================================================
      MAIN
@@ -815,98 +899,223 @@ body {
 
 <header class="topbar">
 
-
-<div class="topbar-title">
-    FRE Documents
-</div>
-
-
-<div class="account">
-
-    <span
-        class="account-email"
-        id="userEmail">
-
-        Loading...
-
-    </span>
-
-
-    <div
-        class="avatar"
-        id="avatar">
-
-        ?
-
+    <div class="topbar-title">
+        FRE Documents
     </div>
 
-</div>
 
+    <div class="account">
+
+        <span
+            class="account-email"
+            id="userEmail">
+
+            Loading...
+
+        </span>
+
+
+        <div
+            class="avatar"
+            id="avatar">
+
+            ?
+
+        </div>
+
+    </div>
 
 </header>
 
+
 <section class="content">
 
-<div class="page-header">
+    <div class="page-header">
 
+        <h1 class="page-title">
+            Documents
+        </h1>
 
-<h1 class="page-title">
-    Documents
-</h1>
-
-<p class="page-subtitle">
-    Access and manage your FRE documents.
-</p>
-
-
-</div>
-
-<div class="toolbar">
-
-    <div class="search-wrapper">
-
-        <span class="search-icon">
-            ⌕
-        </span>
-
-        <input
-            type="text"
-            id="search"
-            class="search"
-            placeholder="Search documents..."
-            autocomplete="off"
-        >
+        <p class="page-subtitle">
+            Access and manage your FRE documents.
+        </p>
 
     </div>
 
 
-    <div class="toolbar-actions">
+    <!-- =================================================
+         TOOLBAR
+    ================================================= -->
 
-        <input
-            type="file"
-            id="fileUpload"
-            style="display: none;"
-        >
+    <div class="toolbar">
 
-        <button
-            type="button"
-            class="upload-button"
-            id="uploadButton">
+        <div class="search-wrapper">
 
-            ↑ Upload Document
+            <span class="search-icon">
+                ⌕
+            </span>
 
-        </button>
+            <input
+                type="text"
+                id="search"
+                class="search"
+                placeholder="Search documents..."
+                autocomplete="off"
+            >
 
-        <span
-            class="upload-status"
-            id="uploadStatus">
-        </span>
+        </div>
+
+
+        <div class="toolbar-actions">
+
+            <button
+                type="button"
+                class="toolbar-button"
+                id="newFolderButton">
+
+                ＋ New Folder
+
+            </button>
+
+
+            <button
+                type="button"
+                class="toolbar-button primary"
+                id="uploadButton">
+
+                ↑ Upload Document
+
+            </button>
+
+
+            <input
+                type="file"
+                id="fileUpload"
+                style="display:none;"
+            >
+
+
+            <span
+                class="upload-status"
+                id="uploadStatus">
+            </span>
+
+
+            <div
+                class="document-count"
+                id="documentCount">
+
+                0 documents
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         DOCUMENT PANEL
+    ================================================= -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <div class="panel-title">
+                Available documents
+            </div>
+
+            <div class="panel-subtitle">
+                FRE Portal
+            </div>
+
+        </div>
+
+
+        <div id="documentList"></div>
+
 
         <div
-            class="document-count"
-            id="documentCount">
+            class="empty"
+            id="emptyState">
 
-            0 documents
+            No documents found.
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     NEW FOLDER MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="folderModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Create New Folder
+            </div>
+
+            <div class="modal-subtitle">
+                Create a new folder in the FRE document catalogue.
+            </div>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <label
+                class="modal-label"
+                for="folderNameInput">
+
+                Folder name
+
+            </label>
+
+
+            <input
+                type="text"
+                id="folderNameInput"
+                class="modal-input"
+                placeholder="e.g. BMW, Santander, Policies..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="modal-button"
+                id="cancelFolderButton">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                class="modal-button primary"
+                id="createFolderButton">
+
+                Create Folder
+
+            </button>
 
         </div>
 
@@ -915,52 +1124,83 @@ body {
 </div>
 
 
-
-
-<div
-    class="document-count"
-    id="documentCount">
-
-    0 documents
-
-</div>
-
-
-</div>
-
-<div class="panel">
-
-<div class="panel-header">
-
-
-<div class="panel-title">
-    Available documents
-</div>
-
-<div class="panel-subtitle">
-    FRE Portal
-</div>
-
-
-</div>
-
-<div id="documentList"></div>
+<!-- =====================================================
+     UPLOAD MODAL
+===================================================== -->
 
 <div
-    class="empty"
-    id="emptyState">
+    class="modal-overlay"
+    id="uploadModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Upload Document
+            </div>
+
+            <div class="modal-subtitle">
+                Choose the folder where this document should appear.
+            </div>
+
+        </div>
 
 
-No documents found.
+        <div class="modal-body">
 
+            <label
+                class="modal-label"
+                for="uploadFolderSelect">
+
+                Folder
+
+            </label>
+
+
+            <select
+                id="uploadFolderSelect"
+                class="modal-select">
+
+            </select>
+
+
+            <div
+                class="selected-file"
+                id="selectedFileName">
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="modal-button"
+                id="cancelUploadButton">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                class="modal-button primary"
+                id="confirmUploadButton">
+
+                Upload
+
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
-
-</section>
-
-</main>
 
 <script type="module">
 
@@ -1007,18 +1247,15 @@ const firebaseConfig = {
 
 
 const app =
-    initializeApp(firebaseConfig);
+    initializeApp(
+        firebaseConfig
+    );
 
 
 const auth =
-    getAuth(app);
-
-
-/* =====================================================
-   DOCUMENT DATA
-===================================================== */
-
-let documents = [];
+    getAuth(
+        app
+    );
 
 
 /* =====================================================
@@ -1030,17 +1267,43 @@ const DOCUMENT_API_URL =
 
 
 /* =====================================================
+   DATA
+===================================================== */
+
+let documents = [];
+
+let selectedFile = null;
+
+
+/* =====================================================
    HELPERS
 ===================================================== */
 
 function escapeHtml(value) {
 
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return String(
+        value || ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -1057,8 +1320,12 @@ function isObject(value) {
 
 function normaliseItems(value) {
 
-    if (Array.isArray(value)) {
+    if (
+        Array.isArray(value)
+    ) {
+
         return value;
+
     }
 
     return [];
@@ -1067,14 +1334,10 @@ function normaliseItems(value) {
 
 
 /* =====================================================
-   LOAD DOCUMENT DATA
+   LOAD CATALOGUE
 ===================================================== */
 
 async function loadDocumentData() {
-
-    console.log(
-        "Requesting documents from FRE backend..."
-    );
 
     try {
 
@@ -1084,18 +1347,6 @@ async function loadDocumentData() {
                 "?t=" +
                 Date.now()
             );
-
-
-        console.log(
-            "Backend HTTP status:",
-            response.status
-        );
-
-
-        console.log(
-            "Backend content type:",
-            response.headers.get("content-type")
-        );
 
 
         if (!response.ok) {
@@ -1108,26 +1359,14 @@ async function loadDocumentData() {
         }
 
 
-        /*
-         * Read the response as TEXT first.
-         *
-         * This is deliberate.
-         *
-         * It means we can see exactly what
-         * Google Apps Script actually sent.
-         */
-
         const rawText =
             await response.text();
 
 
-        console.log(
-            "RAW FRE BACKEND RESPONSE:",
-            rawText
-        );
-
-
-        if (!rawText || !rawText.trim()) {
+        if (
+            !rawText ||
+            !rawText.trim()
+        ) {
 
             throw new Error(
                 "FRE backend returned an empty response."
@@ -1136,127 +1375,26 @@ async function loadDocumentData() {
         }
 
 
-        let data;
-
-
-        try {
-
-            data =
-                JSON.parse(
-                    rawText
-                );
-
-        }
-
-        catch (parseError) {
-
-            console.error(
-                "JSON parsing failed.",
-                parseError
+        const data =
+            JSON.parse(
+                rawText
             );
 
-            throw new Error(
-                "FRE backend did not return valid JSON."
-            );
 
-        }
-
-
-        console.log(
-            "PARSED FRE BACKEND RESPONSE:",
-            data
-        );
-
-
-        console.log(
-            "Backend data type:",
-            typeof data
-        );
-
-
-        console.log(
-            "Backend is array:",
+        if (
             Array.isArray(data)
-        );
-
-
-        /*
-         * Normally the Apps Script returns:
-         *
-         * [
-         *   {
-         *      type: "folder",
-         *      name: "Logs",
-         *      items: [...]
-         *   }
-         * ]
-         *
-         * Handle that first.
-         */
-
-        if (Array.isArray(data)) {
+        ) {
 
             documents =
                 data;
 
         }
 
-
-        /*
-         * If the backend has somehow returned the
-         * array as a JSON string, parse it again.
-         */
-
-        else if (
-            typeof data === "string"
-        ) {
-
-            let secondParse;
-
-            try {
-
-                secondParse =
-                    JSON.parse(data);
-
-            }
-
-            catch (error) {
-
-                throw new Error(
-                    "Backend returned a JSON string, but it could not be parsed."
-                );
-
-            }
-
-
-            if (
-                !Array.isArray(
-                    secondParse
-                )
-            ) {
-
-                throw new Error(
-                    "Backend JSON string does not contain a document list."
-                );
-
-            }
-
-
-            documents =
-                secondParse;
-
-        }
-
-
-        /*
-         * If the backend returns an object
-         * containing the list under "documents"
-         * or "data", support that too.
-         */
-
         else if (
             isObject(data) &&
-            Array.isArray(data.documents)
+            Array.isArray(
+                data.documents
+            )
         ) {
 
             documents =
@@ -1264,24 +1402,7 @@ async function loadDocumentData() {
 
         }
 
-
-        else if (
-            isObject(data) &&
-            Array.isArray(data.data)
-        ) {
-
-            documents =
-                data.data;
-
-        }
-
-
         else {
-
-            console.error(
-                "Unexpected backend structure:",
-                data
-            );
 
             throw new Error(
                 "FRE backend did not return a document list."
@@ -1290,25 +1411,12 @@ async function loadDocumentData() {
         }
 
 
-        console.log(
-            "VALIDATED DOCUMENT LIST:",
-            documents
-        );
-
-
-        console.log(
-            "Number of top-level entries:",
-            documents.length
-        );
-
-
         loadDocuments(
             documents
         );
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "DOCUMENT LOAD ERROR:",
@@ -1316,8 +1424,7 @@ async function loadDocumentData() {
         );
 
 
-        documents =
-            [];
+        documents = [];
 
 
         const count =
@@ -1362,22 +1469,329 @@ async function loadDocumentData() {
 
 
 /* =====================================================
+   GET FOLDERS
+===================================================== */
+
+function getFolders() {
+
+    if (
+        !Array.isArray(
+            documents
+        )
+    ) {
+
+        return [];
+
+    }
+
+
+    return documents.filter(
+        function(item) {
+
+            return (
+                isObject(item) &&
+                item.type === "folder"
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   NEW FOLDER
+===================================================== */
+
+const newFolderButton =
+    document.getElementById(
+        "newFolderButton"
+    );
+
+
+const folderModal =
+    document.getElementById(
+        "folderModal"
+    );
+
+
+const folderNameInput =
+    document.getElementById(
+        "folderNameInput"
+    );
+
+
+const cancelFolderButton =
+    document.getElementById(
+        "cancelFolderButton"
+    );
+
+
+const createFolderButton =
+    document.getElementById(
+        "createFolderButton"
+    );
+
+
+newFolderButton.addEventListener(
+    "click",
+    function() {
+
+        folderNameInput.value =
+            "";
+
+        folderModal.classList.add(
+            "open"
+        );
+
+        setTimeout(
+            function() {
+
+                folderNameInput.focus();
+
+            },
+            50
+        );
+
+    }
+);
+
+
+cancelFolderButton.addEventListener(
+    "click",
+    closeFolderModal
+);
+
+
+folderModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            folderModal
+        ) {
+
+            closeFolderModal();
+
+        }
+
+    }
+);
+
+
+folderNameInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Enter"
+        ) {
+
+            createFolder();
+
+        }
+
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeFolderModal();
+
+        }
+
+    }
+);
+
+
+function closeFolderModal() {
+
+    folderModal.classList.remove(
+        "open"
+    );
+
+}
+
+
+createFolderButton.addEventListener(
+    "click",
+    createFolder
+);
+
+
+async function createFolder() {
+
+    const folderName =
+        folderNameInput.value.trim();
+
+
+    if (!folderName) {
+
+        alert(
+            "Please enter a folder name."
+        );
+
+        folderNameInput.focus();
+
+        return;
+
+    }
+
+
+    try {
+
+        createFolderButton.disabled =
+            true;
+
+        createFolderButton.textContent =
+            "Creating...";
+
+
+        const response =
+            await fetch(
+                DOCUMENT_API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "createFolder",
+
+                            folderName:
+                                folderName
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !result.success
+        ) {
+
+            throw new Error(
+                result.error ||
+                "Unable to create folder."
+            );
+
+        }
+
+
+        closeFolderModal();
+
+
+        await loadDocumentData();
+
+
+        updateUploadFolderOptions();
+
+
+        showStatus(
+            "Folder created."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "CREATE FOLDER ERROR:",
+            error
+        );
+
+
+        alert(
+            "Unable to create the folder:\n\n" +
+            error.message
+        );
+
+
+    } finally {
+
+        createFolderButton.disabled =
+            false;
+
+        createFolderButton.textContent =
+            "Create Folder";
+
+    }
+
+}
+
+
+/* =====================================================
    UPLOAD
 ===================================================== */
 
 const uploadButton =
-    document.getElementById("uploadButton");
+    document.getElementById(
+        "uploadButton"
+    );
+
 
 const fileUpload =
-    document.getElementById("fileUpload");
+    document.getElementById(
+        "fileUpload"
+    );
+
+
+const uploadModal =
+    document.getElementById(
+        "uploadModal"
+    );
+
+
+const uploadFolderSelect =
+    document.getElementById(
+        "uploadFolderSelect"
+    );
+
+
+const selectedFileName =
+    document.getElementById(
+        "selectedFileName"
+    );
+
+
+const cancelUploadButton =
+    document.getElementById(
+        "cancelUploadButton"
+    );
+
+
+const confirmUploadButton =
+    document.getElementById(
+        "confirmUploadButton"
+    );
+
 
 const uploadStatus =
-    document.getElementById("uploadStatus");
+    document.getElementById(
+        "uploadStatus"
+    );
 
 
 uploadButton.addEventListener(
     "click",
-    function () {
+    function() {
 
         fileUpload.click();
 
@@ -1387,126 +1801,312 @@ uploadButton.addEventListener(
 
 fileUpload.addEventListener(
     "change",
-    async function () {
+    function() {
 
         const file =
             this.files[0];
 
+
         if (!file) {
+
             return;
-        }
-
-        try {
-
-            uploadButton.disabled = true;
-
-            uploadStatus.textContent =
-                "Preparing upload...";
-
-            const base64 =
-                await fileToBase64(file);
-
-            uploadStatus.textContent =
-                "Uploading...";
-
-            const response =
-                await fetch(
-                    DOCUMENT_API_URL,
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "text/plain;charset=utf-8"
-                        },
-
-                        body: JSON.stringify({
-
-                            fileName:
-                                file.name,
-
-                            mimeType:
-                                file.type,
-
-                            fileData:
-                                base64
-
-                        })
-                    }
-                );
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Upload request failed with HTTP " +
-                    response.status
-                );
-
-            }
-
-            const result =
-                await response.json();
-
-            if (!result.success) {
-
-                throw new Error(
-                    result.error ||
-                    "Upload failed."
-                );
-
-            }
-
-            uploadStatus.textContent =
-                "Uploaded successfully.";
-
-            /*
-             * Reload the catalogue so the new
-             * document appears immediately.
-             */
-            await loadDocumentData();
-
-            /*
-             * Clear the file input so selecting
-             * the same file again triggers change.
-             */
-            fileUpload.value = "";
-
-            setTimeout(
-                function () {
-
-                    uploadStatus.textContent = "";
-
-                },
-                3000
-            );
 
         }
 
-        catch (error) {
 
-            console.error(
-                "UPLOAD ERROR:",
-                error
-            );
+        selectedFile =
+            file;
 
-            uploadStatus.textContent =
-                "Upload failed.";
 
-            alert(
-                "Unable to upload the document:\n\n" +
-                error.message
-            );
+        updateUploadFolderOptions();
 
-        }
 
-        finally {
+        selectedFileName.textContent =
+            "Selected: " +
+            file.name;
 
-            uploadButton.disabled = false;
+
+        uploadModal.classList.add(
+            "open"
+        );
+
+    }
+);
+
+
+cancelUploadButton.addEventListener(
+    "click",
+    function() {
+
+        closeUploadModal();
+
+    }
+);
+
+
+uploadModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            uploadModal
+        ) {
+
+            closeUploadModal();
 
         }
 
     }
 );
+
+
+function closeUploadModal() {
+
+    uploadModal.classList.remove(
+        "open"
+    );
+
+}
+
+
+function updateUploadFolderOptions() {
+
+    uploadFolderSelect.innerHTML =
+        "";
+
+
+    const folders =
+        getFolders();
+
+
+    if (
+        folders.length === 0
+    ) {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.value =
+            "Uploaded Documents";
+
+        option.textContent =
+            "Uploaded Documents";
+
+
+        uploadFolderSelect.appendChild(
+            option
+        );
+
+
+        return;
+
+    }
+
+
+    folders.forEach(
+        function(folder) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                folder.name;
+
+
+            option.textContent =
+                folder.name;
+
+
+            uploadFolderSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+confirmUploadButton.addEventListener(
+    "click",
+    uploadSelectedFile
+);
+
+
+async function uploadSelectedFile() {
+
+    if (!selectedFile) {
+
+        alert(
+            "Please select a file first."
+        );
+
+        return;
+
+    }
+
+
+    const folderName =
+        uploadFolderSelect.value ||
+        "Uploaded Documents";
+
+
+    try {
+
+        confirmUploadButton.disabled =
+            true;
+
+        cancelUploadButton.disabled =
+            true;
+
+        uploadButton.disabled =
+            true;
+
+
+        uploadStatus.textContent =
+            "Preparing upload...";
+
+
+        const base64 =
+            await fileToBase64(
+                selectedFile
+            );
+
+
+        uploadStatus.textContent =
+            "Uploading...";
+
+
+        const response =
+            await fetch(
+                DOCUMENT_API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "upload",
+
+                            fileName:
+                                selectedFile.name,
+
+                            mimeType:
+                                selectedFile.type,
+
+                            fileData:
+                                base64,
+
+                            folderName:
+                                folderName
+
+                        })
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Upload request failed with HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !result.success
+        ) {
+
+            throw new Error(
+                result.error ||
+                "Upload failed."
+            );
+
+        }
+
+
+        closeUploadModal();
+
+
+        selectedFile = null;
+
+        fileUpload.value = "";
+
+
+        uploadStatus.textContent =
+            "Uploaded successfully.";
+
+
+        await loadDocumentData();
+
+
+        setTimeout(
+            function() {
+
+                uploadStatus.textContent =
+                    "";
+
+            },
+            3000
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "UPLOAD ERROR:",
+            error
+        );
+
+
+        uploadStatus.textContent =
+            "Upload failed.";
+
+
+        alert(
+            "Unable to upload the document:\n\n" +
+            error.message
+        );
+
+
+    } finally {
+
+        confirmUploadButton.disabled =
+            false;
+
+        cancelUploadButton.disabled =
+            false;
+
+        uploadButton.disabled =
+            false;
+
+    }
+
+}
 
 
 /* =====================================================
@@ -1516,34 +2116,34 @@ fileUpload.addEventListener(
 function fileToBase64(file) {
 
     return new Promise(
-        function (resolve, reject) {
+        function(resolve, reject) {
 
             const reader =
                 new FileReader();
 
-            reader.onload =
-                function () {
 
-                    /*
-                     * FileReader returns:
-                     *
-                     * data:application/pdf;base64,XXXX
-                     *
-                     * We only want XXXX.
-                     */
+            reader.onload =
+                function() {
 
                     const result =
                         reader.result;
 
-                    const base64 =
-                        result.split(",")[1];
 
-                    resolve(base64);
+                    const base64 =
+                        result.split(
+                            ","
+                        )[1];
+
+
+                    resolve(
+                        base64
+                    );
 
                 };
 
+
             reader.onerror =
-                function () {
+                function() {
 
                     reject(
                         new Error(
@@ -1553,9 +2153,35 @@ function fileToBase64(file) {
 
                 };
 
-            reader.readAsDataURL(file);
+
+            reader.readAsDataURL(
+                file
+            );
 
         }
+    );
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showStatus(message) {
+
+    uploadStatus.textContent =
+        message;
+
+
+    setTimeout(
+        function() {
+
+            uploadStatus.textContent =
+                "";
+
+        },
+        3000
     );
 
 }
@@ -1568,17 +2194,23 @@ function fileToBase64(file) {
 function countDocuments(items) {
 
     const safeItems =
-        normaliseItems(items);
+        normaliseItems(
+            items
+        );
 
 
     let count = 0;
 
 
     safeItems.forEach(
-        item => {
+        function(item) {
 
-            if (!isObject(item)) {
+            if (
+                !isObject(item)
+            ) {
+
                 return;
+
             }
 
 
@@ -1621,7 +2253,9 @@ function countDocuments(items) {
 
 function createDocument(doc) {
 
-    if (!isObject(doc)) {
+    if (
+        !isObject(doc)
+    ) {
 
         return null;
 
@@ -1640,7 +2274,8 @@ function createDocument(doc) {
 
     const fileType =
         String(
-            doc.fileType || ""
+            doc.fileType ||
+            ""
         );
 
 
@@ -1659,7 +2294,8 @@ function createDocument(doc) {
 
 
     const icon =
-        fileType.toUpperCase() === "PDF"
+        fileType.toUpperCase() ===
+        "PDF"
             ? "▤"
             : "▦";
 
@@ -1672,13 +2308,11 @@ function createDocument(doc) {
                 ${icon}
             </div>
 
-
             <div class="document-details">
 
                 <div class="document-name">
                     ${escapeHtml(documentName)}
                 </div>
-
 
                 <div class="document-meta">
 
@@ -1735,7 +2369,7 @@ function createDocument(doc) {
 
         emailButton.addEventListener(
             "click",
-            function () {
+            function() {
 
                 emailDocument(
                     doc
@@ -1756,9 +2390,11 @@ function createDocument(doc) {
    CREATE FOLDER
 ===================================================== */
 
-function createFolder(folder) {
+function createFolderElement(folder) {
 
-    if (!isObject(folder)) {
+    if (
+        !isObject(folder)
+    ) {
 
         return null;
 
@@ -1784,14 +2420,6 @@ function createFolder(folder) {
     header.className =
         "folder-header";
 
-
-    /*
-     * IMPORTANT:
-     *
-     * Always convert folder.items
-     * into an actual array before
-     * doing anything with it.
-     */
 
     const items =
         normaliseItems(
@@ -1820,13 +2448,11 @@ function createFolder(folder) {
                 📁
             </div>
 
-
             <div>
 
                 <div class="folder-name">
                     ${escapeHtml(folderName)}
                 </div>
-
 
                 <div class="folder-count">
 
@@ -1859,16 +2485,8 @@ function createFolder(folder) {
         "folder-contents";
 
 
-    /*
-     * IMPORTANT:
-     *
-     * We are only calling forEach
-     * on "items", which was already
-     * confirmed to be an array.
-     */
-
     items.forEach(
-        item => {
+        function(item) {
 
             if (
                 isObject(item) &&
@@ -1898,7 +2516,7 @@ function createFolder(folder) {
 
     header.addEventListener(
         "click",
-        function () {
+        function() {
 
             contents.classList.toggle(
                 "open"
@@ -1964,10 +2582,6 @@ function loadDocuments(list) {
 
     if (!container) {
 
-        console.error(
-            "documentList element not found."
-        );
-
         return;
 
     }
@@ -1977,17 +2591,9 @@ function loadDocuments(list) {
         "";
 
 
-    /*
-     * Do not attempt to render
-     * anything that isn't an array.
-     */
-
-    if (!Array.isArray(list)) {
-
-        console.error(
-            "loadDocuments received:",
-            list
-        );
+    if (
+        !Array.isArray(list)
+    ) {
 
         if (count) {
 
@@ -1995,6 +2601,7 @@ function loadDocuments(list) {
                 "0 documents";
 
         }
+
 
         if (empty) {
 
@@ -2005,6 +2612,7 @@ function loadDocuments(list) {
                 "block";
 
         }
+
 
         return;
 
@@ -2031,7 +2639,9 @@ function loadDocuments(list) {
     }
 
 
-    if (total === 0) {
+    if (
+        list.length === 0
+    ) {
 
         if (empty) {
 
@@ -2056,13 +2666,8 @@ function loadDocuments(list) {
     }
 
 
-    /*
-     * Only top-level folders
-     * are rendered here.
-     */
-
     list.forEach(
-        item => {
+        function(item) {
 
             if (
                 isObject(item) &&
@@ -2071,7 +2676,7 @@ function loadDocuments(list) {
             ) {
 
                 const folderElement =
-                    createFolder(
+                    createFolderElement(
                         item
                     );
 
@@ -2097,21 +2702,18 @@ function loadDocuments(list) {
 ===================================================== */
 
 document
-    .getElementById("search")
+    .getElementById(
+        "search"
+    )
     .addEventListener(
         "input",
-        function () {
+        function() {
 
             const search =
                 this.value
                     .trim()
                     .toLowerCase();
 
-
-            /*
-             * Empty search restores
-             * the complete backend data.
-             */
 
             if (!search) {
 
@@ -2124,27 +2726,11 @@ document
             }
 
 
-            if (
-                !Array.isArray(
-                    documents
-                )
-            ) {
-
-                console.error(
-                    "Invalid documents during search:",
-                    documents
-                );
-
-                return;
-
-            }
-
-
             const filtered = [];
 
 
             documents.forEach(
-                folder => {
+                function(folder) {
 
                     if (
                         !isObject(folder) ||
@@ -2170,11 +2756,6 @@ document
                         ).toLowerCase();
 
 
-                    /*
-                     * If the folder itself matches,
-                     * keep all of its documents.
-                     */
-
                     if (
                         folderName.includes(
                             search
@@ -2199,14 +2780,9 @@ document
                     }
 
 
-                    /*
-                     * Otherwise find matching
-                     * documents within the folder.
-                     */
-
                     const matchingItems =
                         items.filter(
-                            doc => {
+                            function(doc) {
 
                                 if (
                                     !isObject(doc) ||
@@ -2266,7 +2842,7 @@ document
 
 
 /* =====================================================
-   EMAIL DOCUMENT
+   EMAIL
 ===================================================== */
 
 function emailDocument(doc) {
@@ -2347,7 +2923,7 @@ Sam`;
 
 onAuthStateChanged(
     auth,
-    async function (user) {
+    async function(user) {
 
         if (!user) {
 
@@ -2357,12 +2933,6 @@ onAuthStateChanged(
             return;
 
         }
-
-
-        console.log(
-            "Logged in:",
-            user.email
-        );
 
 
         const userEmail =
@@ -2395,12 +2965,6 @@ onAuthStateChanged(
         }
 
 
-        /*
-         * Only request the document
-         * catalogue after Firebase
-         * authentication succeeds.
-         */
-
         await loadDocumentData();
 
     }
@@ -2423,7 +2987,7 @@ document
         ".nav-item"
     )
     .forEach(
-        function (link) {
+        function(link) {
 
             const href =
                 link.getAttribute(
@@ -2432,7 +2996,9 @@ document
 
 
             if (!href) {
+
                 return;
+
             }
 
 
@@ -2468,7 +3034,7 @@ document
     )
     .addEventListener(
         "click",
-        async function () {
+        async function() {
 
             try {
 
@@ -2480,9 +3046,8 @@ document
                 window.location.href =
                     "index.html";
 
-            }
 
-            catch (error) {
+            } catch (error) {
 
                 console.error(
                     "Logout failed:",
@@ -2498,7 +3063,6 @@ document
 
         }
     );
-
 
 </script>
 
