@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +39,9 @@ body {
 }
 
 
-/* SIDEBAR */
+/* =====================================================
+   SIDEBAR
+===================================================== */
 
 .sidebar {
     position: fixed;
@@ -130,7 +133,9 @@ body {
 }
 
 
-/* MAIN */
+/* =====================================================
+   MAIN
+===================================================== */
 
 .main {
     margin-left: 250px;
@@ -138,7 +143,9 @@ body {
 }
 
 
-/* TOPBAR */
+/* =====================================================
+   TOPBAR
+===================================================== */
 
 .topbar {
     height: 72px;
@@ -181,7 +188,9 @@ body {
 }
 
 
-/* CONTENT */
+/* =====================================================
+   CONTENT
+===================================================== */
 
 .content {
     max-width: 1400px;
@@ -207,7 +216,9 @@ body {
 }
 
 
-/* SEARCH */
+/* =====================================================
+   SEARCH
+===================================================== */
 
 .toolbar {
     display: flex;
@@ -258,7 +269,9 @@ body {
 }
 
 
-/* PANEL */
+/* =====================================================
+   PANEL
+===================================================== */
 
 .panel {
     background: var(--panel);
@@ -287,7 +300,9 @@ body {
 }
 
 
-/* FOLDER */
+/* =====================================================
+   FOLDER
+===================================================== */
 
 .folder {
     border-bottom: 1px solid var(--border);
@@ -358,7 +373,9 @@ body {
 }
 
 
-/* DOCUMENT */
+/* =====================================================
+   DOCUMENT
+===================================================== */
 
 .document {
     display: flex;
@@ -426,7 +443,9 @@ body {
 }
 
 
-/* BUTTONS */
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 .actions {
     display: flex;
@@ -467,7 +486,9 @@ body {
 }
 
 
-/* EMPTY */
+/* =====================================================
+   EMPTY
+===================================================== */
 
 .empty {
     padding: 70px 20px;
@@ -477,7 +498,9 @@ body {
 }
 
 
-/* MOBILE */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 800px) {
 
@@ -576,7 +599,9 @@ body {
 <body>
 
 
-<!-- SIDEBAR -->
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
 
 <aside class="sidebar">
 
@@ -597,25 +622,58 @@ body {
 
 
         <a href="downloads.html" class="nav-item">
-        <span class="nav-icon">▣</span>
-        <span>Documents</span>
-    </a>
 
-    <a href="brokers.html" class="nav-item">
-        <span class="nav-icon">⌕</span>
-        <span>Broker Search</span>
-    </a>
+            <span class="nav-icon">
+                ▣
+            </span>
 
-    <a href="extract.html" class="nav-item">
-        <span class="nav-icon">⇩</span>
-        <span>FOS Extracter Tool</span>
-    </a>
+            <span>
+                Documents
+            </span>
 
-    <a href="vin.html" class="nav-item">
-        <span class="nav-icon">⌁</span>
-        <span>VIN Search</span>
-    </a>
-</div>
+        </a>
+
+
+        <a href="brokers.html" class="nav-item">
+
+            <span class="nav-icon">
+                ⌕
+            </span>
+
+            <span>
+                Broker Search
+            </span>
+
+        </a>
+
+
+        <a href="extract.html" class="nav-item">
+
+            <span class="nav-icon">
+                ⇩
+            </span>
+
+            <span>
+                FOS Extracter Tool
+            </span>
+
+        </a>
+
+
+        <a href="vin.html" class="nav-item">
+
+            <span class="nav-icon">
+                ⌁
+            </span>
+
+            <span>
+                VIN Search
+            </span>
+
+        </a>
+
+    </div>
+
 
     <div class="sidebar-bottom">
 
@@ -644,12 +702,13 @@ body {
 
     </div>
 
-
 </aside>
 
 
 
-<!-- MAIN -->
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main class="main">
 
@@ -775,7 +834,6 @@ body {
 
 /* =====================================================
    FIREBASE
-   THIS IS LEFT THE SAME AS YOUR ORIGINAL DOWNLOADS PAGE
 ===================================================== */
 
 import {
@@ -825,38 +883,162 @@ const auth =
 
 
 /* =====================================================
-   DOCUMENTS
+   DOCUMENT DATA
 ===================================================== */
+
 let documents = [];
 
+
+
+/* =====================================================
+   FRE BACKEND URL
+===================================================== */
+
+const DOCUMENT_API_URL =
+    "https://script.google.com/macros/s/AKfycbxkziL-xNYQUK0sm5pNUATfhmSeAyQslJg3bihviRhxstH9_w9699q2IWnp9OtMY04fXg/exec";
+
+
+
+/* =====================================================
+   LOAD DOCUMENT DATA
+===================================================== */
+
 async function loadDocumentData() {
+
     try {
 
-        const response = await fetch(
-            "https://script.google.com/macros/s/AKfycbxkziL-xNYQUK0sm5pNUATfhmSeAyQslJg3bihviRhxstH9_w9699q2IWnp9OtMY04fXg/exec"
+        console.log(
+            "Requesting documents from FRE backend..."
         );
 
-        if (!response.ok) {
-            throw new Error(
-                "FRE backend returned HTTP " + response.status
+
+        const response =
+            await fetch(
+                DOCUMENT_API_URL,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
             );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "FRE backend returned HTTP " +
+                response.status
+            );
+
         }
 
-        documents = await response.json();
+
+        const data =
+            await response.json();
+
 
         console.log(
-            "Loaded documents from FRE backend:",
+            "Raw FRE backend response:",
+            data
+        );
+
+
+        /*
+         * THE BACKEND MUST RETURN AN ARRAY.
+         *
+         * Expected structure:
+         *
+         * [
+         *   {
+         *      type: "folder",
+         *      name: "Logs",
+         *      items: [...]
+         *   }
+         * ]
+         */
+
+        if (!Array.isArray(data)) {
+
+            console.error(
+                "Invalid backend response:",
+                data
+            );
+
+            throw new Error(
+                "FRE backend did not return a document list."
+            );
+
+        }
+
+
+        /*
+         * Store the validated document list.
+         */
+
+        documents =
+            data;
+
+
+        console.log(
+            "Validated document list:",
             documents
         );
 
-        loadDocuments(documents);
 
-    } catch (error) {
+        /*
+         * Render the documents.
+         */
+
+        loadDocuments(
+            documents
+        );
+
+    }
+
+    catch (error) {
 
         console.error(
             "DOCUMENT LOAD ERROR:",
             error
         );
+
+
+        /*
+         * Clear any old display.
+         */
+
+        documents = [];
+
+
+        const count =
+            document.getElementById(
+                "documentCount"
+            );
+
+
+        const empty =
+            document.getElementById(
+                "emptyState"
+            );
+
+
+        if (count) {
+
+            count.textContent =
+                "0 documents";
+
+        }
+
+
+        if (empty) {
+
+            empty.textContent =
+                "Unable to load documents.";
+
+            empty.style.display =
+                "block";
+
+        }
+
 
         alert(
             "Error loading documents from FRE backend: " +
@@ -864,34 +1046,81 @@ async function loadDocumentData() {
         );
 
     }
+
 }
+
+
+
 /* =====================================================
    COUNT DOCUMENTS
 ===================================================== */
 
 function countDocuments(items) {
 
+    /*
+     * NEVER call .forEach() unless we know
+     * the value is actually an array.
+     */
+
+    if (!Array.isArray(items)) {
+
+        return 0;
+
+    }
+
+
     let count = 0;
 
-    items.forEach(item => {
 
-        if (item.type === "document") {
+    items.forEach(
+        item => {
 
-            count++;
+            /*
+             * Ignore invalid entries.
+             */
+
+            if (
+                !item ||
+                typeof item !== "object"
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * Direct document.
+             */
+
+            if (
+                item.type === "document"
+            ) {
+
+                count++;
+
+            }
+
+
+            /*
+             * Nested folder.
+             */
+
+            if (
+                item.type === "folder" &&
+                Array.isArray(item.items)
+            ) {
+
+                count +=
+                    countDocuments(
+                        item.items
+                    );
+
+            }
 
         }
+    );
 
-        if (
-            item.type === "folder" &&
-            Array.isArray(item.items)
-        ) {
-
-            count +=
-                countDocuments(item.items);
-
-        }
-
-    });
 
     return count;
 
@@ -905,12 +1134,29 @@ function countDocuments(items) {
 
 function escapeHtml(value) {
 
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    return String(
+        value ?? ""
+    )
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
@@ -922,11 +1168,54 @@ function escapeHtml(value) {
 
 function createDocument(doc) {
 
+    /*
+     * Make sure we have an object.
+     */
+
+    if (
+        !doc ||
+        typeof doc !== "object"
+    ) {
+
+        return document.createElement(
+            "div"
+        );
+
+    }
+
+
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     div.className =
         "document";
+
+
+    const fileType =
+        String(
+            doc.fileType ?? ""
+        );
+
+
+    const documentName =
+        String(
+            doc.name ?? "Unnamed document"
+        );
+
+
+    const documentLink =
+        String(
+            doc.link ?? "#"
+        );
+
+
+    const icon =
+        fileType.toUpperCase() === "PDF"
+            ? "▤"
+            : "▦";
 
 
     div.innerHTML = `
@@ -935,10 +1224,7 @@ function createDocument(doc) {
 
             <div class="document-icon">
 
-                ${doc.fileType === "PDF"
-                    ? "▤"
-                    : "▦"
-                }
+                ${icon}
 
             </div>
 
@@ -947,7 +1233,9 @@ function createDocument(doc) {
 
                 <div class="document-name">
 
-                    ${escapeHtml(doc.name)}
+                    ${escapeHtml(
+                        documentName
+                    )}
 
                 </div>
 
@@ -955,10 +1243,18 @@ function createDocument(doc) {
                 <div class="document-meta">
 
                     <span>
-                        ${escapeHtml(doc.fileType)}
+
+                        ${escapeHtml(
+                            fileType
+                        )}
+
                     </span>
 
-                    <span class="meta-dot"></span>
+
+                    <span
+                        class="meta-dot">
+                    </span>
+
 
                     <span>
                         Available
@@ -975,7 +1271,9 @@ function createDocument(doc) {
 
             <a
                 class="button"
-                href="${doc.link}"
+                href="${escapeHtml(
+                    documentLink
+                )}"
                 target="_blank"
                 rel="noopener noreferrer">
 
@@ -997,12 +1295,20 @@ function createDocument(doc) {
     `;
 
 
-    div
-        .querySelector(".email")
-        .addEventListener(
+    const emailButton =
+        div.querySelector(
+            ".email"
+        );
+
+
+    if (emailButton) {
+
+        emailButton.addEventListener(
             "click",
             () => emailDocument(doc)
         );
+
+    }
 
 
     return div;
@@ -1018,21 +1324,46 @@ function createDocument(doc) {
 function createFolder(folder) {
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     wrapper.className =
         "folder";
 
 
     const header =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     header.className =
         "folder-header";
 
 
+    /*
+     * IMPORTANT:
+     *
+     * folder.items is the exact place
+     * where your previous error could occur.
+     *
+     * We therefore normalise it first.
+     */
+
+    const items =
+        Array.isArray(
+            folder?.items
+        )
+            ? folder.items
+            : [];
+
+
     const itemCount =
-        countDocuments(folder.items);
+        countDocuments(
+            items
+        );
 
 
     header.innerHTML = `
@@ -1048,7 +1379,10 @@ function createFolder(folder) {
 
                 <div class="folder-name">
 
-                    ${escapeHtml(folder.name)}
+                    ${escapeHtml(
+                        folder?.name ??
+                        "Unnamed folder"
+                    )}
 
                 </div>
 
@@ -1056,9 +1390,11 @@ function createFolder(folder) {
                 <div class="folder-count">
 
                     ${itemCount}
-                    ${itemCount === 1
-                        ? " document"
-                        : " documents"
+
+                    ${
+                        itemCount === 1
+                            ? " document"
+                            : " documents"
                     }
 
                 </div>
@@ -1076,25 +1412,39 @@ function createFolder(folder) {
 
 
     const contents =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     contents.className =
         "folder-contents";
 
 
-    folder.items.forEach(item => {
+    /*
+     * We now iterate over the
+     * already-normalised array.
+     */
 
-        if (
-            item.type === "document"
-        ) {
+    items.forEach(
+        item => {
 
-            contents.appendChild(
-                createDocument(item)
-            );
+            if (
+                item &&
+                typeof item === "object" &&
+                item.type === "document"
+            ) {
+
+                contents.appendChild(
+                    createDocument(
+                        item
+                    )
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     header.addEventListener(
@@ -1106,21 +1456,32 @@ function createFolder(folder) {
             );
 
 
-            header
-                .querySelector(
+            const arrow =
+                header.querySelector(
                     ".folder-arrow"
-                )
-                .classList.toggle(
+                );
+
+
+            if (arrow) {
+
+                arrow.classList.toggle(
                     "open"
                 );
+
+            }
 
         }
     );
 
 
-    wrapper.appendChild(header);
+    wrapper.appendChild(
+        header
+    );
 
-    wrapper.appendChild(contents);
+
+    wrapper.appendChild(
+        contents
+    );
 
 
     return wrapper;
@@ -1130,7 +1491,7 @@ function createFolder(folder) {
 
 
 /* =====================================================
-   DISPLAY
+   DISPLAY DOCUMENTS
 ===================================================== */
 
 function loadDocuments(list) {
@@ -1153,48 +1514,139 @@ function loadDocuments(list) {
         );
 
 
-    container.innerHTML = "";
+    if (!container) {
 
-
-    const total =
-        countDocuments(list);
-
-
-    count.textContent =
-        `${total} ${
-            total === 1
-                ? "document"
-                : "documents"
-        }`;
-
-
-    if (total === 0) {
-
-        empty.style.display =
-            "block";
+        console.error(
+            "documentList element not found."
+        );
 
         return;
 
     }
 
 
-    empty.style.display =
-        "none";
+    /*
+     * ALWAYS clear the current display first.
+     */
+
+    container.innerHTML =
+        "";
 
 
-    list.forEach(item => {
+    /*
+     * Validate the top-level list.
+     */
 
-        if (
-            item.type === "folder"
-        ) {
+    if (!Array.isArray(list)) {
 
-            container.appendChild(
-                createFolder(item)
-            );
+        console.error(
+            "loadDocuments received invalid data:",
+            list
+        );
+
+
+        if (count) {
+
+            count.textContent =
+                "0 documents";
 
         }
 
-    });
+
+        if (empty) {
+
+            empty.textContent =
+                "No documents found.";
+
+            empty.style.display =
+                "block";
+
+        }
+
+
+        return;
+
+    }
+
+
+    /*
+     * Count documents.
+     */
+
+    const total =
+        countDocuments(
+            list
+        );
+
+
+    if (count) {
+
+        count.textContent =
+            `${total} ${
+                total === 1
+                    ? "document"
+                    : "documents"
+            }`;
+
+    }
+
+
+    /*
+     * No documents.
+     */
+
+    if (total === 0) {
+
+        if (empty) {
+
+            empty.textContent =
+                "No documents found.";
+
+            empty.style.display =
+                "block";
+
+        }
+
+        return;
+
+    }
+
+
+    /*
+     * Documents exist.
+     */
+
+    if (empty) {
+
+        empty.style.display =
+            "none";
+
+    }
+
+
+    /*
+     * Render each top-level folder.
+     */
+
+    list.forEach(
+        item => {
+
+            if (
+                item &&
+                typeof item === "object" &&
+                item.type === "folder"
+            ) {
+
+                container.appendChild(
+                    createFolder(
+                        item
+                    )
+                );
+
+            }
+
+        }
+    );
 
 }
 
@@ -1205,7 +1657,9 @@ function loadDocuments(list) {
 ===================================================== */
 
 document
-    .getElementById("search")
+    .getElementById(
+        "search"
+    )
     .addEventListener(
         "input",
         function () {
@@ -1215,6 +1669,11 @@ document
                     .trim()
                     .toLowerCase();
 
+
+            /*
+             * If search is empty,
+             * restore the complete backend list.
+             */
 
             if (!search) {
 
@@ -1227,49 +1686,145 @@ document
             }
 
 
+            /*
+             * Make absolutely sure
+             * documents is an array.
+             */
+
+            if (
+                !Array.isArray(
+                    documents
+                )
+            ) {
+
+                console.error(
+                    "Search attempted with invalid documents:",
+                    documents
+                );
+
+                return;
+
+            }
+
+
             const filtered = [];
 
 
-            documents.forEach(folder => {
+            documents.forEach(
+                folder => {
 
-                const matchingItems =
-                    folder.items.filter(
-                        doc =>
-                            doc.name
-                                .toLowerCase()
-                                .includes(search)
-                    );
+                    /*
+                     * Ignore anything that
+                     * isn't a folder.
+                     */
+
+                    if (
+                        !folder ||
+                        typeof folder !== "object" ||
+                        folder.type !== "folder"
+                    ) {
+
+                        return;
+
+                    }
 
 
-                if (
-                    folder.name
-                        .toLowerCase()
-                        .includes(search)
-                ) {
+                    /*
+                     * THIS IS ANOTHER PLACE WHERE
+                     * .items COULD PREVIOUSLY CRASH.
+                     *
+                     * Normalise it first.
+                     */
 
-                    filtered.push(
-                        folder
-                    );
+                    const items =
+                        Array.isArray(
+                            folder.items
+                        )
+                            ? folder.items
+                            : [];
+
+
+                    /*
+                     * Only search actual documents.
+                     */
+
+                    const matchingItems =
+                        items.filter(
+                            doc => {
+
+                                if (
+                                    !doc ||
+                                    typeof doc !== "object" ||
+                                    doc.type !== "document"
+                                ) {
+
+                                    return false;
+
+                                }
+
+
+                                const name =
+                                    String(
+                                        doc.name ?? ""
+                                    )
+                                        .toLowerCase();
+
+
+                                return name.includes(
+                                    search
+                                );
+
+                            }
+                        );
+
+
+                    /*
+                     * Search folder name too.
+                     */
+
+                    const folderName =
+                        String(
+                            folder.name ?? ""
+                        )
+                            .toLowerCase();
+
+
+                    if (
+                        folderName.includes(
+                            search
+                        )
+                    ) {
+
+                        filtered.push(
+                            {
+                                ...folder,
+                                items: items
+                            }
+                        );
+
+                    }
+
+                    else if (
+                        matchingItems.length > 0
+                    ) {
+
+                        filtered.push(
+                            {
+                                ...folder,
+                                items:
+                                    matchingItems
+                            }
+                        );
+
+                    }
 
                 }
+            );
 
-                else if (
-                    matchingItems.length
-                ) {
 
-                    filtered.push({
-
-                        ...folder,
-
-                        items:
-                            matchingItems
-
-                    });
-
-                }
-
-            });
-
+            /*
+             * Display the filtered results.
+             */
 
             loadDocuments(
                 filtered
@@ -1281,7 +1836,7 @@ document
 
 
 /* =====================================================
-   EMAIL
+   EMAIL DOCUMENT
 ===================================================== */
 
 function emailDocument(doc) {
@@ -1306,7 +1861,17 @@ function emailDocument(doc) {
 
 
     const subject =
-        doc.name;
+        String(
+            doc?.name ??
+            "FRE Document"
+        );
+
+
+    const link =
+        String(
+            doc?.link ??
+            ""
+        );
 
 
     const body =
@@ -1314,7 +1879,7 @@ function emailDocument(doc) {
 
 Please find the requested document at the link below:
 
-${doc.link}
+${link}
 
 Kind regards,
 
@@ -1345,7 +1910,6 @@ Sam`;
 
 /* =====================================================
    AUTHENTICATION
-   ORIGINAL SYSTEM
 ===================================================== */
 
 onAuthStateChanged(
@@ -1368,21 +1932,42 @@ onAuthStateChanged(
         );
 
 
-        document
-            .getElementById("userEmail")
-            .textContent =
+        const userEmail =
+            document.getElementById(
+                "userEmail"
+            );
+
+
+        if (userEmail) {
+
+            userEmail.textContent =
                 user.email;
 
+        }
 
-        document
-            .getElementById("avatar")
-            .textContent =
+
+        const avatar =
+            document.getElementById(
+                "avatar"
+            );
+
+
+        if (avatar) {
+
+            avatar.textContent =
                 user.email
                     .charAt(0)
                     .toUpperCase();
 
+        }
 
-    loadDocumentData();
+
+        /*
+         * Only load the documents once
+         * authentication has succeeded.
+         */
+
+        await loadDocumentData();
 
     }
 );
@@ -1401,28 +1986,35 @@ const currentPage =
 
 
 document
-    .querySelectorAll(".nav-item")
-    .forEach(link => {
+    .querySelectorAll(
+        ".nav-item"
+    )
+    .forEach(
+        link => {
 
-        const linkPage =
-            link
-                .getAttribute("href")
-                ?.split("/")
-                .pop()
-                .toLowerCase();
+            const linkPage =
+                link
+                    .getAttribute(
+                        "href"
+                    )
+                    ?.split("/")
+                    .pop()
+                    .toLowerCase();
 
 
-        if (
-            linkPage === currentPage
-        ) {
+            if (
+                linkPage ===
+                currentPage
+            ) {
 
-            link.classList.add(
-                "active"
-            );
+                link.classList.add(
+                    "active"
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
 
@@ -1431,14 +2023,18 @@ document
 ===================================================== */
 
 document
-    .getElementById("logoutBtn")
+    .getElementById(
+        "logoutBtn"
+    )
     .addEventListener(
         "click",
         async () => {
 
             try {
 
-                await signOut(auth);
+                await signOut(
+                    auth
+                );
 
 
                 window.location.href =
@@ -1463,9 +2059,11 @@ document
         }
     );
 
+
 </script>
 
 
 </body>
 
 </html>
+```
