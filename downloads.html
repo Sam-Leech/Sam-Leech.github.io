@@ -831,21 +831,38 @@ let documents = [];
 
 async function loadDocumentData() {
     try {
-        const response = await fetch("./documents.json");
+
+        const response = await fetch(
+            "https://script.google.com/macros/s/AKfycbxkziL-xNYQUK0sm5pNUATfhmSeAyQslJg3bihviRhxstH9_w9699q2IWnp9OtMY04fXg/exec"
+        );
 
         if (!response.ok) {
-            throw new Error("documents.json could not be loaded: " + response.status);
+            throw new Error(
+                "FRE backend returned HTTP " + response.status
+            );
         }
 
         documents = await response.json();
 
-        console.log("Loaded documents:", documents);
+        console.log(
+            "Loaded documents from FRE backend:",
+            documents
+        );
 
         loadDocuments(documents);
 
     } catch (error) {
-        console.error("DOCUMENT LOAD ERROR:", error);
-        alert("Error loading documents.json: " + error.message);
+
+        console.error(
+            "DOCUMENT LOAD ERROR:",
+            error
+        );
+
+        alert(
+            "Error loading documents from FRE backend: " +
+            error.message
+        );
+
     }
 }
 /* =====================================================
