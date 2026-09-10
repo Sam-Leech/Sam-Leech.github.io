@@ -1,2613 +1,844 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>FRE | Documents</title>
-
-<style>
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-:root {
-    --bg: #0b1120;
-    --sidebar: #0f172a;
-    --panel: #111827;
-    --panel-hover: #172033;
-    --border: #1f2937;
-    --border-light: #273449;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --muted-dark: #64748b;
-    --blue: #3b82f6;
-    --blue-dark: #2563eb;
-}
-
-body {
-    font-family: Inter, Arial, Helvetica, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-}
-
-
-/* =====================================================
-   SIDEBAR
-===================================================== */
-
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 250px;
-    background: var(--sidebar);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    padding: 25px 16px;
-    z-index: 100;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    padding: 5px 12px 35px;
-}
-
-.brand-name {
-    font-size: 25px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-}
-
-.brand-dot {
-    color: var(--blue);
-}
-
-.nav-section {
-    margin-bottom: 25px;
-}
-
-.nav-label {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: var(--muted-dark);
-    padding: 0 12px;
-    margin-bottom: 8px;
-}
-
-.nav-item {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 11px 12px;
-    margin-bottom: 3px;
-    border-radius: 8px;
-    color: var(--muted);
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.nav-item:hover {
-    background: #172033;
-    color: var(--text);
-}
-
-.nav-item.active {
-    background: rgba(59, 130, 246, 0.14);
-    color: #60a5fa;
-}
-
-.nav-icon {
-    width: 20px;
-    display: flex;
-    justify-content: center;
-    font-size: 16px;
-}
-
-.sidebar-bottom {
-    margin-top: auto;
-}
-
-.logout {
-    color: #f87171;
-}
-
-.logout:hover {
-    background: rgba(127, 29, 29, 0.25);
-    color: #fca5a5;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.main {
-    margin-left: 250px;
-    min-height: 100vh;
-}
-
-
-/* =====================================================
-   TOPBAR
-===================================================== */
-
-.topbar {
-    height: 72px;
-    background: var(--sidebar);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 34px;
-}
-
-.topbar-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--muted);
-}
-
-.account {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-}
-
-.account-email {
-    color: var(--muted);
-    font-size: 13px;
-}
-
-.avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: white;
-}
-
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 38px 60px;
-}
-
-.page-header {
-    margin-bottom: 32px;
-}
-
-.page-title {
-    font-size: 30px;
-    font-weight: 700;
-    letter-spacing: -0.7px;
-    margin-bottom: 8px;
-}
-
-.page-subtitle {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.5;
-}
-
-
-/* =====================================================
-   TOOLBAR
-===================================================== */
-
-.toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 18px;
-}
-
-.search-wrapper {
-    position: relative;
-    flex: 1;
-    max-width: 520px;
-}
-
-.search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--muted-dark);
-    font-size: 15px;
-}
-
-.search {
-    width: 100%;
-    height: 43px;
-    padding: 0 15px 0 40px;
-    background: var(--panel);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    outline: none;
-    color: var(--text);
-    font-size: 13px;
-}
-
-.search::placeholder {
-    color: var(--muted-dark);
-}
-
-.search:focus {
-    border-color: var(--blue);
-}
-
-.toolbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-}
-
-.toolbar-button {
-    height: 43px;
-    padding: 0 16px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    background: #182234;
-    color: #cbd5e1;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.toolbar-button:hover {
-    background: #243149;
-    color: white;
-}
-
-.toolbar-button.primary {
-    border-color: var(--blue);
-    background: var(--blue);
-    color: white;
-}
-
-.toolbar-button.primary:hover {
-    background: var(--blue-dark);
-}
-
-.toolbar-button:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
-
-.upload-status {
-    font-size: 12px;
-    color: var(--muted-dark);
-    white-space: nowrap;
-}
-
-.document-count {
-    font-size: 12px;
-    color: var(--muted-dark);
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   PANEL
-===================================================== */
-
-.panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    overflow: hidden;
-}
-
-.panel-header {
-    height: 58px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    border-bottom: 1px solid var(--border);
-}
-
-.panel-title {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.panel-subtitle {
-    font-size: 12px;
-    color: var(--muted-dark);
-}
-
-
-/* =====================================================
-   FOLDER
-===================================================== */
-
-.folder {
-    border-bottom: 1px solid var(--border);
-}
-
-.folder:last-child {
-    border-bottom: none;
-}
-
-.folder-header {
-    min-height: 70px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-}
-
-.folder-header:hover {
-    background: var(--panel-hover);
-}
-
-.folder-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.folder-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    background: rgba(245, 158, 11, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 19px;
-}
-
-.folder-name {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-
-.folder-count {
-    font-size: 11px;
-    color: var(--muted-dark);
-}
-
-.folder-arrow {
-    font-size: 24px;
-    color: var(--muted-dark);
-    transition: transform 0.2s;
-}
-
-.folder-arrow.open {
-    transform: rotate(90deg);
-}
-
-.folder-contents {
-    display: none;
-    border-top: 1px solid var(--border);
-}
-
-.folder-contents.open {
-    display: block;
-}
-
-
-/* =====================================================
-   DOCUMENT
-===================================================== */
-
-.document {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 17px 20px 17px 76px;
-    border-bottom: 1px solid var(--border);
-}
-
-.document:last-child {
-    border-bottom: none;
-}
-
-.document:hover {
-    background: var(--panel-hover);
-}
-
-.document-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-width: 0;
-}
-
-.document-icon {
-    width: 42px;
-    height: 42px;
-    flex-shrink: 0;
-    border-radius: 8px;
-    background: rgba(59, 130, 246, 0.12);
-    color: #60a5fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-}
-
-.document-details {
-    min-width: 0;
-}
-
-.document-name {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.document-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--muted-dark);
-    font-size: 11px;
-}
-
-.meta-dot {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--muted-dark);
-}
-
-
-/* =====================================================
-   BUTTONS
-===================================================== */
-
-.actions {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    flex-shrink: 0;
-}
-
-.button {
-    height: 34px;
-    padding: 0 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    border: 1px solid var(--border-light);
-    background: #182234;
-    color: #cbd5e1;
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.button:hover {
-    background: #243149;
-    color: white;
-}
-
-.button.email {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: white;
-}
-
-.button.email:hover {
-    background: var(--blue-dark);
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty {
-    padding: 70px 20px;
-    text-align: center;
-    color: var(--muted-dark);
-    display: none;
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    z-index: 500;
-}
-
-.modal-overlay.open {
-    display: flex;
-}
-
-.modal {
-    width: 100%;
-    max-width: 450px;
-    background: var(--panel);
-    border: 1px solid var(--border-light);
-    border-radius: 12px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-    overflow: hidden;
-}
-
-.modal-header {
-    padding: 20px;
-    border-bottom: 1px solid var(--border);
-}
-
-.modal-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.modal-subtitle {
-    font-size: 12px;
-    color: var(--muted);
-}
-
-.modal-body {
-    padding: 20px;
-}
-
-.modal-label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--muted);
-    margin-bottom: 8px;
-}
-
-.modal-input,
-.modal-select {
-    width: 100%;
-    height: 43px;
-    padding: 0 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    background: #0b1120;
-    color: var(--text);
-    outline: none;
-    font-size: 13px;
-}
-
-.modal-input:focus,
-.modal-select:focus {
-    border-color: var(--blue);
-}
-
-.selected-file {
-    margin-top: 10px;
-    font-size: 12px;
-    color: var(--muted-dark);
-    word-break: break-word;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    padding: 16px 20px;
-    border-top: 1px solid var(--border);
-}
-
-.modal-button {
-    height: 38px;
-    padding: 0 14px;
-    border-radius: 7px;
-    border: 1px solid var(--border-light);
-    background: #182234;
-    color: #cbd5e1;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.modal-button:hover {
-    background: #243149;
-    color: white;
-}
-
-.modal-button.primary {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: white;
-}
-
-.modal-button.primary:hover {
-    background: var(--blue-dark);
-}
-
-.modal-button:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 800px) {
-
-    .sidebar {
-        width: 68px;
-        padding: 20px 8px;
-    }
-
-    .brand {
-        justify-content: center;
-        padding: 5px 0 30px;
-    }
-
-    .brand-name {
-        font-size: 0;
-    }
-
-    .brand-name::before {
-        content: "F";
-        font-size: 22px;
-    }
-
-    .brand-dot {
-        display: none;
-    }
-
-    .nav-label {
-        display: none;
-    }
-
-    .nav-item {
-        justify-content: center;
-        padding: 12px 0;
-    }
-
-    .nav-item span:not(.nav-icon) {
-        display: none;
-    }
-
-    .main {
-        margin-left: 68px;
-    }
-
-    .content {
-        padding: 28px 20px 50px;
-    }
-
-    .topbar {
-        padding: 0 20px;
-    }
-
-    .account-email {
-        display: none;
-    }
-
-}
-
-@media (max-width: 650px) {
-
-    .toolbar {
-        display: block;
-    }
-
-    .search-wrapper {
-        max-width: none;
-        margin-bottom: 10px;
-    }
-
-    .toolbar-actions {
-        width: 100%;
-        flex-wrap: wrap;
-    }
-
-    .toolbar-button {
-        flex: 1;
-    }
-
-    .document-count {
-        display: none;
-    }
-
-    .document {
-        padding-left: 20px;
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .actions {
-        width: 100%;
-    }
-
-    .button {
-        flex: 1;
-    }
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRE | Documents</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0b1120;
+            --sidebar: #0f172a;
+            --panel: #111827;
+            --panel-hover: #172033;
+            --border: #1f2937;
+            --border-light: #273449;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --muted-dark: #64748b;
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
+        }
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 25px 16px;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            padding: 5px 12px 35px;
+        }
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-dot {
+            color: var(--blue);
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--muted-dark);
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 12px;
+            margin-bottom: 3px;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: #172033;
+            color: var(--text);
+        }
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.14);
+            color: #60a5fa;
+        }
+
+        .nav-icon {
+            width: 20px;
+            display: flex;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .logout {
+            color: #f87171;
+        }
+
+        .logout:hover {
+            background: rgba(127, 29, 29, 0.25);
+            color: #fca5a5;
+        }
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            height: 72px;
+            background: var(--sidebar);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 34px;
+        }
+
+        .topbar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .account {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .account-email {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 38px 60px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.7px;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* =====================================================
+           TOOLBAR
+        ===================================================== */
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            max-width: 520px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-dark);
+            font-size: 15px;
+        }
+
+        .search {
+            width: 100%;
+            height: 43px;
+            padding: 0 15px 0 40px;
+            background: var(--panel);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            outline: none;
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        .search::placeholder {
+            color: var(--muted-dark);
+        }
+
+        .search:focus {
+            border-color: var(--blue);
+        }
+
+        .toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .toolbar-button {
+            height: 43px;
+            padding: 0 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: #182234;
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .toolbar-button:hover {
+            background: #243149;
+            color: white;
+        }
+
+        .toolbar-button.primary {
+            border-color: var(--blue);
+            background: var(--blue);
+            color: white;
+        }
+
+        .toolbar-button.primary:hover {
+            background: var(--blue-dark);
+        }
+
+        .toolbar-button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .upload-status {
+            font-size: 12px;
+            color: var(--muted-dark);
+            white-space: nowrap;
+        }
+
+        .document-count {
+            font-size: 12px;
+            color: var(--muted-dark);
+            white-space: nowrap;
+        }
+
+        /* =====================================================
+           PANEL
+        ===================================================== */
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .panel-subtitle {
+            font-size: 12px;
+            color: var(--muted-dark);
+        }
+
+        /* =====================================================
+           FOLDER
+        ===================================================== */
+
+        .folder {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .folder:last-child {
+            border-bottom: none;
+        }
+
+        .folder-header {
+            min-height: 70px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .folder-header:hover {
+            background: var(--panel-hover);
+        }
+
+        .folder-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .folder-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: rgba(245, 158, 11, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .folder-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .folder-count {
+            font-size: 11px;
+            color: var(--muted-dark);
+        }
+
+        .folder-arrow {
+            font-size: 24px;
+            color: var(--muted-dark);
+            transition: transform 0.2s;
+        }
+
+        .folder-arrow.open {
+            transform: rotate(90deg);
+        }
+
+        .folder-contents {
+            display: none;
+            border-top: 1px solid var(--border);
+        }
+
+        .folder-contents.open {
+            display: block;
+        }
+
+        /* =====================================================
+           DOCUMENT
+        ===================================================== */
+
+        .document {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 17px 20px 17px 76px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .document:last-child {
+            border-bottom: none;
+        }
+
+        .document:hover {
+            background: var(--panel-hover);
+        }
+
+        .document-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .document-icon {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .document-details {
+            min-width: 0;
+        }
+
+        .document-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .document-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted-dark);
+            font-size: 11px;
+        }
+
+        .meta-dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--muted-dark);
+        }
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-shrink: 0;
+        }
+
+        .button {
+            height: 34px;
+            padding: 0 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            border: 1px solid var(--border-light);
+            background: #182234;
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #243149;
+            color: white;
+        }
+
+        .button.email {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        .button.email:hover {
+            background: var(--blue-dark);
+        }
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty {
+            padding: 70px 20px;
+            text-align: center;
+            color: var(--muted-dark);
+            display: none;
+        }
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 500;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 450px;
+            background: var(--panel);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .modal-subtitle {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .modal-input,
+        .modal-select {
+            width: 100%;
+            height: 43px;
+            padding: 0 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: #0b1120;
+            color: var(--text);
+            outline: none;
+            font-size: 13px;
+        }
+
+        .modal-input:focus,
+        .modal-select:focus {
+            border-color: var(--blue);
+        }
+
+        .modal-file {
+            padding: 10px;
+            height: auto;
+        }
+
+        .selected-file {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--muted-dark);
+            word-break: break-word;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .modal-button {
+            height: 38px;
+            padding: 0 14px;
+            border-radius: 7px;
+            border: 1px solid var(--border-light);
+            background: #182234;
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .modal-button:hover {
+            background: #243149;
+            color: white;
+        }
+
+        .modal-button.primary {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        .modal-button.primary:hover {
+            background: var(--blue-dark);
+        }
+
+        .modal-button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 68px;
+                padding: 20px 8px;
+            }
+
+            .brand {
+                justify-content: center;
+                padding: 5px 0 30px;
+            }
+
+            .brand-name {
+                font-size: 0;
+            }
+
+            .brand-name::before {
+                content: "F";
+                font-size: 22px;
+            }
+
+            .brand-dot {
+                display: none;
+            }
+
+            .nav-label {
+                display: none;
+            }
+
+            .nav-item {
+                justify-content: center;
+                padding: 12px 0;
+            }
+
+            .nav-item span:not(.nav-icon) {
+                display: none;
+            }
+
+            .main {
+                margin-left: 68px;
+            }
+
+            .content {
+                padding: 28px 20px 50px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .account-email {
+                display: none;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .toolbar {
+                display: block;
+            }
+
+            .search-wrapper {
+                max-width: none;
+                margin-bottom: 10px;
+            }
+
+            .toolbar-actions {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .toolbar-button {
+                flex: 1;
+            }
+
+            .document-count {
+                display: none;
+            }
+
+            .document {
+                padding-left: 20px;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .actions {
+                width: 100%;
+            }
+
+            .button {
+                flex: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
+    <!-- =====================================================
+         SIDEBAR
+    ===================================================== -->
 
-<aside class="sidebar">
+    <aside class="sidebar">
 
-```
-<div class="brand">
-
-    <div class="brand-name">
-        FRE<span class="brand-dot">.</span>
-    </div>
-
-</div>
-
-
-<div class="nav-section">
-
-    <div class="nav-label">
-        Workspace
-    </div>
-
-
-    <a href="downloads.html" class="nav-item">
-
-        <span class="nav-icon">
-            ▣
-        </span>
-
-        <span>
-            Documents
-        </span>
-
-    </a>
-
-
-    <a href="brokers.html" class="nav-item">
-
-        <span class="nav-icon">
-            ⌕
-        </span>
-
-        <span>
-            Broker Search
-        </span>
-
-    </a>
-
-
-    <a href="extract.html" class="nav-item">
-
-        <span class="nav-icon">
-            ⇩
-        </span>
-
-        <span>
-            FOS Extracter Tool
-        </span>
-
-    </a>
-
-
-    <a href="vin.html" class="nav-item">
-
-        <span class="nav-icon">
-            ⌁
-        </span>
-
-        <span>
-            VIN Search
-        </span>
-
-    </a>
-
-</div>
-
-
-<div class="sidebar-bottom">
-
-    <div class="nav-section">
-
-        <div class="nav-label">
-            Account
+        <div class="brand">
+            <div class="brand-name">
+                FRE<span class="brand-dot">.</span>
+            </div>
         </div>
 
+        <div class="nav-section">
 
-        <div
-            class="nav-item logout"
-            id="logoutBtn">
-
-            <span class="nav-icon">
-                ↪
-            </span>
-
-            <span>
-                Logout
-            </span>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</aside>
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="main">
-
-```
-<header class="topbar">
-
-    <div class="topbar-title">
-        FRE Documents
-    </div>
-
-
-    <div class="account">
-
-        <span
-            class="account-email"
-            id="userEmail">
-
-            Loading...
-
-        </span>
-
-
-        <div
-            class="avatar"
-            id="avatar">
-
-            ?
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<section class="content">
-
-
-    <div class="page-header">
-
-        <h1 class="page-title">
-            Documents
-        </h1>
-
-        <p class="page-subtitle">
-            Access and manage your FRE documents.
-        </p>
-
-    </div>
-
-
-    <!-- =================================================
-         TOOLBAR
-    ================================================= -->
-
-    <div class="toolbar">
-
-        <div class="search-wrapper">
-
-            <span class="search-icon">
-                ⌕
-            </span>
-
-            <input
-                type="text"
-                id="search"
-                class="search"
-                placeholder="Search documents..."
-                autocomplete="off"
-            >
-
-        </div>
-
-
-        <div class="toolbar-actions">
-
-            <button
-                type="button"
-                class="toolbar-button"
-                id="newFolderButton">
-
-                ＋ New Folder
-
-            </button>
-
-
-            <button
-                type="button"
-                class="toolbar-button primary"
-                id="uploadButton">
-
-                ↑ Upload Document
-
-            </button>
-
-
-            <input
-                type="file"
-                id="fileUpload"
-                style="display:none;"
-            >
-
-
-            <span
-                class="upload-status"
-                id="uploadStatus">
-            </span>
-
-
-            <div
-                class="document-count"
-                id="documentCount">
-
-                0 documents
-
+            <div class="nav-label">
+                Workspace
             </div>
 
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         DOCUMENT PANEL
-    ================================================= -->
-
-    <div class="panel">
-
-        <div class="panel-header">
-
-            <div class="panel-title">
-                Available documents
-            </div>
-
-            <div class="panel-subtitle">
-                FRE Portal
-            </div>
-
-        </div>
-
-
-        <div id="documentList"></div>
-
-
-        <div
-            class="empty"
-            id="emptyState">
-
-            No documents found.
-
-        </div>
-
-    </div>
-
-
-</section>
-```
-
-</main>
-
-<!-- =====================================================
-     NEW FOLDER MODAL
-===================================================== -->
-
-<div
-    class="modal-overlay"
-    id="folderModal">
-
-```
-<div class="modal">
-
-    <div class="modal-header">
-
-        <div class="modal-title">
-            Create New Folder
-        </div>
-
-        <div class="modal-subtitle">
-            Create a new folder in the FRE document catalogue.
-        </div>
-
-    </div>
-
-
-    <div class="modal-body">
-
-        <label
-            class="modal-label"
-            for="folderNameInput">
-
-            Folder name
-
-        </label>
-
-
-        <input
-            type="text"
-            id="folderNameInput"
-            class="modal-input"
-            placeholder="e.g. BMW, Santander, Policies..."
-            autocomplete="off"
-        >
-
-    </div>
-
-
-    <div class="modal-footer">
-
-        <button
-            type="button"
-            class="modal-button"
-            id="cancelFolderButton">
-
-            Cancel
-
-        </button>
-
-
-        <button
-            type="button"
-            class="modal-button primary"
-            id="createFolderButton">
-
-            Create Folder
-
-        </button>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- =====================================================
-     UPLOAD MODAL
-===================================================== -->
-
-<div
-    class="modal-overlay"
-    id="uploadModal">
-
-```
-<div class="modal">
-
-    <div class="modal-header">
-
-        <div class="modal-title">
-            Upload Document
-        </div>
-
-        <div class="modal-subtitle">
-            Choose the folder where this document should appear.
-        </div>
-
-    </div>
-
-
-    <div class="modal-body">
-
-        <label
-            class="modal-label"
-            for="uploadFolderSelect">
-
-            Folder
-
-        </label>
-
-
-        <select
-            id="uploadFolderSelect"
-            class="modal-select">
-        </select>
-
-
-        <div
-            class="selected-file"
-            id="selectedFileName">
-        </div>
-
-    </div>
-
-
-    <div class="modal-footer">
-
-        <button
-            type="button"
-            class="modal-button"
-            id="cancelUploadButton">
-
-            Cancel
-
-        </button>
-
-
-        <button
-            type="button"
-            class="modal-button primary"
-            id="confirmUploadButton">
-
-            Upload
-
-        </button>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<script type="module">
-
-
-/* =====================================================
-   FIREBASE
-===================================================== */
-
-import {
-    initializeApp
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-
-import {
-    getAuth,
-    onAuthStateChanged,
-    signOut
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyAVqa2htBVQgVkZFcWmZ3t34DQeA2uFYuU",
-
-    authDomain:
-        "fre-tools.firebaseapp.com",
-
-    projectId:
-        "fre-tools",
-
-    storageBucket:
-        "fre-tools.firebasestorage.app",
-
-    messagingSenderId:
-        "723940111430",
-
-    appId:
-        "1:723940111430:web:50cb5685913167f0dc4647"
-
-};
-
-
-const app =
-    initializeApp(
-        firebaseConfig
-    );
-
-
-const auth =
-    getAuth(
-        app
-    );
-
-
-/* =====================================================
-   FRE BACKEND
-===================================================== */
-
-const DOCUMENT_API_URL =
-    "https://script.google.com/macros/s/AKfycbx_u3EODmTaLU6BBF6cBuGzL7JrNFJOWpO4_EKbs8u7C_r2FyBLiUAzDmFO6d1ixtaD6A/exec";
-
-
-/* =====================================================
-   DATA
-===================================================== */
-
-let documents = [];
-
-let selectedFile = null;
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function escapeHtml(value) {
-
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-function isObject(value) {
-
-    return (
-        value !== null &&
-        typeof value === "object"
-    );
-
-}
-
-
-function normaliseItems(value) {
-
-    if (Array.isArray(value)) {
-        return value;
-    }
-
-    return [];
-
-}
-
-
-/* =====================================================
-   BACKEND RESPONSE
-===================================================== */
-
-async function readBackendResponse(response) {
-
-    const rawText =
-        await response.text();
-
-    if (!response.ok) {
-
-        throw new Error(
-            "Backend returned HTTP " +
-            response.status +
-            "\n\n" +
-            rawText
-        );
-
-    }
-
-    if (!rawText || !rawText.trim()) {
-
-        throw new Error(
-            "Backend returned an empty response."
-        );
-
-    }
-
-    let result;
-
-    try {
-
-        result =
-            JSON.parse(
-                rawText
-            );
-
-    } catch (error) {
-
-        throw new Error(
-            "Backend returned invalid JSON:\n\n" +
-            rawText
-        );
-
-    }
-
-    return result;
-
-}
-
-
-/* =====================================================
-   LOAD CATALOGUE
-===================================================== */
-
-async function loadDocumentData() {
-
-    try {
-
-        const response =
-            await fetch(
-                DOCUMENT_API_URL +
-                "?t=" +
-                Date.now(),
-                {
-                    method: "GET",
-                    cache: "no-store"
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Backend returned HTTP " +
-                response.status
-            );
-
-        }
-
-
-        const rawText =
-            await response.text();
-
-
-        if (
-            !rawText ||
-            !rawText.trim()
-        ) {
-
-            throw new Error(
-                "FRE backend returned an empty response."
-            );
-
-        }
-
-
-        const data =
-            JSON.parse(
-                rawText
-            );
-
-
-        if (Array.isArray(data)) {
-
-            documents =
-                data;
-
-        }
-
-        else if (
-            isObject(data) &&
-            Array.isArray(data.documents)
-        ) {
-
-            documents =
-                data.documents;
-
-        }
-
-        else {
-
-            throw new Error(
-                "FRE backend did not return a document list."
-            );
-
-        }
-
-
-        loadDocuments(
-            documents
-        );
-
-
-        updateUploadFolderOptions();
-
-
-    } catch (error) {
-
-        console.error(
-            "DOCUMENT LOAD ERROR:",
-            error
-        );
-
-
-        /*
-         * Do NOT sign the user out.
-         * Do NOT redirect to login.
-         * Do NOT destroy the existing catalogue.
-         */
-
-        const count =
-            document.getElementById(
-                "documentCount"
-            );
-
-
-        const empty =
-            document.getElementById(
-                "emptyState"
-            );
-
-
-        if (count) {
-
-            count.textContent =
-                "Unable to load";
-
-        }
-
-
-        if (empty) {
-
-            empty.textContent =
-                "Unable to load documents.";
-
-            empty.style.display =
-                "block";
-
-        }
-
-
-        alert(
-            "Error loading documents from FRE backend:\n\n" +
-            error.message
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   GET FOLDERS
-===================================================== */
-
-function getFolders() {
-
-    if (!Array.isArray(documents)) {
-
-        return [];
-
-    }
-
-
-    return documents.filter(
-        function(item) {
-
-            return (
-                isObject(item) &&
-                item.type === "folder"
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   NEW FOLDER MODAL
-===================================================== */
-
-const newFolderButton =
-    document.getElementById(
-        "newFolderButton"
-    );
-
-
-const folderModal =
-    document.getElementById(
-        "folderModal"
-    );
-
-
-const folderNameInput =
-    document.getElementById(
-        "folderNameInput"
-    );
-
-
-const cancelFolderButton =
-    document.getElementById(
-        "cancelFolderButton"
-    );
-
-
-const createFolderButton =
-    document.getElementById(
-        "createFolderButton"
-    );
-
-
-newFolderButton.addEventListener(
-    "click",
-    function() {
-
-        folderNameInput.value = "";
-
-        folderModal.classList.add(
-            "open"
-        );
-
-        setTimeout(
-            function() {
-
-                folderNameInput.focus();
-
-            },
-            50
-        );
-
-    }
-);
-
-
-cancelFolderButton.addEventListener(
-    "click",
-    closeFolderModal
-);
-
-
-folderModal.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target ===
-            folderModal
-        ) {
-
-            closeFolderModal();
-
-        }
-
-    }
-);
-
-
-folderNameInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key ===
-            "Enter"
-        ) {
-
-            event.preventDefault();
-
-            createFolder();
-
-        }
-
-
-        if (
-            event.key ===
-            "Escape"
-        ) {
-
-            closeFolderModal();
-
-        }
-
-    }
-);
-
-
-function closeFolderModal() {
-
-    folderModal.classList.remove(
-        "open"
-    );
-
-}
-
-
-/* =====================================================
-   CREATE FOLDER REQUEST
-===================================================== */
-
-createFolderButton.addEventListener(
-    "click",
-    createFolder
-);
-
-
-async function createFolder() {
-
-    const folderName =
-        folderNameInput.value.trim();
-
-
-    if (!folderName) {
-
-        alert(
-            "Please enter a folder name."
-        );
-
-        folderNameInput.focus();
-
-        return;
-
-    }
-
-
-    try {
-
-        createFolderButton.disabled =
-            true;
-
-        cancelFolderButton.disabled =
-            true;
-
-        createFolderButton.textContent =
-            "Creating...";
-
-
-        /*
-         * IMPORTANT:
-         *
-         * This is a completely separate request
-         * from document upload.
-         *
-         * There is NO:
-         * fileName
-         * fileData
-         * mimeType
-         *
-         * involved here.
-         */
-
-        const requestBody = {
-
-            action: "createFolder",
-
-            folderName: folderName
-
-        };
-
-
-        console.log(
-            "CREATE FOLDER REQUEST:",
-            requestBody
-        );
-
-
-        const response =
-            await fetch(
-                DOCUMENT_API_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
-
-                    body:
-                        JSON.stringify(
-                            requestBody
-                        )
-                }
-            );
-
-
-        const result =
-            await readBackendResponse(
-                response
-            );
-
-
-        console.log(
-            "CREATE FOLDER RESPONSE:",
-            result
-        );
-
-
-        if (!result.success) {
-
-            throw new Error(
-                result.error ||
-                "Unable to create folder."
-            );
-
-        }
-
-
-        closeFolderModal();
-
-
-        /*
-         * Reload catalogue.
-         */
-
-        await loadDocumentData();
-
-
-        /*
-         * Select the newly-created folder
-         * in the upload dropdown.
-         */
-
-        updateUploadFolderOptions(
-            folderName
-        );
-
-
-        showStatus(
-            "Folder created."
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "CREATE FOLDER ERROR:",
-            error
-        );
-
-
-        /*
-         * IMPORTANT:
-         *
-         * There is intentionally NO:
-         * signOut()
-         * window.location.href
-         * auth manipulation
-         *
-         * here.
-         */
-
-        alert(
-            "Unable to create the folder:\n\n" +
-            error.message
-        );
-
-
-    } finally {
-
-        createFolderButton.disabled =
-            false;
-
-        cancelFolderButton.disabled =
-            false;
-
-        createFolderButton.textContent =
-            "Create Folder";
-
-    }
-
-}
-
-
-/* =====================================================
-   UPLOAD
-===================================================== */
-
-const uploadButton =
-    document.getElementById(
-        "uploadButton"
-    );
-
-
-const fileUpload =
-    document.getElementById(
-        "fileUpload"
-    );
-
-
-const uploadModal =
-    document.getElementById(
-        "uploadModal"
-    );
-
-
-const uploadFolderSelect =
-    document.getElementById(
-        "uploadFolderSelect"
-    );
-
-
-const selectedFileName =
-    document.getElementById(
-        "selectedFileName"
-    );
-
-
-const cancelUploadButton =
-    document.getElementById(
-        "cancelUploadButton"
-    );
-
-
-const confirmUploadButton =
-    document.getElementById(
-        "confirmUploadButton"
-    );
-
-
-const uploadStatus =
-    document.getElementById(
-        "uploadStatus"
-    );
-
-
-uploadButton.addEventListener(
-    "click",
-    function() {
-
-        fileUpload.click();
-
-    }
-);
-
-
-fileUpload.addEventListener(
-    "change",
-    function() {
-
-        const file =
-            this.files[0];
-
-
-        if (!file) {
-
-            return;
-
-        }
-
-
-        selectedFile =
-            file;
-
-
-        updateUploadFolderOptions();
-
-
-        selectedFileName.textContent =
-            "Selected: " +
-            file.name;
-
-
-        uploadModal.classList.add(
-            "open"
-        );
-
-    }
-);
-
-
-cancelUploadButton.addEventListener(
-    "click",
-    closeUploadModal
-);
-
-
-uploadModal.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target ===
-            uploadModal
-        ) {
-
-            closeUploadModal();
-
-        }
-
-    }
-);
-
-
-function closeUploadModal() {
-
-    uploadModal.classList.remove(
-        "open"
-    );
-
-}
-
-
-/* =====================================================
-   UPLOAD FOLDER OPTIONS
-===================================================== */
-
-function updateUploadFolderOptions(
-    preferredFolder
-) {
-
-    uploadFolderSelect.innerHTML =
-        "";
-
-
-    const folders =
-        getFolders();
-
-
-    if (
-        folders.length ===
-        0
-    ) {
-
-        const option =
-            document.createElement(
-                "option"
-            );
-
-
-        option.value =
-            "Uploaded Documents";
-
-        option.textContent =
-            "Uploaded Documents";
-
-
-        uploadFolderSelect.appendChild(
-            option
-        );
-
-
-        return;
-
-    }
-
-
-    let preferredFound =
-        false;
-
-
-    folders.forEach(
-        function(folder) {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                folder.name;
-
-
-            option.textContent =
-                folder.name;
-
-
-            if (
-                preferredFolder &&
-                String(
-                    folder.name
-                ).toLowerCase() ===
-                String(
-                    preferredFolder
-                ).toLowerCase()
-            ) {
-
-                option.selected =
-                    true;
-
-                preferredFound =
-                    true;
-
-            }
-
-
-            uploadFolderSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    /*
-     * If a preferred folder was supplied
-     * but wasn't found, simply leave the
-     * normal first option selected.
-     */
-
-    if (
-        preferredFolder &&
-        !preferredFound &&
-        uploadFolderSelect.options.length > 0
-    ) {
-
-        uploadFolderSelect.selectedIndex =
-            0;
-
-    }
-
-}
-
-
-/* =====================================================
-   UPLOAD REQUEST
-===================================================== */
-
-confirmUploadButton.addEventListener(
-    "click",
-    uploadSelectedFile
-);
-
-
-async function uploadSelectedFile() {
-
-    if (!selectedFile) {
-
-        alert(
-            "Please select a file first."
-        );
-
-        return;
-
-    }
-
-
-    const folderName =
-        uploadFolderSelect.value ||
-        "Uploaded Documents";
-
-
-    try {
-
-        confirmUploadButton.disabled =
-            true;
-
-        cancelUploadButton.disabled =
-            true;
-
-        uploadButton.disabled =
-            true;
-
-
-        uploadStatus.textContent =
-            "Preparing upload...";
-
-
-        const base64 =
-            await fileToBase64(
-                selectedFile
-            );
-
-
-        uploadStatus.textContent =
-            "Uploading...";
-
-
-        /*
-         * This is the ONLY request that
-         * contains fileName/fileData.
-         */
-
-        const requestBody = {
-
-            action: "upload",
-
-            fileName:
-                selectedFile.name,
-
-            mimeType:
-                selectedFile.type,
-
-            fileData:
-                base64,
-
-            folderName:
-                folderName
-
-        };
-
-
-        console.log(
-            "UPLOAD REQUEST:",
-            {
-                action:
-                    requestBody.action,
-
-                fileName:
-                    requestBody.fileName,
-
-                folderName:
-                    requestBody.folderName
-            }
-        );
-
-
-        const response =
-            await fetch(
-                DOCUMENT_API_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
-
-                    body:
-                        JSON.stringify(
-                            requestBody
-                        )
-                }
-            );
-
-
-        const result =
-            await readBackendResponse(
-                response
-            );
-
-
-        console.log(
-            "UPLOAD RESPONSE:",
-            result
-        );
-
-
-        if (!result.success) {
-
-            throw new Error(
-                result.error ||
-                "Upload failed."
-            );
-
-        }
-
-
-        closeUploadModal();
-
-
-        selectedFile =
-            null;
-
-
-        fileUpload.value =
-            "";
-
-
-        selectedFileName.textContent =
-            "";
-
-
-        uploadStatus.textContent =
-            "Uploaded successfully.";
-
-
-        await loadDocumentData();
-
-
-        setTimeout(
-            function() {
-
-                uploadStatus.textContent =
-                    "";
-
-            },
-            3000
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "UPLOAD ERROR:",
-            error
-        );
-
-
-        uploadStatus.textContent =
-            "Upload failed.";
-
-
-        alert(
-            "Unable to upload the document:\n\n" +
-            error.message
-        );
-
-
-    } finally {
-
-        confirmUploadButton.disabled =
-            false;
-
-        cancelUploadButton.disabled =
-            false;
-
-        uploadButton.disabled =
-            false;
-
-    }
-
-}
-
-
-/* =====================================================
-   FILE → BASE64
-===================================================== */
-
-function fileToBase64(file) {
-
-    return new Promise(
-        function(resolve, reject) {
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function() {
-
-                    const result =
-                        reader.result;
-
-
-                    const base64 =
-                        result.split(",")[1];
-
-
-                    resolve(
-                        base64
-                    );
-
-                };
-
-
-            reader.onerror =
-                function() {
-
-                    reject(
-                        new Error(
-                            "Unable to read the selected file."
-                        )
-                    );
-
-                };
-
-
-            reader.readAsDataURL(
-                file
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function showStatus(message) {
-
-    uploadStatus.textContent =
-        message;
-
-
-    setTimeout(
-        function() {
-
-            uploadStatus.textContent =
-                "";
-
-        },
-        3000
-    );
-
-}
-
-
-/* =====================================================
-   COUNT DOCUMENTS
-===================================================== */
-
-function countDocuments(items) {
-
-    const safeItems =
-        normaliseItems(
-            items
-        );
-
-
-    let count = 0;
-
-
-    safeItems.forEach(
-        function(item) {
-
-            if (!isObject(item)) {
-
-                return;
-
-            }
-
-
-            if (
-                item.type ===
-                "document"
-            ) {
-
-                count++;
-
-                return;
-
-            }
-
-
-            if (
-                item.type ===
-                "folder"
-            ) {
-
-                count +=
-                    countDocuments(
-                        item.items
-                    );
-
-            }
-
-        }
-    );
-
-
-    return count;
-
-}
-
-
-/* =====================================================
-   CREATE DOCUMENT
-===================================================== */
-
-function createDocument(doc) {
-
-    if (!isObject(doc)) {
-
-        return null;
-
-    }
-
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.className =
-        "document";
-
-
-    const fileType =
-        String(
-            doc.fileType || ""
-        );
-
-
-    const documentName =
-        String(
-            doc.name ||
-            "Unnamed document"
-        );
-
-
-    const documentLink =
-        String(
-            doc.link ||
-            "#"
-        );
-
-
-    const icon =
-        fileType.toUpperCase() ===
-        "PDF"
-            ? "▤"
-            : "▦";
-
-
-    div.innerHTML = `
-
-        <div class="document-left">
-
-            <div class="document-icon">
-                ${icon}
-            </div>
-
-            <div class="document-details">
-
-                <div class="document-name">
-                    ${escapeHtml(documentName)}
-                </div>
-
-                <div class="document-meta">
-
-                    <span>
-                        ${escapeHtml(fileType)}
-                    </span>
-
-                    <span class="meta-dot"></span>
-
-                    <span>
-                        Available
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="actions">
-
-            <a
-                class="button"
-                href="${escapeHtml(documentLink)}"
-                target="_blank"
-                rel="noopener noreferrer">
-
-                Open
-
+            <a href="downloads.html" class="nav-item">
+                <span class="nav-icon">
+                    ▣
+                </span>
+                <span>
+                    Documents
+                </span>
             </a>
 
+            <a href="brokers.html" class="nav-item">
+                <span class="nav-icon">
+                    ⌕
+                </span>
+                <span>
+                    Broker Search
+                </span>
+            </a>
 
-            <button
-                class="button email"
-                type="button">
+            <a href="extract.html" class="nav-item">
+                <span class="nav-icon">
+                    ⇩
+                </span>
+                <span>
+                    FOS Extracter Tool
+                </span>
+            </a>
 
-                Email
-
-            </button>
+            <a href="vin.html" class="nav-item">
+                <span class="nav-icon">
+                    ⌁
+                </span>
+                <span>
+                    VIN Search
+                </span>
+            </a>
 
         </div>
 
-    `;
+        <div class="sidebar-bottom">
 
+            <div class="nav-section">
 
-    const emailButton =
-        div.querySelector(
-            ".email"
-        );
-
-
-    if (emailButton) {
-
-        emailButton.addEventListener(
-            "click",
-            function() {
-
-                emailDocument(
-                    doc
-                );
-
-            }
-        );
-
-    }
-
-
-    return div;
-
-}
-
-
-/* =====================================================
-   CREATE FOLDER ELEMENT
-===================================================== */
-
-function createFolderElement(folder) {
-
-    if (!isObject(folder)) {
-
-        return null;
-
-    }
-
-
-    const wrapper =
-        document.createElement(
-            "div"
-        );
-
-
-    wrapper.className =
-        "folder";
-
-
-    const header =
-        document.createElement(
-            "div"
-        );
-
-
-    header.className =
-        "folder-header";
-
-
-    const items =
-        normaliseItems(
-            folder.items
-        );
-
-
-    const itemCount =
-        countDocuments(
-            items
-        );
-
-
-    const folderName =
-        String(
-            folder.name ||
-            "Unnamed folder"
-        );
-
-
-    header.innerHTML = `
-
-        <div class="folder-left">
-
-            <div class="folder-icon">
-                📁
-            </div>
-
-            <div>
-
-                <div class="folder-name">
-                    ${escapeHtml(folderName)}
+                <div class="nav-label">
+                    Account
                 </div>
 
-                <div class="folder-count">
+                <div
+                    class="nav-item logout"
+                    id="logoutBtn">
 
-                    ${itemCount}
-                    ${itemCount === 1
-                        ? " document"
-                        : " documents"}
+                    <span class="nav-icon">
+                        ↪
+                    </span>
+
+                    <span>
+                        Logout
+                    </span>
 
                 </div>
 
@@ -2615,360 +846,1338 @@ function createFolderElement(folder) {
 
         </div>
 
+    </aside>
 
-        <div class="folder-arrow">
-            ›
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div class="topbar-title">
+                FRE Documents
+            </div>
+
+            <div class="account">
+
+                <span
+                    class="account-email"
+                    id="userEmail">
+
+                    Loading...
+
+                </span>
+
+                <div
+                    class="avatar"
+                    id="avatar">
+
+                    ?
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <div class="page-header">
+
+                <h1 class="page-title">
+                    Documents
+                </h1>
+
+                <p class="page-subtitle">
+                    Access and manage your FRE documents.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 TOOLBAR
+            ================================================= -->
+
+            <div class="toolbar">
+
+                <div class="search-wrapper">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        id="search"
+                        class="search"
+                        placeholder="Search documents..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div class="toolbar-actions">
+
+                    <button
+                        type="button"
+                        class="toolbar-button"
+                        id="newFolderButton">
+
+                        ＋ New Folder
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="toolbar-button primary"
+                        id="uploadButton">
+
+                        ↑ Upload Document
+
+                    </button>
+
+
+                    <input
+                        type="file"
+                        id="fileUpload"
+                        style="display:none;"
+                    >
+
+
+                    <span
+                        class="upload-status"
+                        id="uploadStatus">
+                    </span>
+
+
+                    <div
+                        class="document-count"
+                        id="documentCount">
+
+                        0 documents
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 DOCUMENT PANEL
+            ================================================= -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+                        Available documents
+                    </div>
+
+                    <div class="panel-subtitle">
+                        FRE Portal
+                    </div>
+
+                </div>
+
+
+                <div id="documentList"></div>
+
+
+                <div
+                    class="empty"
+                    id="emptyState">
+
+                    No documents found.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         NEW FOLDER MODAL
+    ===================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="folderModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div class="modal-title">
+                    Create New Folder
+                </div>
+
+                <div class="modal-subtitle">
+                    Create a new folder in the FRE document catalogue.
+                </div>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <label
+                    class="modal-label"
+                    for="folderNameInput">
+
+                    Folder name
+
+                </label>
+
+                <input
+                    type="text"
+                    id="folderNameInput"
+                    class="modal-input"
+                    placeholder="e.g. BMW, Santander, Policies..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="modal-button"
+                    id="cancelFolderButton">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="modal-button primary"
+                    id="createFolderButton">
+
+                    Create Folder
+
+                </button>
+
+            </div>
+
         </div>
 
-    `;
+    </div>
 
 
-    const contents =
-        document.createElement(
-            "div"
-        );
+    <!-- =====================================================
+         UPLOAD MODAL
+    ===================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="uploadModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div class="modal-title">
+                    Upload Document
+                </div>
+
+                <div class="modal-subtitle">
+                    Choose the folder where this document should appear.
+                </div>
+
+            </div>
 
 
-    contents.className =
-        "folder-contents";
+            <div class="modal-body">
+
+                <label
+                    class="modal-label"
+                    for="uploadFolderSelect">
+
+                    Folder
+
+                </label>
+
+                <select
+                    id="uploadFolderSelect"
+                    class="modal-select">
+                </select>
+
+                <div
+                    class="selected-file"
+                    id="selectedFileName">
+                </div>
+
+            </div>
 
 
-    items.forEach(
-        function(item) {
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="modal-button"
+                    id="cancelUploadButton">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="modal-button primary"
+                    id="confirmUploadButton">
+
+                    Upload
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script type="module">
+
+        /* =====================================================
+           FIREBASE
+        ===================================================== */
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+        const firebaseConfig = {
+
+            apiKey:
+                "AIzaSyAVqaht2BVQgVkZFcwMZ3t34DQeA2uFYuU",
+
+            authDomain:
+                "fre-tools.firebaseapp.com",
+
+            projectId:
+                "fre-tools",
+
+            storageBucket:
+                "fre-tools.firebasestorage.app",
+
+            messagingSenderId:
+                "723940111430",
+
+            appId:
+                "1:723940111430:web:50cb5685913167f0dc4647"
+
+        };
+
+
+        const app =
+            initializeApp(
+                firebaseConfig
+            );
+
+
+        const auth =
+            getAuth(
+                app
+            );
+
+
+        /* =====================================================
+           FRE BACKEND
+        ===================================================== */
+
+        const DOCUMENT_API_URL =
+            "https://script.google.com/macros/s/AKfycbx_u3EODmTaLU6BBF6cBuGzL7JrNFJOWpO4_EKbs8u7C_r2FyBLiUAzDmFO6d1ixtaD6A/exec";
+
+
+        /* =====================================================
+           DATA
+        ===================================================== */
+
+        let documents = [];
+        let selectedFile = null;
+
+
+        /* =====================================================
+           HELPERS
+        ===================================================== */
+
+        function escapeHtml(value) {
+
+            return String(
+                value || ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        function isObject(value) {
+
+            return (
+                value !== null &&
+                typeof value === "object"
+            );
+
+        }
+
+
+        function normaliseItems(value) {
 
             if (
-                isObject(item) &&
-                item.type ===
-                "document"
+                Array.isArray(value)
             ) {
 
-                const documentElement =
-                    createDocument(
-                        item
+                return value;
+
+            }
+
+            return [];
+
+        }
+
+
+        /* =====================================================
+           LOAD CATALOGUE
+        ===================================================== */
+
+        async function loadDocumentData() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        DOCUMENT_API_URL +
+                        "?t=" +
+                        Date.now()
                     );
 
 
-                if (documentElement) {
+                if (!response.ok) {
 
-                    contents.appendChild(
-                        documentElement
+                    throw new Error(
+                        "Backend returned HTTP " +
+                        response.status
                     );
 
                 }
 
-            }
 
-        }
-    );
+                const rawText =
+                    await response.text();
 
 
-    header.addEventListener(
-        "click",
-        function() {
+                if (
+                    !rawText ||
+                    !rawText.trim()
+                ) {
 
-            contents.classList.toggle(
-                "open"
-            );
-
-
-            const arrow =
-                header.querySelector(
-                    ".folder-arrow"
-                );
-
-
-            if (arrow) {
-
-                arrow.classList.toggle(
-                    "open"
-                );
-
-            }
-
-        }
-    );
-
-
-    wrapper.appendChild(
-        header
-    );
-
-
-    wrapper.appendChild(
-        contents
-    );
-
-
-    return wrapper;
-
-}
-
-
-/* =====================================================
-   DISPLAY DOCUMENTS
-===================================================== */
-
-function loadDocuments(list) {
-
-    const container =
-        document.getElementById(
-            "documentList"
-        );
-
-
-    const empty =
-        document.getElementById(
-            "emptyState"
-        );
-
-
-    const count =
-        document.getElementById(
-            "documentCount"
-        );
-
-
-    if (!container) {
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        "";
-
-
-    if (!Array.isArray(list)) {
-
-        if (count) {
-
-            count.textContent =
-                "0 documents";
-
-        }
-
-
-        if (empty) {
-
-            empty.textContent =
-                "No documents found.";
-
-            empty.style.display =
-                "block";
-
-        }
-
-
-        return;
-
-    }
-
-
-    const total =
-        countDocuments(
-            list
-        );
-
-
-    if (count) {
-
-        count.textContent =
-            total +
-            " " +
-            (
-                total === 1
-                    ? "document"
-                    : "documents"
-            );
-
-    }
-
-
-    if (list.length === 0) {
-
-        if (empty) {
-
-            empty.textContent =
-                "No documents found.";
-
-            empty.style.display =
-                "block";
-
-        }
-
-        return;
-
-    }
-
-
-    if (empty) {
-
-        empty.style.display =
-            "none";
-
-    }
-
-
-    list.forEach(
-        function(item) {
-
-            if (
-                isObject(item) &&
-                item.type ===
-                "folder"
-            ) {
-
-                const folderElement =
-                    createFolderElement(
-                        item
-                    );
-
-
-                if (folderElement) {
-
-                    container.appendChild(
-                        folderElement
+                    throw new Error(
+                        "FRE backend returned an empty response."
                     );
 
                 }
 
-            }
 
-        }
-    );
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-document
-    .getElementById(
-        "search"
-    )
-    .addEventListener(
-        "input",
-        function() {
-
-            const search =
-                this.value
-                    .trim()
-                    .toLowerCase();
+                const data =
+                    JSON.parse(
+                        rawText
+                    );
 
 
-            if (!search) {
+                if (
+                    Array.isArray(data)
+                ) {
+
+                    documents =
+                        data;
+
+                }
+
+                else if (
+                    isObject(data) &&
+                    Array.isArray(
+                        data.documents
+                    )
+                ) {
+
+                    documents =
+                        data.documents;
+
+                }
+
+                else {
+
+                    throw new Error(
+                        "FRE backend did not return a document list."
+                    );
+
+                }
+
 
                 loadDocuments(
                     documents
                 );
 
+
+            } catch (error) {
+
+                console.error(
+                    "DOCUMENT LOAD ERROR:",
+                    error
+                );
+
+
+                documents = [];
+
+
+                const count =
+                    document.getElementById(
+                        "documentCount"
+                    );
+
+
+                const empty =
+                    document.getElementById(
+                        "emptyState"
+                    );
+
+
+                if (count) {
+
+                    count.textContent =
+                        "0 documents";
+
+                }
+
+
+                if (empty) {
+
+                    empty.textContent =
+                        "Unable to load documents.";
+
+                    empty.style.display =
+                        "block";
+
+                }
+
+
+                alert(
+                    "Error loading documents from FRE backend:\n\n" +
+                    error.message
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           GET FOLDERS
+        ===================================================== */
+
+        function getFolders() {
+
+            if (
+                !Array.isArray(
+                    documents
+                )
+            ) {
+
+                return [];
+
+            }
+
+
+            return documents.filter(
+                function(item) {
+
+                    return (
+                        isObject(item) &&
+                        item.type === "folder"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           NEW FOLDER
+        ===================================================== */
+
+        const newFolderButton =
+            document.getElementById(
+                "newFolderButton"
+            );
+
+
+        const folderModal =
+            document.getElementById(
+                "folderModal"
+            );
+
+
+        const folderNameInput =
+            document.getElementById(
+                "folderNameInput"
+            );
+
+
+        const cancelFolderButton =
+            document.getElementById(
+                "cancelFolderButton"
+            );
+
+
+        const createFolderButton =
+            document.getElementById(
+                "createFolderButton"
+            );
+
+
+        newFolderButton.addEventListener(
+            "click",
+            function() {
+
+                folderNameInput.value =
+                    "";
+
+                folderModal.classList.add(
+                    "open"
+                );
+
+                setTimeout(
+                    function() {
+
+                        folderNameInput.focus();
+
+                    },
+                    50
+                );
+
+            }
+        );
+
+
+        cancelFolderButton.addEventListener(
+            "click",
+            closeFolderModal
+        );
+
+
+        folderModal.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target ===
+                    folderModal
+                ) {
+
+                    closeFolderModal();
+
+                }
+
+            }
+        );
+
+
+        folderNameInput.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+
+                    createFolder();
+
+                }
+
+
+                if (
+                    event.key ===
+                    "Escape"
+                ) {
+
+                    closeFolderModal();
+
+                }
+
+            }
+        );
+
+
+        function closeFolderModal() {
+
+            folderModal.classList.remove(
+                "open"
+            );
+
+        }
+
+
+        createFolderButton.addEventListener(
+            "click",
+            createFolder
+        );
+
+
+        async function createFolder() {
+
+            const folderName =
+                folderNameInput.value.trim();
+
+
+            if (!folderName) {
+
+                alert(
+                    "Please enter a folder name."
+                );
+
+                folderNameInput.focus();
+
                 return;
 
             }
 
 
-            const filtered = [];
+            try {
+
+                createFolderButton.disabled =
+                    true;
+
+                createFolderButton.textContent =
+                    "Creating...";
 
 
-            documents.forEach(
+                const response =
+                    await fetch(
+                        DOCUMENT_API_URL,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "text/plain;charset=utf-8"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    action:
+                                        "createFolder",
+
+                                    folderName:
+                                        folderName
+
+                                })
+
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                if (
+                    !result.success
+                ) {
+
+                    throw new Error(
+                        result.error ||
+                        "Unable to create folder."
+                    );
+
+                }
+
+
+                closeFolderModal();
+
+                await loadDocumentData();
+
+                updateUploadFolderOptions();
+
+                showStatus(
+                    "Folder created."
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "CREATE FOLDER ERROR:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to create the folder:\n\n" +
+                    error.message
+                );
+
+
+            } finally {
+
+                createFolderButton.disabled =
+                    false;
+
+                createFolderButton.textContent =
+                    "Create Folder";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           UPLOAD
+        ===================================================== */
+
+        const uploadButton =
+            document.getElementById(
+                "uploadButton"
+            );
+
+
+        const fileUpload =
+            document.getElementById(
+                "fileUpload"
+            );
+
+
+        const uploadModal =
+            document.getElementById(
+                "uploadModal"
+            );
+
+
+        const uploadFolderSelect =
+            document.getElementById(
+                "uploadFolderSelect"
+            );
+
+
+        const selectedFileName =
+            document.getElementById(
+                "selectedFileName"
+            );
+
+
+        const cancelUploadButton =
+            document.getElementById(
+                "cancelUploadButton"
+            );
+
+
+        const confirmUploadButton =
+            document.getElementById(
+                "confirmUploadButton"
+            );
+
+
+        const uploadStatus =
+            document.getElementById(
+                "uploadStatus"
+            );
+
+
+        uploadButton.addEventListener(
+            "click",
+            function() {
+
+                fileUpload.click();
+
+            }
+        );
+
+
+        fileUpload.addEventListener(
+            "change",
+            function() {
+
+                const file =
+                    this.files[0];
+
+
+                if (!file) {
+
+                    return;
+
+                }
+
+
+                selectedFile =
+                    file;
+
+
+                updateUploadFolderOptions();
+
+
+                selectedFileName.textContent =
+                    "Selected: " +
+                    file.name;
+
+
+                uploadModal.classList.add(
+                    "open"
+                );
+
+            }
+        );
+
+
+        cancelUploadButton.addEventListener(
+            "click",
+            function() {
+
+                closeUploadModal();
+
+            }
+        );
+
+
+        uploadModal.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target ===
+                    uploadModal
+                ) {
+
+                    closeUploadModal();
+
+                }
+
+            }
+        );
+
+
+        function closeUploadModal() {
+
+            uploadModal.classList.remove(
+                "open"
+            );
+
+        }
+
+
+        function updateUploadFolderOptions() {
+
+            uploadFolderSelect.innerHTML =
+                "";
+
+
+            const folders =
+                getFolders();
+
+
+            if (
+                folders.length === 0
+            ) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    "Uploaded Documents";
+
+
+                option.textContent =
+                    "Uploaded Documents";
+
+
+                uploadFolderSelect.appendChild(
+                    option
+                );
+
+
+                return;
+
+            }
+
+
+            folders.forEach(
                 function(folder) {
 
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value =
+                        folder.name;
+
+
+                    option.textContent =
+                        folder.name;
+
+
+                    uploadFolderSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+        }
+
+
+        confirmUploadButton.addEventListener(
+            "click",
+            uploadSelectedFile
+        );
+
+
+        async function uploadSelectedFile() {
+
+            if (!selectedFile) {
+
+                alert(
+                    "Please select a file first."
+                );
+
+                return;
+
+            }
+
+
+            const folderName =
+                uploadFolderSelect.value ||
+                "Uploaded Documents";
+
+
+            try {
+
+                confirmUploadButton.disabled =
+                    true;
+
+                cancelUploadButton.disabled =
+                    true;
+
+                uploadButton.disabled =
+                    true;
+
+
+                uploadStatus.textContent =
+                    "Preparing upload...";
+
+
+                const base64 =
+                    await fileToBase64(
+                        selectedFile
+                    );
+
+
+                uploadStatus.textContent =
+                    "Uploading...";
+
+
+                const response =
+                    await fetch(
+                        DOCUMENT_API_URL,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "text/plain;charset=utf-8"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    action:
+                                        "upload",
+
+                                    fileName:
+                                        selectedFile.name,
+
+                                    mimeType:
+                                        selectedFile.type,
+
+                                    fileData:
+                                        base64,
+
+                                    folderName:
+                                        folderName
+
+                                })
+
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Upload request failed with HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const result =
+                    await response.json();
+
+
+                if (
+                    !result.success
+                ) {
+
+                    throw new Error(
+                        result.error ||
+                        "Upload failed."
+                    );
+
+                }
+
+
+                closeUploadModal();
+
+                selectedFile = null;
+
+                fileUpload.value = "";
+
+
+                uploadStatus.textContent =
+                    "Uploaded successfully.";
+
+
+                await loadDocumentData();
+
+
+                setTimeout(
+                    function() {
+
+                        uploadStatus.textContent =
+                            "";
+
+                    },
+                    3000
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "UPLOAD ERROR:",
+                    error
+                );
+
+
+                uploadStatus.textContent =
+                    "Upload failed.";
+
+
+                alert(
+                    "Unable to upload the document:\n\n" +
+                    error.message
+                );
+
+
+            } finally {
+
+                confirmUploadButton.disabled =
+                    false;
+
+                cancelUploadButton.disabled =
+                    false;
+
+                uploadButton.disabled =
+                    false;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FILE → BASE64
+        ===================================================== */
+
+        function fileToBase64(file) {
+
+            return new Promise(
+                function(resolve, reject) {
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function() {
+
+                            const result =
+                                reader.result;
+
+
+                            const base64 =
+                                result.split(
+                                    ","
+                                )[1];
+
+
+                            resolve(
+                                base64
+                            );
+
+                        };
+
+
+                    reader.onerror =
+                        function() {
+
+                            reject(
+                                new Error(
+                                    "Unable to read the selected file."
+                                )
+                            );
+
+                        };
+
+
+                    reader.readAsDataURL(
+                        file
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        function showStatus(message) {
+
+            uploadStatus.textContent =
+                message;
+
+
+            setTimeout(
+                function() {
+
+                    uploadStatus.textContent =
+                        "";
+
+                },
+                3000
+            );
+
+        }
+
+
+        /* =====================================================
+           COUNT DOCUMENTS
+        ===================================================== */
+
+        function countDocuments(items) {
+
+            const safeItems =
+                normaliseItems(
+                    items
+                );
+
+
+            let count = 0;
+
+
+            safeItems.forEach(
+                function(item) {
+
                     if (
-                        !isObject(folder) ||
-                        folder.type !==
+                        !isObject(item)
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    if (
+                        item.type ===
+                        "document"
+                    ) {
+
+                        count++;
+
+                        return;
+
+                    }
+
+
+                    if (
+                        item.type ===
                         "folder"
                     ) {
 
-                        return;
-
-                    }
-
-
-                    const items =
-                        normaliseItems(
-                            folder.items
-                        );
-
-
-                    const folderName =
-                        String(
-                            folder.name || ""
-                        ).toLowerCase();
-
-
-                    if (
-                        folderName.includes(
-                            search
-                        )
-                    ) {
-
-                        filtered.push({
-
-                            type:
-                                "folder",
-
-                            name:
-                                folder.name,
-
-                            items:
-                                items
-
-                        });
-
-                        return;
-
-                    }
-
-
-                    const matchingItems =
-                        items.filter(
-                            function(doc) {
-
-                                if (
-                                    !isObject(doc) ||
-                                    doc.type !==
-                                    "document"
-                                ) {
-
-                                    return false;
-
-                                }
-
-
-                                const name =
-                                    String(
-                                        doc.name || ""
-                                    ).toLowerCase();
-
-
-                                return name.includes(
-                                    search
-                                );
-
-                            }
-                        );
-
-
-                    if (
-                        matchingItems.length >
-                        0
-                    ) {
-
-                        filtered.push({
-
-                            type:
-                                "folder",
-
-                            name:
-                                folder.name,
-
-                            items:
-                                matchingItems
-
-                        });
+                        count +=
+                            countDocuments(
+                                item.items
+                            );
 
                     }
 
@@ -2976,59 +2185,645 @@ document
             );
 
 
-            loadDocuments(
-                filtered
+            return count;
+
+        }
+
+
+        /* =====================================================
+           CREATE DOCUMENT
+        ===================================================== */
+
+        function createDocument(doc) {
+
+            if (
+                !isObject(doc)
+            ) {
+
+                return null;
+
+            }
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "document";
+
+
+            const fileType =
+                String(
+                    doc.fileType ||
+                    ""
+                );
+
+
+            const documentName =
+                String(
+                    doc.name ||
+                    "Unnamed document"
+                );
+
+
+            const documentLink =
+                String(
+                    doc.link ||
+                    "#"
+                );
+
+
+            const icon =
+                fileType.toUpperCase() ===
+                "PDF"
+                    ? "▤"
+                    : "▦";
+
+
+            div.innerHTML = `
+                <div class="document-left">
+
+                    <div class="document-icon">
+                        ${icon}
+                    </div>
+
+                    <div class="document-details">
+
+                        <div class="document-name">
+                            ${escapeHtml(documentName)}
+                        </div>
+
+                        <div class="document-meta">
+
+                            <span>
+                                ${escapeHtml(fileType)}
+                            </span>
+
+                            <span class="meta-dot"></span>
+
+                            <span>
+                                Available
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <a
+                        class="button"
+                        href="${escapeHtml(documentLink)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        Open
+
+                    </a>
+
+
+                    <button
+                        class="button email"
+                        type="button">
+
+                        Email
+
+                    </button>
+
+                </div>
+            `;
+
+
+            const emailButton =
+                div.querySelector(
+                    ".email"
+                );
+
+
+            if (emailButton) {
+
+                emailButton.addEventListener(
+                    "click",
+                    function() {
+
+                        emailDocument(
+                            doc
+                        );
+
+                    }
+                );
+
+            }
+
+
+            return div;
+
+        }
+
+
+        /* =====================================================
+           CREATE FOLDER
+        ===================================================== */
+
+        function createFolderElement(folder) {
+
+            if (
+                !isObject(folder)
+            ) {
+
+                return null;
+
+            }
+
+
+            const wrapper =
+                document.createElement(
+                    "div"
+                );
+
+
+            wrapper.className =
+                "folder";
+
+
+            const header =
+                document.createElement(
+                    "div"
+                );
+
+
+            header.className =
+                "folder-header";
+
+
+            const items =
+                normaliseItems(
+                    folder.items
+                );
+
+
+            const itemCount =
+                countDocuments(
+                    items
+                );
+
+
+            const folderName =
+                String(
+                    folder.name ||
+                    "Unnamed folder"
+                );
+
+
+            header.innerHTML = `
+                <div class="folder-left">
+
+                    <div class="folder-icon">
+                        📁
+                    </div>
+
+                    <div>
+
+                        <div class="folder-name">
+                            ${escapeHtml(folderName)}
+                        </div>
+
+                        <div class="folder-count">
+
+                            ${itemCount}
+                            ${itemCount === 1
+                                ? " document"
+                                : " documents"}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="folder-arrow">
+                    ›
+                </div>
+            `;
+
+
+            const contents =
+                document.createElement(
+                    "div"
+                );
+
+
+            contents.className =
+                "folder-contents";
+
+
+            items.forEach(
+                function(item) {
+
+                    if (
+                        isObject(item) &&
+                        item.type ===
+                        "document"
+                    ) {
+
+                        const documentElement =
+                            createDocument(
+                                item
+                            );
+
+
+                        if (documentElement) {
+
+                            contents.appendChild(
+                                documentElement
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            header.addEventListener(
+                "click",
+                function() {
+
+                    contents.classList.toggle(
+                        "open"
+                    );
+
+
+                    const arrow =
+                        header.querySelector(
+                            ".folder-arrow"
+                        );
+
+
+                    if (arrow) {
+
+                        arrow.classList.toggle(
+                            "open"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            wrapper.appendChild(
+                header
+            );
+
+
+            wrapper.appendChild(
+                contents
+            );
+
+
+            return wrapper;
+
+        }
+
+
+        /* =====================================================
+           DISPLAY DOCUMENTS
+        ===================================================== */
+
+        function loadDocuments(list) {
+
+            const container =
+                document.getElementById(
+                    "documentList"
+                );
+
+
+            const empty =
+                document.getElementById(
+                    "emptyState"
+                );
+
+
+            const count =
+                document.getElementById(
+                    "documentCount"
+                );
+
+
+            if (!container) {
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                "";
+
+
+            if (
+                !Array.isArray(list)
+            ) {
+
+                if (count) {
+
+                    count.textContent =
+                        "0 documents";
+
+                }
+
+
+                if (empty) {
+
+                    empty.textContent =
+                        "No documents found.";
+
+                    empty.style.display =
+                        "block";
+
+                }
+
+
+                return;
+
+            }
+
+
+            const total =
+                countDocuments(
+                    list
+                );
+
+
+            if (count) {
+
+                count.textContent =
+                    total +
+                    " " +
+                    (
+                        total === 1
+                            ? "document"
+                            : "documents"
+                    );
+
+            }
+
+
+            if (
+                list.length === 0
+            ) {
+
+                if (empty) {
+
+                    empty.textContent =
+                        "No documents found.";
+
+                    empty.style.display =
+                        "block";
+
+                }
+
+                return;
+
+            }
+
+
+            if (empty) {
+
+                empty.style.display =
+                    "none";
+
+            }
+
+
+            list.forEach(
+                function(item) {
+
+                    if (
+                        isObject(item) &&
+                        item.type ===
+                        "folder"
+                    ) {
+
+                        const folderElement =
+                            createFolderElement(
+                                item
+                            );
+
+
+                        if (folderElement) {
+
+                            container.appendChild(
+                                folderElement
+                            );
+
+                        }
+
+                    }
+
+                }
             );
 
         }
-    );
 
 
-/* =====================================================
-   EMAIL
-===================================================== */
+        /* =====================================================
+           SEARCH
+        ===================================================== */
 
-function emailDocument(doc) {
+        document
+            .getElementById(
+                "search"
+            )
+            .addEventListener(
+                "input",
+                function() {
 
-    const user =
-        auth.currentUser;
-
-
-    if (!user) {
-
-        alert(
-            "Your session has expired. Please log in again."
-        );
-
-        return;
-
-    }
+                    const search =
+                        this.value
+                            .trim()
+                            .toLowerCase();
 
 
-    const recipient =
-        user.email;
+                    if (!search) {
+
+                        loadDocuments(
+                            documents
+                        );
+
+                        return;
+
+                    }
 
 
-    const subject =
-        String(
-            doc &&
-            doc.name
-                ? doc.name
-                : "FRE Document"
-        );
+                    const filtered = [];
 
 
-    const link =
-        String(
-            doc &&
-            doc.link
-                ? doc.link
-                : ""
-        );
+                    documents.forEach(
+                        function(folder) {
+
+                            if (
+                                !isObject(folder) ||
+                                folder.type !==
+                                "folder"
+                            ) {
+
+                                return;
+
+                            }
 
 
-    const body =
-`Hi,
+                            const items =
+                                normaliseItems(
+                                    folder.items
+                                );
+
+
+                            const folderName =
+                                String(
+                                    folder.name ||
+                                    ""
+                                ).toLowerCase();
+
+
+                            if (
+                                folderName.includes(
+                                    search
+                                )
+                            ) {
+
+                                filtered.push({
+
+                                    type:
+                                        "folder",
+
+                                    name:
+                                        folder.name,
+
+                                    items:
+                                        items
+
+                                });
+
+                                return;
+
+                            }
+
+
+                            const matchingItems =
+                                items.filter(
+                                    function(doc) {
+
+                                        if (
+                                            !isObject(doc) ||
+                                            doc.type !==
+                                            "document"
+                                        ) {
+
+                                            return false;
+
+                                        }
+
+
+                                        const name =
+                                            String(
+                                                doc.name ||
+                                                ""
+                                            ).toLowerCase();
+
+
+                                        return name.includes(
+                                            search
+                                        );
+
+                                    }
+                                );
+
+
+                            if (
+                                matchingItems.length > 0
+                            ) {
+
+                                filtered.push({
+
+                                    type:
+                                        "folder",
+
+                                    name:
+                                        folder.name,
+
+                                    items:
+                                        matchingItems
+
+                                });
+
+                            }
+
+                        }
+                    );
+
+
+                    loadDocuments(
+                        filtered
+                    );
+
+                }
+            );
+
+
+        /* =====================================================
+           EMAIL
+        ===================================================== */
+
+        function emailDocument(doc) {
+
+            const user =
+                auth.currentUser;
+
+
+            if (!user) {
+
+                alert(
+                    "Your session has expired. Please log in again."
+                );
+
+                return;
+
+            }
+
+
+            const recipient =
+                user.email;
+
+
+            const subject =
+                String(
+                    doc &&
+                    doc.name
+                        ? doc.name
+                        : "FRE Document"
+                );
+
+
+            const link =
+                String(
+                    doc &&
+                    doc.link
+                        ? doc.link
+                        : ""
+                );
+
+
+            const body = `Hi,
 
 Please find the requested document at the link below:
 
@@ -3039,182 +2834,175 @@ Kind regards,
 Sam`;
 
 
-    const mailto =
-        "mailto:" +
-        encodeURIComponent(
-            recipient
-        ) +
-        "?subject=" +
-        encodeURIComponent(
-            subject
-        ) +
-        "&body=" +
-        encodeURIComponent(
-            body
+            const mailto =
+                "mailto:" +
+                encodeURIComponent(
+                    recipient
+                ) +
+                "?subject=" +
+                encodeURIComponent(
+                    subject
+                ) +
+                "&body=" +
+                encodeURIComponent(
+                    body
+                );
+
+
+            window.location.href =
+                mailto;
+
+        }
+
+
+        /* =====================================================
+           AUTHENTICATION
+        ===================================================== */
+
+        onAuthStateChanged(
+            auth,
+            async function(user) {
+
+                if (!user) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                const userEmail =
+                    document.getElementById(
+                        "userEmail"
+                    );
+
+
+                if (userEmail) {
+
+                    userEmail.textContent =
+                        user.email;
+
+                }
+
+
+                const avatar =
+                    document.getElementById(
+                        "avatar"
+                    );
+
+
+                if (avatar) {
+
+                    avatar.textContent =
+                        user.email
+                            .charAt(0)
+                            .toUpperCase();
+
+                }
+
+
+                await loadDocumentData();
+
+            }
         );
 
 
-    window.location.href =
-        mailto;
+        /* =====================================================
+           ACTIVE SIDEBAR
+        ===================================================== */
 
-}
-
-
-/* =====================================================
-   AUTHENTICATION
-===================================================== */
-
-onAuthStateChanged(
-    auth,
-    async function(user) {
-
-        if (!user) {
-
-            /*
-             * This is the ONLY place where
-             * this page redirects an unauthenticated
-             * user to login.html.
-             */
-
-            window.location.href =
-                "login.html";
-
-            return;
-
-        }
+        const currentPage =
+            window.location.pathname
+                .split("/")
+                .pop()
+                .toLowerCase();
 
 
-        const userEmail =
-            document.getElementById(
-                "userEmail"
+        document
+            .querySelectorAll(
+                ".nav-item"
+            )
+            .forEach(
+                function(link) {
+
+                    const href =
+                        link.getAttribute(
+                            "href"
+                        );
+
+
+                    if (!href) {
+
+                        return;
+
+                    }
+
+
+                    const linkPage =
+                        href
+                            .split("/")
+                            .pop()
+                            .toLowerCase();
+
+
+                    if (
+                        linkPage ===
+                        currentPage
+                    ) {
+
+                        link.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
             );
 
 
-        if (userEmail) {
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
 
-            userEmail.textContent =
-                user.email;
+        document
+            .getElementById(
+                "logoutBtn"
+            )
+            .addEventListener(
+                "click",
+                async function() {
 
-        }
+                    try {
+
+                        await signOut(
+                            auth
+                        );
 
 
-        const avatar =
-            document.getElementById(
-                "avatar"
+                        window.location.href =
+                            "index.html";
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "Logout failed:",
+                            error
+                        );
+
+
+                        alert(
+                            "Unable to log out. Please try again."
+                        );
+
+                    }
+
+                }
             );
 
-
-        if (avatar) {
-
-            avatar.textContent =
-                user.email
-                    .charAt(0)
-                    .toUpperCase();
-
-        }
-
-
-        await loadDocumentData();
-
-    }
-);
-
-
-/* =====================================================
-   ACTIVE SIDEBAR
-===================================================== */
-
-const currentPage =
-    window.location.pathname
-        .split("/")
-        .pop()
-        .toLowerCase();
-
-
-document
-    .querySelectorAll(
-        ".nav-item"
-    )
-    .forEach(
-        function(link) {
-
-            const href =
-                link.getAttribute(
-                    "href"
-                );
-
-
-            if (!href) {
-
-                return;
-
-            }
-
-
-            const linkPage =
-                href
-                    .split("/")
-                    .pop()
-                    .toLowerCase();
-
-
-            if (
-                linkPage ===
-                currentPage
-            ) {
-
-                link.classList.add(
-                    "active"
-                );
-
-            }
-
-        }
-    );
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-document
-    .getElementById(
-        "logoutBtn"
-    )
-    .addEventListener(
-        "click",
-        async function() {
-
-            try {
-
-                await signOut(
-                    auth
-                );
-
-
-                window.location.href =
-                    "index.html";
-
-
-            } catch (error) {
-
-                console.error(
-                    "Logout failed:",
-                    error
-                );
-
-
-                alert(
-                    "Unable to log out. Please try again."
-                );
-
-            }
-
-        }
-    );
-
-
-</script>
+    </script>
 
 </body>
 
